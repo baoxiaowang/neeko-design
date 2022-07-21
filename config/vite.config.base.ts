@@ -3,13 +3,32 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import svgLoader from 'vite-svg-loader';
+import vitePluginForArco from '@arco-plugins/vite-vue';
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 
 export default defineConfig({
-  plugins: [vue(), vueJsx(), svgLoader({ svgoConfig: {} })],
+  plugins: [
+    vue(),
+    vueJsx(),
+    svgLoader({ svgoConfig: {} }),
+    vitePluginForArco({
+      theme: '@arco-themes/vue-neeko',
+    }),
+    createSvgIconsPlugin({
+      // 指定需要缓存的图标文件夹
+      iconDirs: [resolve(process.cwd(), 'src/assets/icons')],
+      // 指定symbolId格式
+      symbolId: 'icon-[dir]-[name]',
+    }),
+  ],
   resolve: {
     alias: [
       {
         find: '@',
+        replacement: resolve(__dirname, '../src'),
+      },
+      {
+        find: 'src',
         replacement: resolve(__dirname, '../src'),
       },
       {
@@ -36,6 +55,8 @@ export default defineConfig({
         modifyVars: {
           hack: `true; @import (reference) "${resolve(
             'src/assets/style/breakpoint.less'
+          )}"; @import (reference) "${resolve(
+            'src/assets/style/theme.less'
           )}";`,
         },
         javascriptEnabled: true,

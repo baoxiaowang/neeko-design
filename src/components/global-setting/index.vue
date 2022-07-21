@@ -22,7 +22,7 @@
   </a-drawer>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" name="global-setting" setup>
   import { computed } from 'vue';
   import { Message } from '@arco-design/web-vue';
   import { useI18n } from 'vue-i18n';
