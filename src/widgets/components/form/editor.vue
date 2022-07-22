@@ -3,8 +3,12 @@
 </template>
 
 <script setup lang="ts" name="editor">
-  const props = defineProps({});
-  const emit = defineEmits([]);
+  import { FormWidget } from '@/widgets/types';
+
+  defineProps<{
+    value: FormWidget;
+    change: (e: Partial<FormWidget>) => void;
+  }>();
 </script>
 
 <style lang="less">

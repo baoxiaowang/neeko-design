@@ -125,7 +125,6 @@
           }
           return nodes;
         }
-        debugger;
         return travel(menuTree.value);
       };
 

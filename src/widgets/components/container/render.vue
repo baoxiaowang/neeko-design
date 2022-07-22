@@ -21,7 +21,6 @@
     state: any;
     meta: any;
   }>();
-  const emit = defineEmits([]);
   const style = useRenderStyle(props.node);
 </script>
 

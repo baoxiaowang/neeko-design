@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-  import { Widget, WidgetType } from '@/widgets/types';
+  import { Widget } from '@/widgets/types';
   import WidgetSourceMap from '@/widgets/config.index';
   import { computed } from 'vue';
 
@@ -20,9 +20,9 @@
     return WidgetSourceMap[props.data.type];
   });
 
-  const canAddChildrenType = computed<WidgetType[]>(() => {
-    return WidgetConfig.value?.childrenType || [];
-  });
+  // const canAddChildrenType = computed<WidgetType[]>(() => {
+  //   return WidgetConfig.value?.childrenType || [];
+  // });
 
   const nodeLabel = computed(() => {
     return WidgetConfig.value?.title || props.data.type;

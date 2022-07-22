@@ -30,7 +30,7 @@
   <AddWidgetDialog
     v-model:show="show"
     :current-type="currentType"
-    @onSubmit="onSubmit"
+    @on-submit="onSubmit"
   ></AddWidgetDialog>
 </template>
 
@@ -45,8 +45,6 @@
   import { WidgetType } from '@/widgets/types';
 
   const store = useDesignStore();
-  // const props = defineProps({});
-  // const emit = defineEmits({});
   const show = computed({
     get: () => {
       return store.addDialogShow;
@@ -71,12 +69,15 @@
     }
 
     .design-layout__content {
+      display: flex;
+      flex-direction: column;
       height: 100%;
       overflow: hidden;
     }
 
     .design-layout__view {
-      height: calc(100% - 40px);
+      // height: calc(100% - 40px);
+      flex: 1;
       padding: 8px;
       overflow: auto;
       background: rgb(249, 250, 252);

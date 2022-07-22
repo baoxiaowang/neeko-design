@@ -10,6 +10,7 @@
     <a-tree
       ref="treeRef"
       v-model:selected-keys="selectWidgetProps"
+      size="mini"
       block-node
       :data="page"
       :show-line="true"
@@ -198,7 +199,7 @@
 
 <style lang="less">
   .widgets-tree {
-    margin-top: 10px;
+    margin-top: 8px;
     // padding-left: 2px;
     padding: 0 8px;
 

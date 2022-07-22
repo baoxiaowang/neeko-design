@@ -1,5 +1,10 @@
 <template>
-  <a-tabs v-model="activeName" direction="horizontal" justify>
+  <a-tabs
+    v-model="activeName"
+    class="editor-expanded__tabs"
+    direction="horizontal"
+    justify
+  >
     <a-tab-pane key="config" title="配置">
       <slot></slot>
       <WidgetKey :node-key="value.key"></WidgetKey>
@@ -22,11 +27,14 @@
   import WidgetKey from '@/widgets/attr-blocks/attr-key.vue';
   import EditorStyle from '@/widgets/common/editor-style.vue';
   import { Widget } from '@/widgets/types';
-  import { codeToStyle, styleObjToCode } from '@/widgets/utils';
+  import {
+    codeToStyle,
+    // styleObjToCode
+  } from '@/widgets/utils';
 
   const props = defineProps<{
     value: Widget;
-    change: (e: Widget) => void;
+    change: (e: Partial<Widget>) => void;
   }>();
   const activeName = ref('config');
 
@@ -34,7 +42,9 @@
     const style = codeToStyle(toRaw(str));
     // props.value.style = style;
     // Object.assign(props.value.style, style)
-    props.change(props.value);
+    props.change({
+      codeStyle: style,
+    });
   }
 </script>
 

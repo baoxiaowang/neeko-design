@@ -53,254 +53,254 @@
   const emit = defineEmits<{
     (e: 'update:value', c: string): void;
   }>();
-  const activeNames = ref(['1']);
+  // const activeNames = ref(['1']);
   const editMode = ref<'default' | 'code'>('code');
-  const handleChange = (val: string[]) => {
-    console.log(val);
-  };
-  interface Tree {
-    label: string;
-    key: string;
-    children?: Tree[];
-  }
+  // const handleChange = (val: string[]) => {
+  //   console.log(val);
+  // };
+  // interface Tree {
+  //   label: string;
+  //   key: string;
+  //   children?: Tree[];
+  // }
 
-  const handleNodeClick = (data: Tree) => {
-    console.log(data);
-  };
+  // const handleNodeClick = (data: Tree) => {
+  //   console.log(data);
+  // };
 
-  const data: Tree[] = [
-    {
-      label: '布局',
-      key: 'Layout',
-      children: [
-        {
-          key: 'height',
-          label: '高',
-        },
-        {
-          key: 'width',
-          label: '宽',
-        },
-        {
-          label: '外边距',
-          key: 'maring',
-          children: [
-            {
-              key: 'margin-top',
-              label: '上',
-            },
-            {
-              key: 'margin-right',
-              label: '右',
-            },
-            {
-              key: 'margin-bottom',
-              label: '下',
-            },
-            {
-              key: 'margin-left',
-              label: '左',
-            },
-          ],
-        },
-        {
-          label: '内边距',
-          key: 'padding',
-          children: [
-            {
-              label: '上',
-              key: 'padding-top',
-            },
-            {
-              label: '右',
-              key: 'padding-right',
-            },
-            {
-              label: '下',
-              key: 'padding-bottom',
-            },
-            {
-              label: '左',
-              key: 'padding-left',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      label: '文字',
-      key: 'Text',
-      children: [
-        {
-          label: '字体',
-          key: 'font-family',
-        },
-        {
-          label: '颜色',
-          key: 'color',
-        },
-        {
-          label: '字号',
-          key: 'font-size',
-        },
-        {
-          label: '字重',
-          key: 'font-weight',
-        },
-        {
-          label: '文字样式',
-          key: 'font-style',
-        },
-        {
-          label: '行高',
-          key: 'line-height',
-        },
-      ],
-    },
-    {
-      label: '外观',
-      key: 'Appearance',
-      children: [
-        {
-          label: '背景',
-          key: 'background',
-          children: [
-            {
-              label: '颜色',
-              key: 'background-color',
-            },
-            {
-              label: '图片',
-              key: 'background-image',
-            },
-          ],
-        },
-        {
-          key: 'border',
-          label: '边框',
-          children: [
-            {
-              label: '上',
-              key: 'border-top',
-              // children: [
-              //   {
-              //     label: '颜色',
-              //     key: 'color',
-              //   },
-              //   {
-              //     label: '线形',
-              //     key: 'style',
-              //   },
-              //   {
-              //     label: '颜色',
-              //     key: 'width',
-              //   },
-              // ]
-            },
-            {
-              label: '右',
-              key: 'border-right',
-              // children: [
-              //   {
-              //     label: '颜色',
-              //     key: 'color',
-              //   },
-              //   {
-              //     label: '样式',
-              //     key: 'style',
-              //   },
-              //   {
-              //     label: '颜色',
-              //     key: 'width',
-              //   },
-              // ]
-            },
-            {
-              label: '下',
-              key: 'border-bottom',
-              // children: [
-              //   {
-              //     label: '颜色',
-              //     key: 'color',
-              //   },
-              //   {
-              //     label: '样式',
-              //     key: 'style',
-              //   },
-              //   {
-              //     label: '颜色',
-              //     key: 'width',
-              //   },
-              // ]
-            },
-            {
-              key: 'border-left',
-              label: '左',
-              // children: [
-              //   {
-              //     label: '颜色',
-              //     key: 'color',
-              //   },
-              //   {
-              //     label: '样式',
-              //     key: 'style',
-              //   },
-              //   {
-              //     label: '颜色',
-              //     key: 'width',
-              //   },
-              // ]
-            },
-          ],
-        },
-        {
-          label: '圆角',
-          key: 'border-radius',
-          children: [
-            {
-              label: '左上',
-              key: 'border-radius-top-left',
-            },
-            {
-              label: '右上',
-              key: 'border-radius-top-right',
-            },
-            {
-              label: '左下',
-              key: 'border-radius-bottom-left',
-            },
-            {
-              label: '右下',
-              key: 'border-radius-bottom-right',
-            },
-          ],
-        },
-      ],
-    },
-    // {
-    //   label: '动画',
-    //   key: 'Animation',
-    //   children: [
-    //     {
-    //       label: '时间',
-    //       key: 'Level'
-    //     },
-    //     {
-    //       label: '种类',
-    //       key: 'Level two 3-2'
-    //     },
-    //   ],
-    // },
-  ];
+  // const data: Tree[] = [
+  //   {
+  //     label: '布局',
+  //     key: 'Layout',
+  //     children: [
+  //       {
+  //         key: 'height',
+  //         label: '高',
+  //       },
+  //       {
+  //         key: 'width',
+  //         label: '宽',
+  //       },
+  //       {
+  //         label: '外边距',
+  //         key: 'maring',
+  //         children: [
+  //           {
+  //             key: 'margin-top',
+  //             label: '上',
+  //           },
+  //           {
+  //             key: 'margin-right',
+  //             label: '右',
+  //           },
+  //           {
+  //             key: 'margin-bottom',
+  //             label: '下',
+  //           },
+  //           {
+  //             key: 'margin-left',
+  //             label: '左',
+  //           },
+  //         ],
+  //       },
+  //       {
+  //         label: '内边距',
+  //         key: 'padding',
+  //         children: [
+  //           {
+  //             label: '上',
+  //             key: 'padding-top',
+  //           },
+  //           {
+  //             label: '右',
+  //             key: 'padding-right',
+  //           },
+  //           {
+  //             label: '下',
+  //             key: 'padding-bottom',
+  //           },
+  //           {
+  //             label: '左',
+  //             key: 'padding-left',
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     label: '文字',
+  //     key: 'Text',
+  //     children: [
+  //       {
+  //         label: '字体',
+  //         key: 'font-family',
+  //       },
+  //       {
+  //         label: '颜色',
+  //         key: 'color',
+  //       },
+  //       {
+  //         label: '字号',
+  //         key: 'font-size',
+  //       },
+  //       {
+  //         label: '字重',
+  //         key: 'font-weight',
+  //       },
+  //       {
+  //         label: '文字样式',
+  //         key: 'font-style',
+  //       },
+  //       {
+  //         label: '行高',
+  //         key: 'line-height',
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     label: '外观',
+  //     key: 'Appearance',
+  //     children: [
+  //       {
+  //         label: '背景',
+  //         key: 'background',
+  //         children: [
+  //           {
+  //             label: '颜色',
+  //             key: 'background-color',
+  //           },
+  //           {
+  //             label: '图片',
+  //             key: 'background-image',
+  //           },
+  //         ],
+  //       },
+  //       {
+  //         key: 'border',
+  //         label: '边框',
+  //         children: [
+  //           {
+  //             label: '上',
+  //             key: 'border-top',
+  //             // children: [
+  //             //   {
+  //             //     label: '颜色',
+  //             //     key: 'color',
+  //             //   },
+  //             //   {
+  //             //     label: '线形',
+  //             //     key: 'style',
+  //             //   },
+  //             //   {
+  //             //     label: '颜色',
+  //             //     key: 'width',
+  //             //   },
+  //             // ]
+  //           },
+  //           {
+  //             label: '右',
+  //             key: 'border-right',
+  //             // children: [
+  //             //   {
+  //             //     label: '颜色',
+  //             //     key: 'color',
+  //             //   },
+  //             //   {
+  //             //     label: '样式',
+  //             //     key: 'style',
+  //             //   },
+  //             //   {
+  //             //     label: '颜色',
+  //             //     key: 'width',
+  //             //   },
+  //             // ]
+  //           },
+  //           {
+  //             label: '下',
+  //             key: 'border-bottom',
+  //             // children: [
+  //             //   {
+  //             //     label: '颜色',
+  //             //     key: 'color',
+  //             //   },
+  //             //   {
+  //             //     label: '样式',
+  //             //     key: 'style',
+  //             //   },
+  //             //   {
+  //             //     label: '颜色',
+  //             //     key: 'width',
+  //             //   },
+  //             // ]
+  //           },
+  //           {
+  //             key: 'border-left',
+  //             label: '左',
+  //             // children: [
+  //             //   {
+  //             //     label: '颜色',
+  //             //     key: 'color',
+  //             //   },
+  //             //   {
+  //             //     label: '样式',
+  //             //     key: 'style',
+  //             //   },
+  //             //   {
+  //             //     label: '颜色',
+  //             //     key: 'width',
+  //             //   },
+  //             // ]
+  //           },
+  //         ],
+  //       },
+  //       {
+  //         label: '圆角',
+  //         key: 'border-radius',
+  //         children: [
+  //           {
+  //             label: '左上',
+  //             key: 'border-radius-top-left',
+  //           },
+  //           {
+  //             label: '右上',
+  //             key: 'border-radius-top-right',
+  //           },
+  //           {
+  //             label: '左下',
+  //             key: 'border-radius-bottom-left',
+  //           },
+  //           {
+  //             label: '右下',
+  //             key: 'border-radius-bottom-right',
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //   },
+  //   // {
+  //   //   label: '动画',
+  //   //   key: 'Animation',
+  //   //   children: [
+  //   //     {
+  //   //       label: '时间',
+  //   //       key: 'Level'
+  //   //     },
+  //   //     {
+  //   //       label: '种类',
+  //   //       key: 'Level two 3-2'
+  //   //     },
+  //   //   ],
+  //   // },
+  // ];
 
   const styleCode = computed<string>(() => {
     return styleObjToCode(toRaw(props.value?.codeStyle));
   });
-  const defaultProps = {
-    children: 'children',
-    label: 'label',
-  };
-  const defaultExpandedKeys = ['Layout', 'Text', 'Appearance', 'Animation'];
+  // const defaultProps = {
+  //   children: 'children',
+  //   label: 'label',
+  // };
+  // const defaultExpandedKeys = ['Layout', 'Text', 'Appearance', 'Animation'];
 
   const switchMode = () => {
     if (editMode.value === 'code') {

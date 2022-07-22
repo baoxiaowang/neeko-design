@@ -5,6 +5,7 @@ import { InputWidget, Widget, WidgetType } from '@/widgets/types';
 
 import WidgetSourceMap from '@/widgets/config.index';
 import { getWidgetCloned } from '@/widgets/utils';
+import { reactive } from 'vue';
 import { DesignState, defaultState } from './types';
 import { createFormData, createCustomePage } from './constants';
 
@@ -36,35 +37,15 @@ function formatData(widget: Widget[]): {
   //
   widget.forEach((item) => flat(item, undefined));
   return {
-    node: res,
-    parent: parentMap,
+    node: reactive(res),
+    parent: reactive(parentMap),
   };
 }
 const useDesignStore = defineStore('design', {
   state: (): DesignState => ({
-    widgetList: [
-      {
-        type: 'form',
-        key: 'form',
-        codeStyle: {
-          minHeight: '100vh',
-        },
-        children: [
-          {
-            label: '姓名',
-            type: 'input',
-            key: 'input_1',
-          } as InputWidget,
-          {
-            label: '班级',
-            type: 'input',
-            key: 'input_2',
-          } as InputWidget,
-        ],
-      },
-    ],
-    widgetMap: {},
-    widgetParentMap: {},
+    widgetList: [],
+    widgetMap: reactive({}),
+    widgetParentMap: reactive({}),
     selectWidget: null,
     selectedKey: '',
     hoveredKey: '',

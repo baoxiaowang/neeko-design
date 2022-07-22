@@ -15,17 +15,13 @@
   import { useDesignStore } from '@/store';
 
   const store = useDesignStore();
-  const selectKey = computed(() => store.selectedKey);
   const selectedWidget = computed(() => store.selectWidget);
-  const emit = defineEmits<{
+  defineEmits<{
     (e: 'change'): void;
   }>();
-  const widgetMap = computed(() => store.widgetMap);
   const change = (newWidget: Widget) => {
-    // emit('change');
     store.handlerWidgetUpdate({ ...newWidget, key: selectedWidget.value?.key });
   };
-
   const getEditorComp = (type: WidgetType) => {
     return WidgetCompMap[type];
   };

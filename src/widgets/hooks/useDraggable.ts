@@ -28,7 +28,7 @@ export default function useDraggable(node: Widget) {
     // eslint-disable-next-line vue/no-mutating-props
     const childrenData = node.children || [];
     childrenData.splice(newIndex, 1, newItem);
-    const { key, children } = node;
+    // const { key, children } = node;
   }
   function dragStart() {
     document.body.classList.add('dragging');

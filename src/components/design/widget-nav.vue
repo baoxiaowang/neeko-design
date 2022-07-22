@@ -52,6 +52,7 @@
       .reverse();
   });
   function checkParent({ key }: any) {
+    store.setSelectKey(key);
     // store.commit('setWidgetKey', key);
     // store.commit('setHoveredKey', '');
   }

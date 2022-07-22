@@ -1,6 +1,6 @@
 <template>
   <draggable
-    v-model="list"
+    v-model="children"
     force-fallback
     :class="{ 'child-empty': !list.length }"
     :data-key="node.key"
@@ -25,11 +25,12 @@
 </template>
 
 <script setup lang="ts" name="root-render">
-  import { nextTick } from 'vue';
+  import { computed, nextTick } from 'vue';
   import WidgetSourceMap from '@/widgets/config.index';
   import draggable from '@/components/vue-draggable/src/vuedraggable';
   import useDraggable from '@/widgets/hooks/useDraggable';
   import { useRenderStyle } from '@/widgets/hooks/useRenderHelp';
+  import { useDesignStore } from '@/store';
   import { getRenderWidget } from '../../render';
   import { Widget, WidgetType } from '../../types';
 
@@ -40,9 +41,19 @@
   }
 
   const props = defineProps<IPropType>();
+  const children = computed({
+    get() {
+      return props.node.children || [];
+    },
+    set(val) {
+      useDesignStore().handlerWidgetUpdate({
+        key: props.node.key,
+        children: val,
+      });
+    },
+  });
   const { list } = useDraggable(props.node);
   const style = useRenderStyle(props.node);
-  const emit = defineEmits([]);
   const group = { name: 'form-widget' };
 
   function dragStart() {
@@ -59,7 +70,7 @@
     itemChildren.splice(newIndex, 1, newItem);
     // eslint-disable-next-line vue/no-mutating-props
     props.node.children = itemChildren;
-    const { key, children } = props.node;
+    // const { key, children } = props.node;
     // msgPipe.emitSelf(
     //   'updateWidget',
     //   JSON.stringify({ key, children: toRaw(children), newKey: newItem.key })

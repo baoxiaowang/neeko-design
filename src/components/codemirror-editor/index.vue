@@ -5,15 +5,13 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue';
+  import { onMounted, ref } from 'vue';
   // 核心
   import codeMirror, {
     AsyncHintFunction,
-    Editor,
     EditorConfiguration,
     HintFunction,
     HintFunctionResolver,
-    ShowHintOptions,
   } from 'codemirror';
   import 'codemirror/lib/codemirror.css';
 
@@ -169,6 +167,9 @@
     //   }
     // });
   }
+  onMounted(() => {
+    // initCodemirror();
+  });
   // const CodemirrorEditor = defineComponent({
   //   name: 'CodemirrorEditor',
   //   watch: {

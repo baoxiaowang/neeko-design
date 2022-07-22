@@ -21,14 +21,10 @@
   interface RenderProps {
     node: InputWidget;
   }
-  const props = defineProps<RenderProps>();
-  const emit = defineEmits([]);
+  defineProps<RenderProps>();
 </script>
 
 <style lang="less">
-  .render {
-  }
-
-  .input-render {
-  }
+  // .input-render {
+  // }
 </style>

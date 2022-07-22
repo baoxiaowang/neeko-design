@@ -25,6 +25,7 @@
         meta: props.meta,
       },
       (error) => {
+        // eslint-disable-next-line no-console
         console.error('用户表达式解析错误', error, props.node);
       }
     );

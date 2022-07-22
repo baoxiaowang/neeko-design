@@ -15,13 +15,13 @@
   import FormWidgetLayout from 'src/widgets/common/form-widget-layout.vue';
   import { InputWidget } from '../../types';
 
-  const props = defineProps<{
+  defineProps<{
     node: InputWidget;
   }>();
-  const emit = defineEmits({});
 </script>
 
 <style lang="less">
-  .textarea-render {
-  }
+  // .textarea-render {
+
+  // }
 </style>

@@ -7,13 +7,12 @@
 <script setup lang="ts" name="attr-key">
   import ConfigBlockVue from '../common/config-block.vue';
 
-  const props = defineProps<{
+  defineProps<{
     nodeKey: string;
   }>();
-  const emit = defineEmits([]);
 </script>
 
 <style lang="less">
-  .attr-key {
-  }
+  // .attr-key {
+  // }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <formEditorLayoutVue class="editor">
+  <formEditorLayoutVue class="textarea-editor">
     <template #attrs>
       <AttrLabelVue
         :label="value.label || ''"
@@ -34,9 +34,7 @@
     value: InputWidget;
     change: WidgetChange<InputWidget>;
   }>();
-  const emit = defineEmits([]);
   function changeAttr(key: keyof InputWidget, val: any) {
-    console.log('xxx');
     props.change({
       [key]: val,
     });
@@ -44,6 +42,6 @@
 </script>
 
 <style lang="less">
-  .editor {
-  }
+  // .editor {
+  // }
 </style>

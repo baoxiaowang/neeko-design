@@ -29,7 +29,7 @@ export function createCustomePage(): Widget[] {
       type: 'root',
       key: 'root',
       codeStyle: {
-        height: '100%',
+        minHeight: '100vh',
         background: '#f2f3f5',
       },
       children: [],

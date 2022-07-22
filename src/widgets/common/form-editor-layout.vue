@@ -4,7 +4,7 @@
       v-model="activeName"
       direction="horizontal"
       justify
-      class="editor-layout__tabs"
+      class="editor-expanded__tabs"
     >
       <a-tab-pane key="config" title="字段属性">
         <slot name="attrs"></slot>
@@ -28,18 +28,5 @@
 
 <style lang="less">
   .form-editor-layout {
-    .editor-layout__tabs {
-      .arco-tabs-nav-tab-list {
-        display: flex;
-        // width: ;
-        flex: 1;
-
-        .arco-tabs-tab {
-          display: flex;
-          flex: 1;
-          justify-content: center;
-        }
-      }
-    }
   }
 </style>

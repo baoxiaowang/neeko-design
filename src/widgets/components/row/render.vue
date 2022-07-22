@@ -27,14 +27,11 @@
 </template>
 
 <script setup lang="ts" name="row-render">
-  import { nextTick, toRaw, getCurrentInstance, computed } from 'vue';
-  import WidgetSourceMap from '@/widgets/config.index';
+  import { nextTick, computed } from 'vue';
   import draggable from '@/components/vue-draggable/src/vuedraggable';
-  import MessagePipe from '@/message/message';
   import { CommonPropsOpt } from '../../common/widget-options';
   import { getRenderWidget } from '../../render';
 
-  const vm = getCurrentInstance();
   const props = defineProps(CommonPropsOpt);
   const mapChildren = computed({
     get() {
@@ -46,9 +43,6 @@
     },
   });
 
-  const msgPipe = vm!.root.data.msgPipe as MessagePipe;
-
-  const emit = defineEmits([]);
   function dragStart() {
     document.body.classList.add('dragging');
   }
@@ -59,6 +53,7 @@
   const group = { name: 'form-widget' };
 
   function Add({ clone, newIndex }: any) {
+    // eslint-disable-next-line no-console
     console.log(clone, newIndex);
     // const type = clone.dataset?.type;
     // const newItem = WidgetSourceMap[type].defaultVal();
@@ -83,6 +78,9 @@
   .design-mode {
     .row-render {
       &:empty {
+        &::after {
+          content: 'row';
+        }
       }
 
       .ghost-row-item {

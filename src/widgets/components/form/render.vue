@@ -27,7 +27,7 @@
 
 <script setup lang="ts" name="form-render">
   import { getRenderWidget } from '@/widgets/render';
-  import { onMounted, ref, toRaw, nextTick, computed } from 'vue';
+  import { onMounted, ref, nextTick, computed } from 'vue';
   import WidgetSourceMap from '@/widgets/config.index';
   import draggable from '@/components/vue-draggable/src/vuedraggable';
   // import draggable from 'vuedraggable';
@@ -41,7 +41,6 @@
     meta: any;
   }>();
 
-  const emit = defineEmits([]);
   const layout = ref<'vertical'>('vertical');
   const style = computed<any>(() => {
     return styleToString(props.node.codeStyle);
@@ -78,6 +77,7 @@
     // eslint-disable-next-line vue/no-mutating-props
     const childrenData = props.node.children || [];
     childrenData.splice(newIndex, 1, newItem);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { key, children } = props.node;
   }
 </script>

@@ -10,9 +10,8 @@
 
 <script setup lang="ts" name="attr-label">
   import ConfigBlockVue from '../common/config-block.vue';
-  import { FormWidget } from '../types';
 
-  const props = defineProps<{
+  defineProps<{
     label: string;
   }>();
   const emit = defineEmits<{
@@ -24,6 +23,6 @@
 </script>
 
 <style lang="less">
-  .attr-label {
-  }
+  // .attr-label {
+  // }
 </style>

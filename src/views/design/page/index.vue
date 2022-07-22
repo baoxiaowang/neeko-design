@@ -1,23 +1,23 @@
 <template>
   <div class="design-page__page">
-    <renderWidgetVue
+    <!-- <renderWidgetVue
       v-for="item in widgets"
       :key="item.key"
       :node="item"
       :meta="{}"
-    ></renderWidgetVue>
+    ></renderWidgetVue> -->
+    <PreviewIframe></PreviewIframe>
   </div>
 </template>
 
 <script setup lang="ts" name="design-page-view">
   import { useDesignStore } from '@/store';
-  import renderWidgetVue from '@/widgets/render/render-widget.vue';
+  // import renderWidgetVue from '@/widgets/render/render-widget.vue';
+  import PreviewIframe from '@/components/design/preview-iframe/index.vue';
 
   useDesignStore().initState('page');
-  const props = defineProps({});
-  const emit = defineEmits({});
-  const store = useDesignStore();
-  const widgets = store.widgetList;
+  // const store = useDesignStore();
+  // const widgets = store.widgetList;
 </script>
 
 <style lang="less">

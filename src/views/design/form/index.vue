@@ -14,8 +14,6 @@
   import renderWidgetVue from '@/widgets/render/render-widget.vue';
 
   useDesignStore().initState('form');
-  const props = defineProps({});
-  const emit = defineEmits({});
   const store = useDesignStore();
   const widgets = store.widgetList;
 </script>

@@ -4,22 +4,16 @@
   </EditorLayout>
 </template>
 
-<script lang="ts" name="ContainerEditor">
-  import { defineComponent } from 'vue';
-  import { CommonEditorProps } from '@/widgets/common/widget-options';
+<script lang="ts" setup name="ContainerEditor">
   import ConfigBlock from '@/widgets/common/config-block.vue';
   import EditorLayout from '@/widgets/common/form-editor-layout.vue';
+  import { Widget } from '@/widgets/types';
 
-  // defineProps(CommonEditorProps)
-  export default defineComponent({
-    name: 'ContainerEditor',
-    components: {
-      EditorLayout,
-      ConfigBlock,
-    },
-    props: CommonEditorProps,
-    setup() {},
-  });
+  defineProps<{
+    value: Widget;
+    change: (e: Partial<Widget>) => void;
+  }>();
+
   // 静态属性，记录可以添加的子部件
 </script>
 

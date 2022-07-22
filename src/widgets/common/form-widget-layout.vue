@@ -43,7 +43,7 @@
 <script setup lang="ts" name="form-widget-layout">
   import { useDesignStore } from '@/store';
   import { computed } from 'vue';
-  import { FormWidget, Widget } from '../types';
+  import { FormWidget } from '../types';
 
   const store = useDesignStore();
   const props = defineProps<{

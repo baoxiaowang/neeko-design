@@ -22,7 +22,7 @@
   import codeMirror, {
     EditorConfiguration,
     Editor,
-    ShowHintOptions,
+    // ShowHintOptions,
   } from 'codemirror';
 
   import ConfigBlock from '@/widgets/common/config-block.vue';
@@ -34,8 +34,12 @@
     value: TextWidget;
     change: (e: Partial<TextWidget>) => void;
   }>();
-  function change() {}
-  function changeValue() {}
+  function change() {
+    //
+  }
+  function changeValue() {
+    //
+  }
   function changeText(val: string) {
     props.change({
       config: {
@@ -44,7 +48,8 @@
     });
   }
   const options: EditorConfiguration = {};
-  const hint = (editor: Editor, _: ShowHintOptions) => {
+  // _: ShowHintOptions
+  const hint = (editor: Editor) => {
     const WORD = /[\w+.$]+/;
     const cursor = editor.getCursor(); // 光标
     const curLine = editor.getLine(cursor.line); // 行内容

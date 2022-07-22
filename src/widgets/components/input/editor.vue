@@ -34,7 +34,6 @@
     value: InputWidget;
     change: WidgetChange<InputWidget>;
   }>();
-  const emit = defineEmits([]);
   function changeAttr(key: keyof InputWidget, val: any) {
     props.change({
       [key]: val,
@@ -42,7 +41,4 @@
   }
 </script>
 
-<style lang="less">
-  .editor {
-  }
-</style>
+<style lang="less"></style>
