@@ -72,9 +72,7 @@
     (e: 'hoveredKeyChange', d: string): void;
     (e: 'selectKeyChange', d: string): void;
   }>();
-  const activedKey = computed<string>(() => {
-    return props.selectWidget?.key || '';
-  });
+
   const createHoverSelectorBorder = (elArr: HTMLHtmlElement[]) => {
     const list: IMark[] = elArr.map((el: HTMLHtmlElement) => {
       const { left, width, height } = el.getBoundingClientRect();
@@ -95,9 +93,8 @@
       return [];
     }
     const key = props.hoverKey;
-    const elArr = document.querySelectorAll<HTMLHtmlElement>(
-      `[data-key=${key}]`
-    );
+    const elArr =
+      document.querySelectorAll<HTMLHtmlElement>(`[data-key=${key}]`) || [];
     return createHoverSelectorBorder(Array.from(elArr));
   });
   const selectMarkList = computed<IMark[]>(() => {
@@ -105,9 +102,8 @@
       return [];
     }
     const { key } = props.selectWidget;
-    const elArr = document.querySelectorAll<HTMLHtmlElement>(
-      `[data-key=${key}]`
-    );
+    const elArr =
+      document.querySelectorAll<HTMLHtmlElement>(`[data-key=${key}]`) || [];
     return createHoverSelectorBorder(Array.from(elArr));
   });
 
@@ -180,8 +176,7 @@
         if (!targetEl?.dataset?.key) {
           return;
         }
-        console.log('hover', targetEl?.dataset?.key || '');
-        emit('hoveredKeyChange', targetEl?.dataset?.key);
+        emit('hoveredKeyChange', targetEl?.dataset?.key || '');
       };
       rootEl.addEventListener('mouseover', hoverHandler, true);
       const fn = () => {
@@ -221,7 +216,8 @@
 </script>
 
 <style lang="less">
-  @border-select: rgb(var(--arcoblue-6));
+  @select-color: rgb(var(--arcoblue-6));
+  @hover-color: rgb(var(--arcoblue-5));
 
   .dragging {
     .selector,
@@ -235,15 +231,16 @@
     position: absolute;
     z-index: 999;
     box-sizing: border-box;
-    background-color: rgba(skyblue, 0.01);
-    border: 2px solid @border-select;
+    // background-color: rgba(skyblue, 0.01);
+    background-color: rgba(var(--arcoblue-6), 0.01);
+    border: 2px solid @select-color;
     cursor: default;
     pointer-events: none;
   }
 
   .hover-selector {
-    background-color: rgba(skyblue, 0.01);
-    border: 2px dotted skyblue;
+    background-color: rgba(var(--arcoblue-5), 0.01);
+    border: 2px dotted @hover-color;
     pointer-events: none;
   }
 
@@ -255,9 +252,6 @@
     & > .tool-actions {
       pointer-events: all;
     }
-  }
-
-  .tool-parent {
   }
 
   .tool-actions {

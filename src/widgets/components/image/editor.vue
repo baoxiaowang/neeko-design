@@ -3,12 +3,12 @@
     <config-block required label="图片地址">
       <a-input
         :model-value="value?.config?.url"
-        class="w-50 m-2"
-        placeholder="Pick a date"
+        placeholder="输入图片地址"
+        size="medium"
         @update:model-value="changeUrl"
       >
-        <template #suffix>
-          <el-icon class="input__link"><Link /></el-icon>
+        <template #prefix>
+          <icon-public size="14px" />
         </template>
       </a-input>
     </config-block>

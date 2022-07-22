@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { InputWidget, Widget, WidgetType } from '@/widgets/types';
+import { Widget, WidgetType } from '@/widgets/types';
 // eslint-disable-next-line import/no-cycle
 // import router from '@/router';
 

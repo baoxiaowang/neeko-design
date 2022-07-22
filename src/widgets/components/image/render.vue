@@ -1,12 +1,7 @@
 <template>
-  <a-image
-    class="image-render"
-    :data-key="node.key"
-    :style="style"
-    :src="src"
-    alt=""
-    srcset=""
-  />
+  <div :data-key="node.key" :style="style" class="image-render">
+    <a-image :preview="false" :src="src" alt="" srcset="" />
+  </div>
 </template>
 
 <script setup lang="ts" name="ImageRender">

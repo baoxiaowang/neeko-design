@@ -48,10 +48,10 @@
     "@babel/types" "^7.12.12"
     "@types/node" "^16.11.10"
 
-"@arco-themes/vue-neeko@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@arco-themes/vue-neeko/-/vue-neeko-0.0.4.tgz#b354b0ee87efd149c8897710226016622ceaccdb"
-  integrity sha512-l6AvwSD+wHkMefaxeAAmQgBM1Wofy3ViQLJILZ1Umq0E2sVqVKKFpxjSd+7cBIQU+2YpCgx1TwDpvlQi2pdvow==
+"@arco-themes/vue-neeko@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@arco-themes/vue-neeko/-/vue-neeko-0.0.5.tgz#56ccbc66f43f00fd05d1cc82c0b00f7b90734e1e"
+  integrity sha512-fRec0cEwfn27JTkqIIPKtL8hihJT2QW1TSYQQgdKNxFv2j9ZuG+aaXLYCTXz3piSGTzI+fW7n+VBRgB8rPLYxQ==
 
 "@babel/code-frame@7.12.11":
   version "7.12.11"
