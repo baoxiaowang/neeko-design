@@ -5,6 +5,7 @@ import { createApp } from 'vue';
 import ArcoVue from '@arco-design/web-vue';
 import ArcoVueIcon from '@arco-design/web-vue/es/icon';
 import PreviewApp from './PreviewApp.vue';
+import '@arco-themes/vue-neeko/index.less';
 
 const preApp = createApp(PreviewApp);
 // preApp.use(ElementPlus, { size: 'default', zIndex: 3000 })
