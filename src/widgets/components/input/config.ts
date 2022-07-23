@@ -13,7 +13,7 @@ export default {
       type,
       label: '单行文本',
       key: createWidgetKey(type),
-      codeStyle: {},
+      codeStyle: '',
       width: '100',
       config: {},
       default: {

@@ -12,7 +12,7 @@ export default {
       type: 'container',
       key: createWidgetKey('container'),
       title: '图片',
-      codeStyle: {},
+      codeStyle: '',
       config: {},
     };
   },

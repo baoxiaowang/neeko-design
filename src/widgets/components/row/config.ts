@@ -15,7 +15,7 @@ export default {
       type,
       key: createWidgetKey(type),
       title: '行块',
-      codeStyle: {},
+      codeStyle: '',
       config: {},
       children: [],
     };

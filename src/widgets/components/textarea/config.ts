@@ -12,7 +12,7 @@ export default {
       type,
       label: '多行文本',
       key: createWidgetKey(type),
-      codeStyle: {},
+      codeStyle: '',
       config: {},
     };
   },

@@ -5,6 +5,7 @@
     direction="horizontal"
     justify
     animation
+    lazy-load
   >
     <a-tab-pane key="config" title="配置">
       <slot></slot>
