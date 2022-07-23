@@ -11,11 +11,6 @@ export type WidgetType =
   | 'input'
   | 'textarea';
 
-export interface IWidgetConfig {
-  text?: string; // 文本内容
-  url?: string; // 图片地址
-  [key: string]: any;
-}
 export interface Widget {
   type: WidgetType;
   key: string;

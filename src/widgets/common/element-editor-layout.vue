@@ -7,15 +7,13 @@
   >
     <a-tab-pane key="config" title="配置">
       <slot></slot>
-      <WidgetKey :node-key="value.key"></WidgetKey>
+      <WidgetKey :node-key="node.key"></WidgetKey>
     </a-tab-pane>
-    <a-tab-pane key="style" title="样式">
-      <!-- <el-scrollbar> -->
+    <!-- <a-tab-pane key="style" title="样式">
       <slot name="style">
         <EditorStyle :value="value" @update:value="styleChange"></EditorStyle>
       </slot>
-      <!-- </el-scrollbar> -->
-    </a-tab-pane>
+    </a-tab-pane> -->
     <a-tab-pane key="ext" title="高级">
       <slot name="ext"></slot>
     </a-tab-pane>
@@ -33,7 +31,7 @@
   } from '@/widgets/utils';
 
   const props = defineProps<{
-    value: Widget;
+    node: Widget;
     change: (e: Partial<Widget>) => void;
   }>();
   const activeName = ref('config');

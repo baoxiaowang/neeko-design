@@ -56,6 +56,7 @@
   import { Widget } from '@/widgets/types';
   import { computed, onMounted, onUnmounted } from 'vue';
   import WidgetConfigs from '@/widgets/config.index';
+  import useWatchDesign from './use-watch-design';
 
   interface IMark {
     left: number;
@@ -64,15 +65,14 @@
     height: number;
     borderRadius: string;
   }
-  const props = defineProps<{
-    selectWidget?: Widget;
-    hoverKey: string;
-  }>();
+
   const emit = defineEmits<{
     (e: 'hoveredKeyChange', d: string): void;
     (e: 'selectKeyChange', d: string): void;
   }>();
 
+  const { selectWidget, hoverKey, selectKeyChange, hoverKeyChange } =
+    useWatchDesign();
   const createHoverSelectorBorder = (elArr: HTMLHtmlElement[]) => {
     const list: IMark[] = elArr.map((el: HTMLHtmlElement) => {
       const { left, width, height } = el.getBoundingClientRect();
@@ -89,19 +89,19 @@
     return list;
   };
   const hoverMarkList = computed<IMark[]>(() => {
-    if (!props.hoverKey) {
+    if (!hoverKey.value) {
       return [];
     }
-    const key = props.hoverKey;
+    const key = hoverKey.value;
     const elArr =
       document.querySelectorAll<HTMLHtmlElement>(`[data-key=${key}]`) || [];
     return createHoverSelectorBorder(Array.from(elArr));
   });
   const selectMarkList = computed<IMark[]>(() => {
-    if (!props.selectWidget) {
+    if (!selectWidget.value) {
       return [];
     }
-    const { key } = props.selectWidget;
+    const { key } = selectWidget.value;
     const elArr =
       document.querySelectorAll<HTMLHtmlElement>(`[data-key=${key}]`) || [];
     return createHoverSelectorBorder(Array.from(elArr));
@@ -147,10 +147,10 @@
       title: '删除节点',
       icon: 'icon-delete',
     };
-    if (!props.selectWidget) {
+    if (!selectWidget.value) {
       return [];
     }
-    const { type } = props.selectWidget;
+    const { type } = selectWidget.value;
     const config = WidgetConfigs[type];
     const { canCopy = true, canDel = true } = config || {};
     const res = [];
@@ -176,11 +176,12 @@
         if (!targetEl?.dataset?.key) {
           return;
         }
-        emit('hoveredKeyChange', targetEl?.dataset?.key || '');
+        // emit('hoveredKeyChange', targetEl?.dataset?.key || '');
+        hoverKeyChange(targetEl?.dataset?.key);
       };
       rootEl.addEventListener('mouseover', hoverHandler, true);
       const fn = () => {
-        emit('hoveredKeyChange', '');
+        hoverKeyChange('');
       };
       rootEl.addEventListener('mouseleave', fn);
       onUnmounted(() => {
@@ -202,7 +203,8 @@
           return;
         }
         e.stopImmediatePropagation();
-        emit('selectKeyChange', targetEl?.dataset?.key);
+        // emit('selectKeyChange', targetEl?.dataset?.key);
+        selectKeyChange(targetEl?.dataset?.key);
       };
       rootEl.addEventListener('click', fn, false);
       onUnmounted(() => {

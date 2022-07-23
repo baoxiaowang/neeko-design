@@ -1,10 +1,13 @@
-import { computed } from 'vue';
+import { computed, Ref } from 'vue';
 import { styleToString } from '@/widgets/utils';
 import { Widget } from '../types';
 
-export function useRenderStyle(node: Widget) {
+interface IProp {
+  node: Widget;
+}
+export function useRenderStyle(node: Ref<Widget>) {
   const style = computed<any>(() => {
-    return styleToString(node.codeStyle);
+    return styleToString(node.value.codeStyle);
   });
   return style;
 }

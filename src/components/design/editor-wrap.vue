@@ -3,6 +3,7 @@
     <component
       :is="getEditorComp(selectedWidget.type)"
       :value="selectedWidget"
+      :node="selectedWidget"
       :change="change"
     ></component>
   </div>

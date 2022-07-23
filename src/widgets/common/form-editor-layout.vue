@@ -8,6 +8,7 @@
     >
       <a-tab-pane key="config" title="字段属性">
         <slot name="attrs"></slot>
+        <AttrKeyVue :node-key="nodeKey"></AttrKeyVue>
       </a-tab-pane>
 
       <a-tab-pane key="ext" title="高级配置">
@@ -19,8 +20,12 @@
 
 <script setup lang="ts" name="form-editor-layout">
   import { ref } from 'vue';
+  import { Widget } from '../types';
 
-  // const props = defineProps({});
+  defineProps<{
+    node: Widget;
+    nodeKey: string;
+  }>();
   // const emit = defineEmits([]);
 
   const activeName = ref('config');

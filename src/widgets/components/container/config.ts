@@ -1,4 +1,4 @@
-import { WidgetConfig, WidgetType } from '../../types';
+import { Widget, WidgetConfig, WidgetType } from '../../types';
 import { createWidgetKey } from '../../utils';
 
 const type: WidgetType = 'container';
@@ -12,8 +12,8 @@ export default {
       type: 'container',
       key: createWidgetKey('container'),
       title: '图片',
-      style: {},
+      codeStyle: {},
       config: {},
     };
   },
-} as WidgetConfig;
+} as WidgetConfig<Widget>;

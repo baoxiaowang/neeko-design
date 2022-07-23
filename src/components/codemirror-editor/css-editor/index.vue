@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts" name="CssEditor">
-  import CodemirrorEditor from '@/components/codemirror-editor/index.vue';
+  import CodemirrorEditor from '@/components/codemirror-editor/base.vue';
   import Codemirror from 'codemirror';
   import './hint/css-hint';
 

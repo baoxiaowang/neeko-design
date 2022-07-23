@@ -1,23 +1,27 @@
 <template>
-  <formEditorLayoutVue class="textarea-editor">
+  <formEditorLayoutVue
+    :node="node"
+    :node-key="node.key"
+    class="textarea-editor"
+  >
     <template #attrs>
       <AttrLabelVue
-        :label="value.label || ''"
+        :label="node.label || ''"
         @change="(val) => changeAttr('label', val)"
       ></AttrLabelVue>
       <ConfigBlock label="输入提示">
         <el-input
-          :model-value="value.placeholder"
+          :model-value="node.placeholder"
           @update:model-value="(val: any) => changeAttr('placeholder', val)"
         />
       </ConfigBlock>
       <AttrWidthVue
-        :block="value.block"
-        :width="value.width"
+        :block="node.block"
+        :width="node.width"
         @change-block="(val) => changeAttr('block', val)"
         @change="(val) => changeAttr('width', val)"
       ></AttrWidthVue>
-      <AttrKeyVue :node-key="value.key"></AttrKeyVue>
+      <AttrKeyVue :node-key="node.key"></AttrKeyVue>
     </template>
   </formEditorLayoutVue>
 </template>
@@ -31,7 +35,7 @@
   import { InputWidget, WidgetChange } from '../../types';
 
   const props = defineProps<{
-    value: InputWidget;
+    node: InputWidget;
     change: WidgetChange<InputWidget>;
   }>();
   function changeAttr(key: keyof InputWidget, val: any) {

@@ -32,4 +32,10 @@
   });
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+  .design-mode {
+    .widget-text {
+      // cursor: pointer;
+    }
+  }
+</style>

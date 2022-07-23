@@ -1,16 +1,16 @@
 <template>
   <div class="text-edtior">
-    <EditorLayout :change="change" :value="value">
+    <EditorLayout :node="node" :change="change">
       <config-block required label="内容">
         <CodemirrorEditor
           :options="options"
           class="text-value-editor"
-          :value="value?.config?.text || ''"
+          :value="node?.config?.text || ''"
           :hint-func="hint"
           @update:value="changeValue"
         />
         <a-input
-          :model-value="value.config.text"
+          :model-value="node.config.text"
           @update:model-value="changeText"
         ></a-input>
       </config-block>
@@ -26,12 +26,12 @@
   } from 'codemirror';
 
   import ConfigBlock from '@/widgets/common/config-block.vue';
-  import CodemirrorEditor from '@/components/codemirror-editor/index.vue';
+  import CodemirrorEditor from '@/components/codemirror-editor/base.vue';
   import EditorLayout from '@/widgets/common/element-editor-layout.vue';
   import { TextWidget } from '@/widgets/types';
 
   const props = defineProps<{
-    value: TextWidget;
+    node: TextWidget;
     change: (e: Partial<TextWidget>) => void;
   }>();
   function change() {

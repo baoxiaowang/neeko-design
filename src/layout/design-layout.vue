@@ -4,7 +4,7 @@
       <!-- <top-bar></top-bar> -->
     </a-layout-header>
     <a-layout>
-      <a-layout-sider :width="300">
+      <a-layout-sider style="z-index: 33" :width="300">
         <DesignTools></DesignTools>
       </a-layout-sider>
       <!-- <a-layout-sider style="width: 206px; margin-left: 1px">
@@ -22,7 +22,7 @@
           </template>
         </router-view>
       </a-layout-content>
-      <a-layout-sider :width="300">
+      <a-layout-sider v-show="selectKey" style="z-index: 33" :width="300">
         <EditorWrapVue></EditorWrapVue>
       </a-layout-sider>
     </a-layout>
@@ -53,6 +53,7 @@
       store.addDialogShow = val;
     },
   });
+  const selectKey = computed(() => store.selectedKey);
   const currentType = computed(() => store.currentActionWidget?.type);
   function onSubmit(type: WidgetType) {
     store.hanlderWidgetAdd(type);

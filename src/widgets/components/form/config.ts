@@ -16,7 +16,7 @@ export default {
       type,
       title: '表单',
       key: createWidgetKey(type),
-      style: {},
+      codeStyle: {},
       config: {},
     };
   },

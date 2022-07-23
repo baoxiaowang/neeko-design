@@ -85,13 +85,17 @@ const useDesignStore = defineStore('design', {
         widgetList = createCustomePage();
       }
       const { node, parent } = formatData(widgetList);
-      const selectKey = widgetList[0] ? widgetList[0].key : '';
+
+      const first = widgetList[0];
+      const selectKey = first ? first.key : '';
+      const selectWidget = first ? node[first.key] : null;
       this.$patch({
         ...defaultState,
         widgetList,
         widgetMap: node,
         widgetParentMap: parent,
         selectedKey: selectKey,
+        selectWidget,
       });
     },
     setSelectKey(key: string) {
@@ -157,8 +161,12 @@ const useDesignStore = defineStore('design', {
       }
     },
     async handlerWidgetUpdate<T extends Widget = Widget>(data: Partial<T>) {
-      if (!data.key) throw Error('更新节点必须传递key参数');
-      const currentWidget = this.widgetMap[data.key];
+      const key = data.key || this.selectedKey;
+      if (!key) {
+        alert('更新节点必须传递key参数');
+        throw Error('更新节点必须传递key参数');
+      }
+      const currentWidget = this.widgetMap[key];
       Object.assign(currentWidget, data);
     },
   },

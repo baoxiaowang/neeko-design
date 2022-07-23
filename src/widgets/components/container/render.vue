@@ -14,6 +14,7 @@
 <script setup lang="ts" name="container-render">
   import { useRenderStyle } from '@/widgets/hooks/useRenderHelp';
   import { Widget } from '@/widgets/types';
+  import { toRefs } from 'vue';
   import { getRenderWidget } from '../../render';
 
   const props = defineProps<{
@@ -21,7 +22,8 @@
     state: any;
     meta: any;
   }>();
-  const style = useRenderStyle(props.node);
+  const { node } = toRefs(props);
+  const style = useRenderStyle(node);
 </script>
 
 <style lang="less">

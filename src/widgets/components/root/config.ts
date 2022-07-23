@@ -14,7 +14,7 @@ export default {
       type,
       key: createWidgetKey(type),
       title: '页面',
-      style: {},
+      codeStyle: {},
       config: {},
     };
   },

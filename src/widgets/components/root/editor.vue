@@ -1,15 +1,22 @@
 <template>
-  <EditorLayout :change="change" :value="value">
-    <config-block required title="内容"> </config-block>
+  <EditorLayout :node-key="value.key" :change="change" :node="value">
+    <config-block required label="内容"> </config-block>
+    <template #ext>
+      <CssEditor></CssEditor>
+    </template>
   </EditorLayout>
 </template>
 
 <script setup lang="ts" name="PageEditor">
-  import { CommonEditorProps } from '@/widgets/common/widget-options';
   import ConfigBlock from '@/widgets/common/config-block.vue';
-  import EditorLayout from '@/widgets/common/form-editor-layout.vue';
+  import EditorLayout from '@/widgets/common/element-editor-layout.vue';
+  import CssEditor from 'src/components/codemirror-editor/css-editor/index.vue';
+  import { FormWidget } from '@/widgets/types';
 
-  defineProps(CommonEditorProps);
+  defineProps<{
+    value: FormWidget;
+    change: (e: Partial<FormWidget>) => void;
+  }>();
 </script>
 
 <style lang="less"></style>

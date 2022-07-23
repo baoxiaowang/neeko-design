@@ -4,7 +4,7 @@ import { createApp } from 'vue';
 // import MessagePipe from './message/message';
 import ArcoVue from '@arco-design/web-vue';
 import ArcoVueIcon from '@arco-design/web-vue/es/icon';
-import PreviewApp from './PreviewApp.vue';
+import PreviewApp from './AppPreview.vue';
 import '@arco-themes/vue-neeko/index.less';
 
 const preApp = createApp(PreviewApp);
