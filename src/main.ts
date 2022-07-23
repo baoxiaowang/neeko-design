@@ -3,6 +3,7 @@ import ArcoVue from '@arco-design/web-vue';
 import ArcoVueIcon from '@arco-design/web-vue/es/icon';
 import globalComponents from '@/components';
 import SvgIcon from '@/components/svg-icon/index.vue';
+import Sortable from 'sortablejs';
 import router from './router';
 import store from './store';
 import i18n from './locale';
@@ -17,6 +18,7 @@ import '@arco-themes/vue-neeko/index.less';
 // eslint-disable-next-line import/no-unresolved
 import 'virtual:svg-icons-register';
 
+(window as any).Sortable = Sortable; // 注入同一个Sortable 函数
 const app = createApp(App);
 app.component('SvgIcon', SvgIcon);
 app.use(ArcoVue, {});

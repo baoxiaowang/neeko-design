@@ -71,7 +71,7 @@
     (e: 'selectKeyChange', d: string): void;
   }>();
 
-  const { selectWidget, hoverKey, selectKeyChange, hoverKeyChange } =
+  const { selectWidget, hoverKey, emitSelectKeyChange, emitHoverKeyChange } =
     useWatchDesign();
   const createHoverSelectorBorder = (elArr: HTMLHtmlElement[]) => {
     const list: IMark[] = elArr.map((el: HTMLHtmlElement) => {
@@ -177,11 +177,11 @@
           return;
         }
         // emit('hoveredKeyChange', targetEl?.dataset?.key || '');
-        hoverKeyChange(targetEl?.dataset?.key);
+        emitHoverKeyChange(targetEl?.dataset?.key);
       };
       rootEl.addEventListener('mouseover', hoverHandler, true);
       const fn = () => {
-        hoverKeyChange('');
+        emitHoverKeyChange('');
       };
       rootEl.addEventListener('mouseleave', fn);
       onUnmounted(() => {
@@ -204,7 +204,7 @@
         }
         e.stopImmediatePropagation();
         // emit('selectKeyChange', targetEl?.dataset?.key);
-        selectKeyChange(targetEl?.dataset?.key);
+        emitSelectKeyChange(targetEl?.dataset?.key);
       };
       rootEl.addEventListener('click', fn, false);
       onUnmounted(() => {

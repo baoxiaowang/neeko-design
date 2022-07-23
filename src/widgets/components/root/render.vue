@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts" name="root-render">
-  import { computed, nextTick, toRefs } from 'vue';
+  import { computed, nextTick, toRefs, ref } from 'vue';
   import WidgetSourceMap from '@/widgets/config.index';
   import draggable from '@/components/vue-draggable/src/vuedraggable';
   import useDraggable from '@/widgets/hooks/useDraggable';
@@ -52,8 +52,8 @@
       });
     },
   });
-  const { list } = useDraggable(props.node);
   const { node } = toRefs(props);
+  const { list } = useDraggable(node);
   const style = useRenderStyle(node);
   const group = { name: 'form-widget' };
 

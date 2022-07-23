@@ -1,4 +1,4 @@
-import Render from './render';
+import Render from './render.vue';
 import Editor from './editor.vue';
 import { WidgetConfig, WidgetType } from '../../types';
 import { createWidgetKey } from '../../utils';
@@ -17,7 +17,6 @@ export default {
     return {
       type,
       key: createWidgetKey(type),
-      title: '列块',
       codeStyle: '',
       config: {},
     };

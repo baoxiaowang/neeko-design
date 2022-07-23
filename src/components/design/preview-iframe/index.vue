@@ -85,8 +85,13 @@
     watch(
       () => store.widgetList,
       (val) => {
-        const detail = JSON.parse(JSON.stringify(val || []));
-        DesignChannel.getInstance(window).$emit('widgetChange', detail);
+        try {
+          const detail = JSON.parse(JSON.stringify(val || []));
+          DesignChannel.getInstance(window).$emit('widgetChange', detail);
+        } catch (error) {
+          //
+          console.error(error);
+        }
       },
       {
         deep: true,
@@ -96,9 +101,13 @@
     watch(
       () => store.selectWidget,
       (val) => {
-        const detail = JSON.parse(JSON.stringify(val));
-        designChannel.$emit('selectChange', detail);
-        designChannel.$emit('selectKeyChange', detail?.key || '');
+        try {
+          const detail = JSON.parse(JSON.stringify(val));
+          designChannel.$emit('selectChange', detail);
+          designChannel.$emit('selectKeyChange', detail?.key || '');
+        } catch (error) {
+          console.error(error);
+        }
       },
       {
         deep: true,

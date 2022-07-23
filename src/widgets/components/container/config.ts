@@ -11,7 +11,6 @@ export default {
     return {
       type: 'container',
       key: createWidgetKey('container'),
-      title: '图片',
       codeStyle: '',
       config: {},
     };

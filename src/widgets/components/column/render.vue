@@ -5,10 +5,10 @@
     :class="{ 'child-empty': !list?.length }"
     :data-key="node.key"
     item-key="key"
-    class="row-render"
-    :style="style"
+    class="column-render"
     ghost-class="ghost-row-item"
     :group="group"
+    :style="style"
     @end="dragEnd"
     @add="Add"
     @dragstart="dragStart"
@@ -25,8 +25,8 @@
   </draggable>
 </template>
 
-<script setup lang="ts" name="row-render">
-  import { nextTick, computed, toRefs } from 'vue';
+<script setup lang="ts" name="column-render">
+  import { nextTick, toRefs } from 'vue';
   import draggable from '@/components/vue-draggable/src/vuedraggable';
   import useDraggable from '@/widgets/hooks/useDraggable';
   import { Widget } from '@/widgets/types';
@@ -66,18 +66,18 @@
 </script>
 
 <style lang="less" scoped>
-  .row-render {
+  .column-render {
     display: flex;
+    flex-direction: column;
     justify-content: stretch;
     width: 100%;
-    height: 100%;
   }
 
   .design-mode {
-    .row-render {
+    .column-render {
       &:empty {
         &::after {
-          content: 'row';
+          content: 'column';
         }
       }
 
@@ -100,14 +100,12 @@
     .child-empty {
       // height: 100%;
       width: 100%;
-      min-height: 60px;
       background: #e9e9e9;
 
       &::after {
         display: block;
         flex: 1;
         font-size: 12px;
-        line-height: 60px;
         text-align: center;
         content: '可拖拽或添加子元素到此';
       }

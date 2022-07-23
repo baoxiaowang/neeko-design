@@ -12,12 +12,12 @@ export default function useWatchDesign() {
   const selectWidget = ref<Widget | undefined>();
   const hoverKey = ref<string>('');
 
-  function selectKeyChange(e = '') {
+  function emitSelectKeyChange(e = '') {
     if (selectWidget.value?.key !== e) {
       selfChannel.$emit('selectKeyChange', e);
     }
   }
-  function hoverKeyChange(e = '') {
+  function emitHoverKeyChange(e = '') {
     if (hoverKey.value !== e) {
       selfChannel.$emit('hoverKeyChange', e);
     }
@@ -36,7 +36,7 @@ export default function useWatchDesign() {
   return {
     selectWidget,
     hoverKey,
-    selectKeyChange,
-    hoverKeyChange,
+    emitSelectKeyChange,
+    emitHoverKeyChange,
   };
 }

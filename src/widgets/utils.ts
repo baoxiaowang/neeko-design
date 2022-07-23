@@ -4,7 +4,6 @@ import { stringifyStyle, parseStringStyle, NormalizedStyle } from '@vue/shared';
 import type * as CSS from 'csstype';
 import { Widget, WidgetType, WidgetComponents } from './types';
 import renderModule from './render.index';
-
 // CSS.Properties;
 
 /**
@@ -100,6 +99,37 @@ export function getWidgetCloned(widget: Widget): Widget {
   }
   const cloned = clone(widget) as Widget;
   return cloned;
+}
+
+/**
+ * 扁平化
+ * @param data
+ * @returns
+ */
+export function flatWidget(data: Widget | Widget[]) {
+  const map: Record<string, Widget> = {};
+  let arr: Widget[] = [];
+  if (Array.isArray(data)) {
+    arr = [...data];
+  } else {
+    arr = [data];
+  }
+
+  function flat(node: Widget, cb: (e: Widget) => void) {
+    cb(node);
+    if (node.children && node.children.length > 0) {
+      node.children.forEach((item) => {
+        flat(item, cb);
+      });
+    }
+  }
+
+  arr.forEach((item) => {
+    flat(item, (e) => {
+      map[e.key] = e;
+    });
+  });
+  return map;
 }
 
 /**

@@ -1,18 +1,18 @@
 <template>
-  <EditorLayout :change="change" :value="value">
-    <config-block required title="布局"> </config-block>
+  <EditorLayout :change="change" :node="node">
+    <config-block required label="布局"> </config-block>
   </EditorLayout>
 </template>
 
 <script setup lang="ts" name="ColumnEditor">
-  import { CommonEditorProps } from '@/widgets/common/widget-options';
   import ConfigBlock from '@/widgets/common/config-block.vue';
-  import EditorLayout from '@/widgets/common/form-editor-layout.vue';
+  import EditorLayout from '@/widgets/common/element-editor-layout.vue';
+  import { Widget } from '@/widgets/types';
 
-  defineProps(CommonEditorProps);
+  const props = defineProps<{
+    node: Widget;
+    change: (e: Partial<Widget>) => void;
+  }>();
 </script>
 
-<style lang="less">
-  .column-editor {
-  }
-</style>
+<style lang="less"></style>

@@ -1,13 +1,14 @@
 <template>
   <div :data-key="node.key" :style="style" class="image-render">
-    <a-image :preview="false" :src="src" alt="" srcset="" />
+    <a-image :preview="false" :src="src" hide-footer />
   </div>
 </template>
 
 <script setup lang="ts" name="ImageRender">
-  import { computed } from 'vue';
+  import { computed, toRefs } from 'vue';
   import { ImageWidget } from '@/widgets/types';
   import { compileExp } from '@/widgets/utils';
+  import { useRenderStyle } from '@/widgets/hooks/useRenderHelp';
 
   export interface Options {
     node: ImageWidget;
@@ -15,7 +16,7 @@
     meta: Record<string, any>;
   }
   const props = defineProps<Options>();
-
+  const { node } = toRefs(props);
   const src = computed(() => {
     return compileExp(
       props.node.config.url,
@@ -29,20 +30,16 @@
       }
     );
   });
-  const style = computed<any>(() => {
-    return {
-      ...props.node.codeStyle,
-    };
-  });
+  const style = useRenderStyle(node);
 </script>
 
 <style lang="less">
   .image-render {
-    width: 100px;
-    height: 100px;
+    display: flex;
 
     .arco-image-img {
-      width: 100%;
+      // width: 100%;
+      // height: 100%;
       height: 100%;
     }
   }

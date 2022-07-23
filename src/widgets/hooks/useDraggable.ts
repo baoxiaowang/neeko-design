@@ -1,17 +1,17 @@
 import { useDesignStore } from '@/store';
-import { computed, nextTick } from 'vue';
+import { computed, nextTick, Ref } from 'vue';
 import WidgetSourceMap from '@/widgets/config.index';
 import { Widget, WidgetType } from '../types';
 
-export default function useDraggable(node: Widget) {
+export default function useDraggable(node: Ref<Widget>) {
   const mapChildren = computed<Widget[]>({
     get() {
-      const children = node.children || [];
+      const children = node.value.children || [];
       return [...children];
     },
     set(val) {
       useDesignStore().handlerWidgetUpdate({
-        key: node.key,
+        key: node.value.key,
         children: val,
       });
     },
@@ -26,7 +26,7 @@ export default function useDraggable(node: Widget) {
     const newItem = WidgetSourceMap[type].defaultVal();
 
     // eslint-disable-next-line vue/no-mutating-props
-    const childrenData = node.children || [];
+    const childrenData = node.value.children || [];
     childrenData.splice(newIndex, 1, newItem);
     // const { key, children } = node;
   }

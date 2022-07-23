@@ -9,7 +9,10 @@ import { reactive } from 'vue';
 import { DesignState, defaultState } from './types';
 import { createFormData, createCustomePage } from './constants';
 
-function formatData(widget: Widget[]): {
+function formatData(
+  widget: Widget[],
+  root?: Widget
+): {
   node: Record<string, Widget>;
   parent: Record<string, Widget | undefined>;
 } {
@@ -35,7 +38,7 @@ function formatData(widget: Widget[]): {
     }
   };
   //
-  widget.forEach((item) => flat(item, undefined));
+  widget.forEach((item) => flat(item, root));
   return {
     node: reactive(res),
     parent: reactive(parentMap),
@@ -138,6 +141,7 @@ const useDesignStore = defineStore('design', {
       }
     },
     async handlerWidgetDelete(data: Widget) {
+      debugger;
       const currentParent: Widget | undefined = this.widgetParentMap[data.key];
       const index = currentParent?.children?.findIndex(
         (c) => c.key === data.key
@@ -150,14 +154,23 @@ const useDesignStore = defineStore('design', {
     },
     async handlerWidgetCopy(data: Widget) {
       const currentParent: Widget | undefined = this.widgetParentMap[data.key];
-      const index = currentParent?.children?.findIndex(
-        (c) => c.key === data.key
-      );
-      const copyData: Widget = getWidgetCloned(data);
-      if (index && index > -1) {
-        currentParent?.children?.splice(index + 1, 0, copyData);
-        this.selectedKey = copyData.key;
-        this.hoveredKey = copyData.key;
+      if (currentParent) {
+        const children = currentParent.children || [];
+        const index = children.findIndex((c) => c.key === data.key);
+        const copyData: Widget = getWidgetCloned(data);
+        if (index > -1) {
+          const { node, parent } = formatData([copyData], currentParent);
+
+          currentParent.children?.splice(index + 1, 0, copyData);
+          // this.widgetMap[copyData.key] = copyData;
+          // this.widgetParentMap[copyData.key] = currentParent;
+          Object.assign(this.widgetMap, node);
+          Object.assign(this.widgetParentMap, parent);
+          this.selectedKey = copyData.key;
+          this.hoveredKey = copyData.key;
+        }
+      } else {
+        alert('我找到父节点');
       }
     },
     async handlerWidgetUpdate<T extends Widget = Widget>(data: Partial<T>) {
