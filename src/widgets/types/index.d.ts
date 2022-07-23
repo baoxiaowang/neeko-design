@@ -16,7 +16,7 @@ export interface Widget {
   key: string;
   children?: Array<Widget>;
   config?: Record<string, any>;
-  codeStyle?: CSS.Properties;
+  codeStyle?: string; // CSS.prototype
   slot?: Partial<Record<WidgetType, Widget>>;
 }
 

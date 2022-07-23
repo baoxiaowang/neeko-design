@@ -14,7 +14,7 @@ const Text = {
       config: {
         text: '文本',
       },
-      codeStyle: {},
+      codeStyle: '',
     };
   },
 } as WidgetConfig;

@@ -2,7 +2,7 @@
   <div class="widgets-tree">
     <a-input-search
       v-model="searchKey"
-      size="small"
+      size="medium"
       placeholder="输入标题/唯一标识"
       style="max-width: 240px; margin-bottom: 8px"
     />

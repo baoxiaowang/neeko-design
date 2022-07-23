@@ -2,11 +2,6 @@
   <EditorLayout :change="change" :node="node">
     <config-block required label="内容"> // </config-block>
     <template #ext>
-      <!-- <CssEditor
-        :value="node.config.text"
-        :hint-func="hint"
-        @update:value="changeValue"
-      ></CssEditor> -->
       <CssEditor
         :value="styleCode"
         :delay="200"
@@ -35,10 +30,10 @@
   });
 
   function codeChange(str: string) {
-    const style = codeToStyle(str);
+    // const style = codeToStyle(str);
     // Object.assign(props.value.style, style)
     props.change({
-      codeStyle: style,
+      codeStyle: str,
     });
   }
   // 静态属性，记录可以添加的子部件

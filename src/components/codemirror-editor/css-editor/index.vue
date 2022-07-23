@@ -1,15 +1,15 @@
 <template>
-  <CodemirrorEditor
+  <BaseEditor
     v-bind="$attrs"
+    :value="value"
     class="css-editor"
     :options="options"
-    value=""
     :hint-func="hintFunc"
-  ></CodemirrorEditor>
+  ></BaseEditor>
 </template>
 
 <script setup lang="ts" name="CssEditor">
-  import CodemirrorEditor from '@/components/codemirror-editor/base.vue';
+  import BaseEditor from '@/components/codemirror-editor/base.vue';
   import Codemirror from 'codemirror';
   import './hint/css-hint';
 
@@ -17,6 +17,9 @@
     mode: 'css',
   };
   const hintFunc = (Codemirror.hint as any).css;
+  defineProps<{
+    value: string;
+  }>();
 </script>
 
 <style lang="less">

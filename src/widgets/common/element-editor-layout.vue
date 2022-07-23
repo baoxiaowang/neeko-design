@@ -4,6 +4,7 @@
     class="editor-expanded__tabs"
     direction="horizontal"
     justify
+    animation
   >
     <a-tab-pane key="config" title="配置">
       <slot></slot>
@@ -15,20 +16,22 @@
       </slot>
     </a-tab-pane> -->
     <a-tab-pane key="ext" title="高级">
+      <CssEditor
+        :value="styleCode"
+        :delay="200"
+        class="css-editor-warp"
+        @update:value="codeChange"
+      ></CssEditor>
       <slot name="ext"></slot>
     </a-tab-pane>
   </a-tabs>
 </template>
 
 <script lang="ts" setup name="EditorLayout">
-  import { ref, toRaw } from 'vue';
+  import { computed, ref, toRaw } from 'vue';
   import WidgetKey from '@/widgets/attr-blocks/attr-key.vue';
-  import EditorStyle from '@/widgets/common/editor-style.vue';
   import { Widget } from '@/widgets/types';
-  import {
-    codeToStyle,
-    // styleObjToCode
-  } from '@/widgets/utils';
+  import CssEditor from 'src/components/codemirror-editor/css-editor/index.vue';
 
   const props = defineProps<{
     node: Widget;
@@ -36,14 +39,15 @@
   }>();
   const activeName = ref('config');
 
-  function styleChange(str: string) {
-    const style = codeToStyle(toRaw(str));
+  function codeChange(str: string) {
+    // const style = codeToStyle(toRaw(str));
     // props.value.style = style;
     // Object.assign(props.value.style, style)
     props.change({
-      codeStyle: style,
+      codeStyle: str,
     });
   }
+  const styleCode = computed(() => props.node.codeStyle || '{\n}');
 </script>
 
 <style lang="less">

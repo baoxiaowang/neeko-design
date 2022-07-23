@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { onMounted, ref } from 'vue';
+  import { onMounted, ref, watchEffect } from 'vue';
   // 核心
   import codeMirror, {
     AsyncHintFunction,
@@ -156,7 +156,7 @@
         emit('update:value', val);
       }
     });
-
+    return codeEditor;
     // codeEditor.on("mousedown", (cm) => {
     //   // this.selection.from = cm.getCursor()
     // });
@@ -169,7 +169,14 @@
     // });
   }
   onMounted(() => {
-    initCodemirror();
+    const codeEditor = initCodemirror();
+    watchEffect(() => {
+      const propsVal = props.value || '';
+      const currentVal = codeEditor.getValue() || '';
+      if (propsVal !== currentVal) {
+        codeEditor.setValue(propsVal);
+      }
+    });
   });
 </script>
 

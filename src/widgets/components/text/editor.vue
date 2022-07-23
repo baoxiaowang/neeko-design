@@ -34,9 +34,6 @@
     node: TextWidget;
     change: (e: Partial<TextWidget>) => void;
   }>();
-  function change() {
-    //
-  }
   function changeValue() {
     //
   }

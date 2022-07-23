@@ -1,13 +1,14 @@
 import { InputWidget, Widget } from '@/widgets/types';
+import { styleObjToCode } from '@/widgets/utils';
 
 export function createFormData(): Widget[] {
   return [
     {
       type: 'form',
       key: 'form',
-      codeStyle: {
+      codeStyle: styleObjToCode({
         minHeight: '100%',
-      },
+      }),
       children: [
         {
           label: '姓名',
@@ -28,10 +29,10 @@ export function createCustomePage(): Widget[] {
     {
       type: 'root',
       key: 'root',
-      codeStyle: {
+      codeStyle: styleObjToCode({
         minHeight: '100vh',
         background: '#f2f3f5',
-      },
+      }),
       children: [],
     },
   ];

@@ -6,7 +6,8 @@
 
 <script setup lang="ts" name="text-render">
   import { Widget } from '@/widgets/types';
-  import { computed } from 'vue';
+  import { computed, ref, toRefs } from 'vue';
+  import { useRenderStyle } from '@/widgets/hooks/useRenderHelp';
   import { compileExp, styleToString } from '../../utils';
 
   const props = defineProps<{
@@ -14,9 +15,11 @@
     state: any;
     meta: any;
   }>();
-  const style = computed<any>(() => {
-    return styleToString(props.node.codeStyle);
-  });
+  // const style = computed<any>(() => {
+  //   return styleToString(props.node.codeStyle);
+  // });
+  const { node } = toRefs(props);
+  const style = useRenderStyle(node);
   const compileText = computed<any>(() => {
     return compileExp(
       props.node.config?.text,
