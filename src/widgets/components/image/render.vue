@@ -1,6 +1,6 @@
 <template>
   <div :data-key="node.key" :style="style" class="image-render">
-    <a-image :preview="false" :src="src" hide-footer />
+    <img :preview="false" :src="src" hide-footer />
   </div>
 </template>
 
@@ -9,6 +9,7 @@
   import { ImageWidget } from '@/widgets/types';
   import { compileExp } from '@/widgets/utils';
   import { useRenderStyle } from '@/widgets/hooks/useRenderHelp';
+  import { Image } from '@arco-design/web-vue';
 
   export interface Options {
     node: ImageWidget;
@@ -35,11 +36,17 @@
 
 <style lang="less">
   .image-render {
-    display: flex;
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+
+    & > img {
+      width: 100%;
+      height: 100%;
+    }
 
     .arco-image-img {
-      // width: 100%;
-      // height: 100%;
+      width: 100%;
       height: 100%;
     }
   }

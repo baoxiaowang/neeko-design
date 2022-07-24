@@ -54,6 +54,7 @@ const useDesignStore = defineStore('design', {
     hoveredKey: '',
     addDialogShow: false,
     currentActionWidget: null,
+    previewDialogShow: false,
   }),
 
   getters: {
@@ -141,7 +142,6 @@ const useDesignStore = defineStore('design', {
       }
     },
     async handlerWidgetDelete(data: Widget) {
-      debugger;
       const currentParent: Widget | undefined = this.widgetParentMap[data.key];
       const index = currentParent?.children?.findIndex(
         (c) => c.key === data.key

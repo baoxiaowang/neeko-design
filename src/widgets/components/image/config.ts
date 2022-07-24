@@ -1,13 +1,10 @@
-// import Render from "./render.vue";
-// import Editor from "./editor.vue";
 import { WidgetConfig, WidgetType } from '../../types';
 import { createWidgetKey } from '../../utils';
 
 const type: WidgetType = 'image';
 export default {
   type,
-  // editor: Editor,
-  title: '图片',
+  title: 'image',
   icon: 'icon-image',
   childrenType: [] as WidgetType[],
   defaultVal() {
@@ -17,7 +14,7 @@ export default {
       title: '图片',
       codeStyle: '',
       config: {
-        url: 'https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/a8c8cdb109cb051163646151a4a5083b.png~tplv-uwbnlip3yd-webp.webp',
+        url: 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg',
       },
     };
   },

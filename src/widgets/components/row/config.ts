@@ -6,7 +6,7 @@ const type: WidgetType = 'row';
 export default {
   type,
   // editor: Editor,
-  title: '行块',
+  title: 'row',
   icon: 'icon-row',
   canDel: false,
   childrenType: ['container', 'text', 'image', 'row', 'column'] as WidgetType[],
@@ -14,7 +14,6 @@ export default {
     return {
       type,
       key: createWidgetKey(type),
-      title: '行块',
       codeStyle: '',
       config: {},
       children: [],

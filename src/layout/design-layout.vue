@@ -1,7 +1,7 @@
 <template>
   <a-layout class="design-layout">
     <a-layout-header>
-      <!-- <top-bar></top-bar> -->
+      <top-bar name="资产管理"></top-bar>
     </a-layout-header>
     <a-layout>
       <a-layout-sider style="z-index: 33" :width="300">

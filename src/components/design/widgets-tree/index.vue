@@ -201,7 +201,17 @@
   .widgets-tree {
     margin-top: 8px;
     // padding-left: 2px;
-    padding: 0 8px;
+    padding: 0 2px;
+
+    .arco-tree-node-switcher {
+      // margin-right: 2px;
+    }
+
+    .arco-tree-node-indent {
+      .arco-tree-node-indent-block {
+        width: 6px;
+      }
+    }
 
     .el-tree-node__content {
       display: flex;

@@ -27,7 +27,8 @@ const temp1 = [
         type: 'row',
         key: 'row_t55b',
         title: '行块',
-        codeStyle: '',
+        codeStyle:
+          '{\n  justify-content: space-between;\n  margin-bottom: 10px;\n}',
         config: {},
         children: [
           {
@@ -75,6 +76,309 @@ const temp1 = [
                     config: {
                       url: 'https://img.alicdn.com/tfs/TB1H9UJ4FT7gK0jSZFpXXaTkpXa-200-200.png',
                     },
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            type: 'container',
+            key: 'container_oAR0',
+            codeStyle:
+              '{\n  width: calc(33.3% - 7px);\n  background: #FFF;\n  height: 116px;\n  padding: 20px;\n  box-sizing: border-box;\n}',
+            config: {},
+            children: [
+              {
+                type: 'row',
+                key: 'row_b9wc',
+                title: '行块',
+                codeStyle: '{\n  align-items: center;\n}',
+                config: {},
+                children: [
+                  {
+                    type: 'column',
+                    key: 'column_QVJL',
+                    title: '列块',
+                    codeStyle:
+                      '{\n  height: 100%;\n  justify-content: space-between;\n}',
+                    config: {},
+                    children: [
+                      {
+                        type: 'text',
+                        key: 'text_QyDU',
+                        config: { text: '待我处理' },
+                        codeStyle: '',
+                      },
+                      {
+                        type: 'text',
+                        key: 'text_gdQh',
+                        config: { text: '21' },
+                        codeStyle:
+                          '{\n  font-size: 32px;\n  color: #1f3858;\n  line-height: 42px;\n}',
+                      },
+                    ],
+                  },
+                  {
+                    type: 'image',
+                    key: 'image_2Fr4',
+                    title: '图片',
+                    codeStyle: '{\n  height: 48px;\n  width: 48px;\n}',
+                    config: {
+                      url: 'https://img.alicdn.com/tfs/TB1cN.y4QL0gK0jSZFtXXXQCXXa-200-200.png',
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            type: 'container',
+            key: 'container_rSzj',
+            codeStyle:
+              '{\n  width: calc(33.3% - 7px);\n  background: #FFF;\n  height: 116px;\n  padding: 20px;\n  box-sizing: border-box;\n}',
+            config: {},
+            children: [
+              {
+                type: 'row',
+                key: 'row_oHSn',
+                title: '行块',
+                codeStyle: '{\n  align-items: center;\n}',
+                config: {},
+                children: [
+                  {
+                    type: 'column',
+                    key: 'column_zRmL',
+                    title: '列块',
+                    codeStyle:
+                      '{\n  height: 100%;\n  justify-content: space-between;\n}',
+                    config: {},
+                    children: [
+                      {
+                        type: 'text',
+                        key: 'text_fd79',
+                        config: { text: '待我处理' },
+                        codeStyle: '',
+                      },
+                      {
+                        type: 'text',
+                        key: 'text_twCc',
+                        config: { text: '21' },
+                        codeStyle:
+                          '{\n  font-size: 32px;\n  color: #1f3858;\n  line-height: 42px;\n}',
+                      },
+                    ],
+                  },
+                  {
+                    type: 'image',
+                    key: 'image_TAGT',
+                    title: '图片',
+                    codeStyle: '{\n  height: 48px;\n  width: 48px;\n}',
+                    config: {
+                      url: 'https://img.alicdn.com/tfs/TB1yy3K4UY1gK0jSZFMXXaWcVXa-200-200.png',
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        type: 'row',
+        key: 'row_6xVL',
+        title: '行块',
+        codeStyle: '',
+        config: {},
+        children: [
+          {
+            type: 'container',
+            key: 'container_jyyv',
+            codeStyle: '{\n  width: calc(33.3% - 7px);\n  background: #fff;\n}',
+            config: {},
+            children: [
+              {
+                type: 'column',
+                key: 'column_0gX3',
+                title: '列块',
+                codeStyle: '{\n  height: 100%;\n}',
+                config: {},
+                children: [
+                  {
+                    type: 'container',
+                    key: 'container_N0p6',
+                    codeStyle:
+                      '{\n  height: 45px;\n  font-size: 18px;\n  font-weight: 600;\n  line-height: 45px;\n  padding-left: 20px;\n  border-bottom: 1px solid #eee;\n}',
+                    config: {},
+                    children: [
+                      {
+                        type: 'text',
+                        key: 'text_Gy1Y',
+                        config: { text: '采购管理' },
+                        codeStyle: '',
+                      },
+                    ],
+                  },
+                  {
+                    type: 'row',
+                    key: 'row_8beY',
+                    title: '行块',
+                    codeStyle:
+                      '{\n  padding: 24px;\n  width: 100%;\n  box-sizing: border-box;\n  flex-wrap: wrap;\n  padding-bottom: 10px;\n}',
+                    config: {},
+                    children: [
+                      {
+                        type: 'column',
+                        key: 'column_kJK8',
+                        title: '列块',
+                        codeStyle:
+                          '{\n  width: 33.3%;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 18px;\n}',
+                        config: {},
+                        children: [
+                          {
+                            type: 'image',
+                            key: 'image_Wd0Z',
+                            title: '图片',
+                            codeStyle:
+                              '{\n  height: 32px;\n  width: 32px;\n  margin-bottom: 12px;\n}',
+                            config: {
+                              url: 'https://img.alicdn.com/tfs/TB1SAJyq5pE_u4jSZKbXXbCUVXa-200-200.png',
+                            },
+                          },
+                          {
+                            type: 'text',
+                            key: 'text_BJ3t',
+                            config: { text: '采购申请' },
+                            codeStyle: '',
+                          },
+                        ],
+                      },
+                      {
+                        type: 'column',
+                        key: 'column_hezP',
+                        title: '列块',
+                        codeStyle:
+                          '{\n  width: 33.3%;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 18px;\n}',
+                        config: {},
+                        children: [
+                          {
+                            type: 'image',
+                            key: 'image_THxj',
+                            title: '图片',
+                            codeStyle: '{\n  height: 32px;\n  width: 32px;\n}',
+                            config: {
+                              url: 'https://img.alicdn.com/tfs/TB1WBB9qmslXu8jSZFuXXXg7FXa-200-200.png',
+                            },
+                          },
+                          {
+                            type: 'text',
+                            key: 'text_DyYZ',
+                            config: { text: '采购申请' },
+                            codeStyle: '',
+                          },
+                        ],
+                      },
+                      {
+                        type: 'column',
+                        key: 'column_VSZq',
+                        title: '列块',
+                        codeStyle:
+                          '{\n  width: 33.3%;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 18px;\n}',
+                        config: {},
+                        children: [
+                          {
+                            type: 'image',
+                            key: 'image_ssYA',
+                            title: '图片',
+                            codeStyle: '{\n  height: 32px;\n  width: 32px;\n}',
+                            config: {
+                              url: 'https://img.alicdn.com/tfs/TB1Qy73ulBh1e4jSZFhXXcC9VXa-200-200.png',
+                            },
+                          },
+                          {
+                            type: 'text',
+                            key: 'text_E8CY',
+                            config: { text: '采购申请' },
+                            codeStyle: '',
+                          },
+                        ],
+                      },
+                      {
+                        type: 'column',
+                        key: 'column_mGWR',
+                        title: '列块',
+                        codeStyle:
+                          '{\n  width: 33.3%;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 18px;\n}',
+                        config: {},
+                        children: [
+                          {
+                            type: 'image',
+                            key: 'image_Ec8A',
+                            title: '图片',
+                            codeStyle:
+                              '{\n  height: 32px;\n  width: 32px;\n  margin-bottom: 12px;\n}',
+                            config: {
+                              url: 'https://img.alicdn.com/tfs/TB18jjzqiDsXe8jSZR0XXXK6FXa-200-200.png',
+                            },
+                          },
+                          {
+                            type: 'text',
+                            key: 'text_YGP5',
+                            config: { text: '采购申请' },
+                            codeStyle: '',
+                          },
+                        ],
+                      },
+                      {
+                        type: 'column',
+                        key: 'column_RxZw',
+                        title: '列块',
+                        codeStyle:
+                          '{\n  width: 33.3%;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 18px;\n}',
+                        config: {},
+                        children: [
+                          {
+                            type: 'image',
+                            key: 'image_9KCw',
+                            title: '图片',
+                            codeStyle: '{\n  height: 32px;\n  width: 32px;\n}',
+                            config: {
+                              url: 'https://img.alicdn.com/tfs/TB14lB9qmslXu8jSZFuXXXg7FXa-200-200.png',
+                            },
+                          },
+                          {
+                            type: 'text',
+                            key: 'text_u3TO',
+                            config: { text: '采购申请' },
+                            codeStyle: '',
+                          },
+                        ],
+                      },
+                      {
+                        type: 'column',
+                        key: 'column_BZs4',
+                        title: '列块',
+                        codeStyle:
+                          '{\n  width: 33.3%;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 18px;\n}',
+                        config: {},
+                        children: [
+                          {
+                            type: 'image',
+                            key: 'image_UjBq',
+                            title: '图片',
+                            codeStyle: '{\n  height: 32px;\n  width: 32px;\n}',
+                            config: {
+                              url: 'https://img.alicdn.com/tfs/TB12gwH4KH2gK0jSZJnXXaT1FXa-200-200.png',
+                            },
+                          },
+                          {
+                            type: 'text',
+                            key: 'text_ZURS',
+                            config: { text: '采购申请' },
+                            codeStyle: '',
+                          },
+                        ],
+                      },
+                    ],
                   },
                 ],
               },

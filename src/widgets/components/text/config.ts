@@ -5,7 +5,7 @@ const type: WidgetType = 'text';
 const Text = {
   type,
   icon: 'icon-text',
-  title: '文本',
+  title: 'text',
   childrenType: [] as WidgetType[],
   defaultVal() {
     return {

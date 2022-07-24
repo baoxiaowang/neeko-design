@@ -9,6 +9,7 @@ export interface DesignState {
   selectedKey: string;
   hoveredKey: string;
   addDialogShow: boolean; // 是否打开添加子节点的弹窗
+  previewDialogShow: boolean;
   currentActionWidget: Widget | null; // 当前操作action的 widget
 }
 
@@ -21,5 +22,6 @@ export const defaultState: DesignState = {
   selectedKey: '',
   hoveredKey: '',
   addDialogShow: false,
+  previewDialogShow: false,
   currentActionWidget: null,
 };

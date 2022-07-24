@@ -35,7 +35,6 @@
 
   const props = defineProps<{
     node: Widget;
-    change: (e: Partial<Widget>) => void;
   }>();
   const { node } = toRefs(props);
   const { list } = useDraggable(node);

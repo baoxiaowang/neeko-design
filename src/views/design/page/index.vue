@@ -1,11 +1,5 @@
 <template>
   <div class="design-page__page">
-    <!-- <renderWidgetVue
-      v-for="item in widgets"
-      :key="item.key"
-      :node="item"
-      :meta="{}"
-    ></renderWidgetVue> -->
     <PreviewIframe></PreviewIframe>
   </div>
 </template>

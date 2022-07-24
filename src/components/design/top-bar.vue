@@ -20,6 +20,7 @@
     <div class="page-title"> 页面设计 </div>
     <div class="action-btn">
       <a-space>
+        <a-button @click="previewPage">预 览</a-button>
         <a-button @click="saveData">保 存</a-button>
         <a-button type="primary">发 布</a-button>
       </a-space>
@@ -28,7 +29,13 @@
 </template>
 
 <script setup lang="ts" name="top-bar">
-  import { ref, watchEffect } from 'vue';
+  import { ref, watchEffect, h, computed } from 'vue';
+  import { Modal, Button } from '@arco-design/web-vue';
+  import RenderWidgetVue from '@/widgets/render/render-widget.vue';
+  import { useDesignStore } from '@/store';
+  import PreviewContent from '@/components/design/preview-content/index.vue';
+
+  const store = useDesignStore();
 
   const props = defineProps<{
     name: string;
@@ -44,6 +51,7 @@
   function change(val: any) {
     emit('nameChange', val);
   }
+  const widgetList = computed(() => store.widgetList);
 
   const currentName = ref<string>(props.name);
   watchEffect(() => {
@@ -53,9 +61,40 @@
     currentName.value = e;
     emit('update:name', e);
   }
+  function previewPage() {
+    const preModal = Modal.open({
+      title: '',
+      fullscreen: true,
+      simple: true,
+      footer: undefined,
+      renderToBody: true,
+      closable: true,
+      modalClass: 'preview-modal',
+
+      content: () =>
+        h(
+          'div',
+          { class: 'info-modal-content' },
+          h(PreviewContent, {
+            onClose() {
+              preModal.close();
+            },
+          })
+        ),
+    });
+  }
 </script>
 
 <style lang="less">
+  body .preview-modal {
+    padding: 0;
+
+    .arco-modal-footer,
+    .arco-modal-header {
+      display: none;
+    }
+  }
+
   .app-top {
     position: relative;
     z-index: 100;
