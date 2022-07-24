@@ -32,7 +32,7 @@
     (e: 'update:show', s: boolean): void;
     (e: 'onSubmit', s: WidgetType): void;
   }>();
-  const dialogVisible = computed({
+  const dialogVisible = computed<boolean>({
     get() {
       return props.show;
     },

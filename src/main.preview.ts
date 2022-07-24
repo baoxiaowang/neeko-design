@@ -4,8 +4,15 @@ import { createApp } from 'vue';
 // import MessagePipe from './message/message';
 import ArcoVue from '@arco-design/web-vue';
 import ArcoVueIcon from '@arco-design/web-vue/es/icon';
-import PreviewApp from './AppPreview.vue';
+import PreviewApp from '@/AppPreview.vue';
+import '@arco-design/web-vue/dist/arco.css';
+import '@/assets/style/global.less';
+import '@/api/interceptor';
+// import '@arco-design/web-vue/dist/arco.less';
 import '@arco-themes/vue-neeko/index.less';
+// eslint-disable-next-line import/no-unresolved
+import 'virtual:svg-icons-register';
+import '@arco-design/web-vue/dist/arco.less';
 
 const preApp = createApp(PreviewApp);
 // preApp.use(ElementPlus, { size: 'default', zIndex: 3000 })

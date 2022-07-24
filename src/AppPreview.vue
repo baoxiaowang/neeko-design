@@ -17,7 +17,7 @@
   import DesignChannel, {
     WidgetChangeEvent,
   } from '@/components/design/design-channel';
-  import WidgetMark from '@/components/design/widget-mark/index.vue';
+  import WidgetMark from './components/design/widget-mark/index.vue';
   import { Widget } from './widgets/types';
 
   const widgetData = ref<Widget[]>([]);

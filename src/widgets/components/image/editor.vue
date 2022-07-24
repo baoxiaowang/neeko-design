@@ -1,5 +1,5 @@
 <template>
-  <EditorLayout class="image-editor" :change="change" :value="value">
+  <EditorLayout class="image-editor" :change="change" :node="value">
     <config-block required label="图片地址">
       <a-input
         :model-value="value?.config?.url"

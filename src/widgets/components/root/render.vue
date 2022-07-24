@@ -1,6 +1,6 @@
 <template>
   <draggable
-    v-model="children"
+    v-model="list"
     force-fallback
     :class="{ 'child-empty': !list.length }"
     :data-key="node.key"
@@ -25,12 +25,11 @@
 </template>
 
 <script setup lang="ts" name="root-render">
-  import { computed, nextTick, toRefs, ref } from 'vue';
+  import { nextTick, toRefs } from 'vue';
   import WidgetSourceMap from '@/widgets/config.index';
   import draggable from '@/components/vue-draggable/src/vuedraggable';
   import useDraggable from '@/widgets/hooks/useDraggable';
   import { useRenderStyle } from '@/widgets/hooks/useRenderHelp';
-  import { useDesignStore } from '@/store';
   import { getRenderWidget } from '../../render';
   import { Widget, WidgetType } from '../../types';
 
@@ -39,19 +38,7 @@
     state: any;
     meta: any;
   }
-
   const props = defineProps<IPropType>();
-  const children = computed({
-    get() {
-      return props.node.children || [];
-    },
-    set(val) {
-      useDesignStore().handlerWidgetUpdate({
-        key: props.node.key,
-        children: val,
-      });
-    },
-  });
   const { node } = toRefs(props);
   const { list } = useDraggable(node);
   const style = useRenderStyle(node);

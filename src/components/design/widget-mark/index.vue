@@ -53,9 +53,9 @@
 </template>
 
 <script setup lang="ts" name="widget-mark">
-  import { Widget } from '@/widgets/types';
   import { computed, onMounted, onUnmounted } from 'vue';
   import WidgetConfigs from '@/widgets/config.index';
+  // import { ButtonGroup, Button } from '@arco-design/web-vue';
   import useWatchDesign from './use-watch-design';
 
   interface IMark {

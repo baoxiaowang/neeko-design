@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts" setup name="EditorLayout">
-  import { computed, ref, toRaw } from 'vue';
+  import { computed, ref } from 'vue';
   import WidgetKey from '@/widgets/attr-blocks/attr-key.vue';
   import { Widget } from '@/widgets/types';
   import CssEditor from 'src/components/codemirror-editor/css-editor/index.vue';

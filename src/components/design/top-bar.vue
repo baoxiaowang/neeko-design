@@ -89,8 +89,11 @@
   body .preview-modal {
     padding: 0;
 
-    .arco-modal-footer,
     .arco-modal-header {
+      display: none;
+    }
+
+    .arco-modal-footer {
       display: none;
     }
   }
