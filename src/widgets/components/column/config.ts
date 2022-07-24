@@ -8,7 +8,7 @@ const type: WidgetType = 'column';
 export default {
   type,
   // editor: Editor,
-  title: 'column',
+  title: '列',
   icon: 'icon-column',
   childrenType: ['container', 'text', 'image', 'row', 'column'].concat(
     formWidgetTypes

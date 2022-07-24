@@ -4,7 +4,7 @@ import { createWidgetKey } from '../../utils';
 const type: WidgetType = 'container';
 export default {
   type,
-  title: 'container',
+  title: '容器',
   icon: 'icon-container',
   childrenType: ['container', 'text', 'image', 'row', 'column'] as WidgetType[],
   defaultVal() {

@@ -2,13 +2,13 @@
   <div class="text-edtior">
     <EditorLayout :node="node" :change="change">
       <config-block required label="内容">
-        <CodemirrorEditor
+        <!-- <CodemirrorEditor
           :options="options"
           class="text-value-editor"
           :value="node?.config?.text || ''"
           :hint-func="hint"
           @update:value="changeValue"
-        />
+        /> -->
         <a-input
           :model-value="node.config.text"
           @update:model-value="changeText"

@@ -24,6 +24,21 @@
       }"
     >
       <a-button-group size="mini" :style="toolStyle" class="tool-actions">
+        <a-dropdown trigger="hover">
+          <a-button
+            class="widget-node__type"
+            :title="selectWidgetConfig?.title"
+            type="primary"
+          >
+            {{ selectWidgetConfig?.title }}
+          </a-button>
+          <template #content>
+            <a-doption>Option 1</a-doption>
+            <a-doption>Option 2</a-doption>
+            <a-doption>Option 3</a-doption>
+          </template>
+        </a-dropdown>
+
         <a-button
           v-for="t in toolActions"
           :key="t.key"
@@ -56,6 +71,7 @@
   import { computed, onMounted, onUnmounted } from 'vue';
   import WidgetConfigs from '@/widgets/config.index';
   // import { ButtonGroup, Button } from '@arco-design/web-vue';
+  import { WidgetConfig } from '@/widgets/types';
   import useWatchDesign from './use-watch-design';
 
   interface IMark {
@@ -106,6 +122,12 @@
       document.querySelectorAll<HTMLHtmlElement>(`[data-key=${key}]`) || [];
     return createHoverSelectorBorder(Array.from(elArr));
   });
+  const selectWidgetConfig = computed<WidgetConfig | null>(() => {
+    if (selectWidget.value) {
+      return WidgetConfigs[selectWidget.value.type];
+    }
+    return null;
+  });
 
   const firstActive = computed(() => {
     return selectMarkList.value[0];
@@ -123,9 +145,9 @@
         style.bottom = '-25px';
       }
       if (first.left + first.width < 90) {
-        style.left = '2px';
+        style.left = '1px';
       } else {
-        style.right = '2px';
+        style.right = '1px';
       }
       return style;
     }
@@ -269,6 +291,10 @@
 
     .action-hidden {
       visibility: hidden;
+    }
+
+    .widget-node__type {
+      margin-right: 6px;
     }
   }
 </style>

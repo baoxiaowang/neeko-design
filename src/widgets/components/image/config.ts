@@ -4,7 +4,7 @@ import { createWidgetKey } from '../../utils';
 const type: WidgetType = 'image';
 export default {
   type,
-  title: 'image',
+  title: '图片',
   icon: 'icon-image',
   childrenType: [] as WidgetType[],
   defaultVal() {
