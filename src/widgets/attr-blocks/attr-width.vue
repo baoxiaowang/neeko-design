@@ -3,27 +3,32 @@
     <template #label>
       <span class="attr-width__span">字段宽度</span>
     </template>
-    <a-radio-group :value="width" type="button" @change="changeAttr">
-      <a-radio value="25">25</a-radio>
-      <a-radio value="50">50</a-radio>
-      <a-radio value="75">75</a-radio>
-      <a-radio value="100">100</a-radio>
-    </a-radio-group>
-
-    <div class="attr-block">
+    <a-space direction="vertical" fill>
+      <a-radio-group :model-value="width" type="button" @change="changeAttr">
+        <a-radio value="25">25</a-radio>
+        <a-radio value="50">50</a-radio>
+        <a-radio value="75">75</a-radio>
+        <a-radio value="100">100</a-radio>
+      </a-radio-group>
       <a-checkbox v-model="check">独占一行</a-checkbox>
-    </div>
+    </a-space>
   </ConfigBlockVue>
 </template>
 
 <script setup lang="ts" name="attr-width">
-  import { computed } from 'vue';
+  import { computed, withDefaults } from 'vue';
   import ConfigBlockVue from '../common/config-block.vue';
 
-  const props = defineProps<{
-    width: string;
-    block: number;
-  }>();
+  const props = withDefaults(
+    defineProps<{
+      width: string;
+      block: number;
+    }>(),
+    {
+      width: '100',
+      block: 0,
+    }
+  );
   const emit = defineEmits<{
     (n: 'change', e: string): void;
     (n: 'changeBlock', e: number): void;

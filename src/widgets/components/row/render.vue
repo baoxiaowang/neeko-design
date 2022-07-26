@@ -6,7 +6,6 @@
     :data-key="node.key"
     item-key="key"
     class="row-render"
-    :style="style"
     ghost-class="ghost-row-item"
     :group="group"
     @end="dragEnd"
@@ -67,7 +66,7 @@
 <style lang="less" scoped>
   .row-render {
     display: flex;
-    justify-content: stretch;
+    // justify-content: stretch;
     width: 100%;
     height: 100%;
   }

@@ -1,6 +1,8 @@
 <template>
   <div class="design-page__page">
-    <PreviewIframe></PreviewIframe>
+    <ElScrollbar>
+      <PreviewIframe></PreviewIframe>
+    </ElScrollbar>
   </div>
 </template>
 

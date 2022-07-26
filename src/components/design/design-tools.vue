@@ -17,7 +17,10 @@
       </div>
     </div>
     <div class="design-menu-panel">
-      <WidgetsTree v-show="activeTool === 'tree'"></WidgetsTree>
+      <el-scrollbar>
+        <WidgetsTree v-show="activeTool === 'tree'"></WidgetsTree>
+      </el-scrollbar>
+
       <!-- <WidgetsPanel v-show="activeTool === 'widget'"></WidgetsPanel> -->
     </div>
   </div>
@@ -131,6 +134,20 @@
     .design-menu-panel {
       flex: 1;
       height: 100%;
+      overflow: hidden;
+      // overflow-y: auto;
+      // padding-bottom: 30px;
+      // box-sizing: border-box;
+      // ::-webkit-scrollbar {
+      //   display: none;
+      //   width: 10px;
+      //   background: transparent;
+      // }
+      // ::-webkit-scrollbar-thumb {
+      //   background: var(--color-fill-3) content-box;
+      //   border: 2px solid transparent;
+      //   border-radius: 5px;
+      // }
     }
   }
 </style>

@@ -32,6 +32,10 @@
 </script>
 
 <style lang="less">
+  html,
+  body {
+    overflow: hidden;
+  }
   // .preview-App {
   // }
 </style>

@@ -47,7 +47,28 @@ export interface FormWidget extends Widget {
   width: string;
   placeholder?: string;
   rules: {
-    required: false;
+    required: number;
+    noRepeat?: number;
+  };
+  permission: {
+    visibleType: 0 | 1 | 2; // 0 不可见 1 全部 2 // 部分
+    visableInclude: {
+      user: [];
+      role: [];
+    };
+    visableExclude: {
+      user: [];
+      role: [];
+    };
+    editbleType: 0 | 1 | 2; // 0 不可见 1 全部 2 // 部分
+    editbleInclude: {
+      user: [];
+      role: [];
+    };
+    editbleExclude: {
+      user: [];
+      role: [];
+    };
   };
   block: number;
 }

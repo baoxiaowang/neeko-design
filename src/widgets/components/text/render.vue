@@ -1,5 +1,6 @@
 <template>
-  <span class="widget-text" :style="style" :data-key="node.key">
+  <span class="widget-text" :class="node.key" :data-key="node.key">
+    <!-- :style="style" -->
     {{ compileText }}
   </span>
 </template>

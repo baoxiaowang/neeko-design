@@ -6,6 +6,7 @@ interface ICustomEventType {
   hoverKeyChange: string;
   widgetUpdate: string;
   selectChange: string;
+  delWidget: string;
 }
 export const customEventType: ICustomEventType = {
   widgetChange: 'widgetChange',
@@ -13,6 +14,7 @@ export const customEventType: ICustomEventType = {
   hoverKeyChange: 'hoverKeyChange',
   widgetUpdate: 'widgetUpdate',
   selectChange: 'selectChange',
+  delWidget: 'delWidget',
 };
 export type EventType = keyof ICustomEventType;
 export interface CustomEventListener<T extends Event = Event>
@@ -31,6 +33,10 @@ export interface WidgetUpdateEvent extends Event {
 }
 
 export interface SelectChangeEvent extends Event {
+  detail: Widget;
+}
+
+export interface DelWidgetEvent extends Event {
   detail: Widget;
 }
 
@@ -78,6 +84,8 @@ export default class DesignChannel {
   $emit(t: 'widgetUpdate', detail: Partial<Widget>): void;
 
   $emit(t: 'selectChange', detail: Widget): void;
+
+  $emit(t: 'delWidget', detail: Widget): void;
 
   $emit(type: EventType, detail: any): void {
     this.target.dispatchEvent(new CustomEvent(type, { detail }));

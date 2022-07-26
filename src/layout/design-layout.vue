@@ -1,9 +1,9 @@
 <template>
   <a-layout class="design-layout">
-    <a-layout-header>
+    <a-layout-header class="design-layout__header">
       <top-bar name="资产管理"></top-bar>
     </a-layout-header>
-    <a-layout>
+    <a-layout class="design-layout__body">
       <a-layout-sider style="z-index: 33" :width="300">
         <DesignTools></DesignTools>
       </a-layout-sider>
@@ -61,12 +61,18 @@
 </script>
 
 <style lang="less">
+  @header-height: 50px;
+
   .design-layout {
     width: 100%;
     height: 100vh;
 
-    .arco-layout {
-      height: 100%;
+    .design-layout__body {
+      height: calc(100% - @header-height);
+    }
+
+    .design-layout__header {
+      height: @header-height;
     }
 
     .design-layout__content {
@@ -80,7 +86,7 @@
       // height: calc(100% - 40px);
       flex: 1;
       padding: 8px;
-      overflow: auto;
+      overflow: hidden;
       background: rgb(249, 250, 252);
     }
   }

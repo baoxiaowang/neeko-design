@@ -4,13 +4,14 @@ import WidgetSourceMap from '@/widgets/config.index';
 import { Widget, WidgetType } from '../types';
 
 export default function useDraggable(node: Ref<Widget>) {
+  const store = useDesignStore();
   const mapChildren = computed<Widget[]>({
     get() {
       const children = node.value.children || [];
       return [...children];
     },
     set(val) {
-      useDesignStore().handlerWidgetUpdate({
+      store.handlerWidgetUpdate({
         key: node.value.key,
         children: val,
       });
@@ -33,11 +34,18 @@ export default function useDraggable(node: Ref<Widget>) {
   function dragStart() {
     document.body.classList.add('dragging');
   }
-
+  function onUpdate({ newIndex }: any) {
+    const children = node.value?.children || [];
+    const current = children[newIndex];
+    if (current) {
+      store.setSelectKey(current.key);
+    }
+  }
   return {
     list: mapChildren,
     dragEnd,
     onAdd,
     dragStart,
+    onUpdate,
   };
 }

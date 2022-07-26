@@ -23,7 +23,12 @@
         height: firstActive.height + 'px',
       }"
     >
-      <a-button-group size="mini" :style="toolStyle" class="tool-actions">
+      <a-button-group
+        size="mini"
+        :style="toolStyle"
+        class="tool-actions"
+        @mouseenter="hoverTools"
+      >
         <a-dropdown trigger="hover">
           <a-button
             class="widget-node__type"
@@ -45,6 +50,7 @@
           :title="t.title"
           type="primary"
           :icon="t.icon"
+          @click="handler(t)"
         >
           <template #icon>
             <component :is="t.icon"></component>
@@ -70,7 +76,6 @@
 <script setup lang="ts" name="widget-mark">
   import { computed, onMounted, onUnmounted } from 'vue';
   import WidgetConfigs from '@/widgets/config.index';
-  // import { ButtonGroup, Button } from '@arco-design/web-vue';
   import { WidgetConfig } from '@/widgets/types';
   import useWatchDesign from './use-watch-design';
 
@@ -82,13 +87,18 @@
     borderRadius: string;
   }
 
-  const emit = defineEmits<{
-    (e: 'hoveredKeyChange', d: string): void;
-    (e: 'selectKeyChange', d: string): void;
-  }>();
-
-  const { selectWidget, hoverKey, emitSelectKeyChange, emitHoverKeyChange } =
-    useWatchDesign();
+  interface ToolItem {
+    key: 'add' | 'del' | 'copy';
+    title: string;
+    icon: string;
+  }
+  const {
+    selectWidget,
+    hoverKey,
+    emitSelectKeyChange,
+    emitHoverKeyChange,
+    emitDelWidget,
+  } = useWatchDesign();
   const createHoverSelectorBorder = (elArr: HTMLHtmlElement[]) => {
     const list: IMark[] = elArr.map((el: HTMLHtmlElement) => {
       const { left, width, height } = el.getBoundingClientRect();
@@ -103,6 +113,9 @@
       };
     });
     return list;
+  };
+  const hoverTools = () => {
+    emitHoverKeyChange(selectWidget.value?.key);
   };
   const hoverMarkList = computed<IMark[]>(() => {
     if (!hoverKey.value) {
@@ -153,18 +166,18 @@
     }
     return null;
   });
-  const toolActions = computed(() => {
-    const toolAdd = {
+  const toolActions = computed<Array<ToolItem>>(() => {
+    const toolAdd: ToolItem = {
       key: 'add',
       title: '添加子节点',
       icon: 'icon-plus',
     };
-    const toolCopy = {
+    const toolCopy: ToolItem = {
       key: 'copy',
       title: '复制节点',
       icon: 'icon-copy',
     };
-    const toolDel = {
+    const toolDel: ToolItem = {
       key: 'del',
       title: '删除节点',
       icon: 'icon-delete',
@@ -187,6 +200,17 @@
     }
     return res;
   });
+  function handler(e: ToolItem) {
+    if (e.key === 'add') {
+      //
+      //  emitSelectKeyChange(targetEl?.dataset?.key);
+    } else if (e.key === 'del') {
+      //
+      emitDelWidget();
+    } else if (e.key === 'copy') {
+      //
+    }
+  }
   const initHoverObserver = () => {
     onMounted(() => {
       const rootEl = document;
@@ -294,7 +318,7 @@
     }
 
     .widget-node__type {
-      margin-right: 6px;
+      // margin-right: 6px;
     }
   }
 </style>

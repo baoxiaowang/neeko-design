@@ -5,6 +5,8 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 import svgLoader from 'vite-svg-loader';
 import vitePluginForArco from '@arco-plugins/vite-vue';
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
+// eslint-disable-next-line import/no-unresolved
+import ElementPlus from 'unplugin-element-plus/vite';
 
 export default defineConfig({
   plugins: [
@@ -19,6 +21,9 @@ export default defineConfig({
       iconDirs: [resolve(process.cwd(), 'src/assets/icons')],
       // 指定symbolId格式
       symbolId: 'icon-[dir]-[name]',
+    }),
+    ElementPlus({
+      // options
     }),
   ],
   resolve: {

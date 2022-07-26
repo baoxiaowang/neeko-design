@@ -5,6 +5,7 @@
     :class="{ 'form-widget__active': actived }"
     :style="widthStyle"
     :label="node?.label || ''"
+    :required="!!node.rules?.required"
     @click="formWidgetClick"
   >
     <div class="widget-layout__body">
@@ -73,22 +74,22 @@
   .form-widget-layout {
     position: relative;
     box-sizing: border-box;
+    margin-bottom: 0 !important;
     padding: 12px;
     background: #fff;
-    border-radius: 8px;
+    // border-radius: 8px;
     cursor: pointer;
+    transition: all 0.1s;
     pointer-events: all;
-    // &:hover {
-    //   background: rgba(rgb(var(--arcoblue-6)), .1);
-    // }
-    .widget-layout__title {
-      margin-bottom: 8px;
-      font-weight: 600;
-      font-size: 14px;
-    }
 
     &:hover {
       background: #fafafb;
+    }
+
+    // 标签
+    .arco-form-item-label {
+      color: #1f2d3d;
+      font-weight: 600;
     }
 
     .form-widget__tools {
@@ -112,11 +113,7 @@
         align-items: center;
         color: #767e89;
         cursor: pointer;
-        // .i-copy {
-        //   &:hover {
-        //     color: var(--);
-        //   }
-        // }
+
         &:hover {
           [i-copy] {
             color: #00bd77;
@@ -139,7 +136,8 @@
   }
 
   .form-widget__active {
-    background: #eff3fd !important;
+    // background: #eff3fd !important;
+    background: rgb(var(--arcoblue-1)) !important;
 
     .form-widget__tools {
       display: flex;

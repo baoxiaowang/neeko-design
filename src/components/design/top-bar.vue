@@ -103,7 +103,7 @@
     z-index: 100;
     display: flex;
     align-items: center;
-    height: 50px;
+    height: 100%;
     padding: 0 12px;
     font-size: 13px;
     background: #fff;

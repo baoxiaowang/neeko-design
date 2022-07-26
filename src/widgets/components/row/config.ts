@@ -4,7 +4,7 @@ import { createWidgetKey } from '../../utils';
 const type: WidgetType = 'row';
 export default {
   type,
-  title: '行块',
+  title: '行',
   icon: 'icon-row',
   canDel: false,
   childrenType: ['container', 'text', 'image', 'row', 'column'] as WidgetType[],

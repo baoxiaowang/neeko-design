@@ -2,13 +2,19 @@
   <div :style="style" :data-key="node.key" class="widget-form-render">
     <a-form :model="{}" :layout="layout">
       <draggable
-        v-model="mapChildren"
+        v-model="list"
         item-key="key"
         class="form-body__panel"
         ghost-class="ghost-item"
+        drag-class="drag-item-class"
+        chosen-class="chosen-class"
+        fallback-class="fallback-class"
+        :force-fallback="true"
+        :fallback-on-body="true"
         :group="group"
         @end="dragEnd"
         @add="onAdd"
+        @update="onUpdate"
         @dragstart="dragStart"
       >
         <template #item="{ element }">
@@ -27,12 +33,11 @@
 
 <script setup lang="ts" name="form-render">
   import { getRenderWidget } from '@/widgets/render';
-  import { onMounted, ref, nextTick, computed } from 'vue';
+  import { onMounted, ref, nextTick, computed, toRefs } from 'vue';
   import WidgetSourceMap from '@/widgets/config.index';
   import draggable from '@/components/vue-draggable/src/vuedraggable';
-  // import draggable from 'vuedraggable';
   import { Widget, WidgetType } from '@/widgets/types';
-  import { useDesignStore } from '@/store';
+  import useDraggable from '@/widgets/hooks/useDraggable';
   import { styleToString } from '../../utils';
 
   const props = defineProps<{
@@ -46,18 +51,8 @@
     return styleToString(props.node.codeStyle);
   });
 
-  const mapChildren = computed<Widget[]>({
-    get() {
-      const children = props.node.children || [];
-      return [...children];
-    },
-    set(val) {
-      useDesignStore().handlerWidgetUpdate({
-        key: props.node.key,
-        children: val,
-      });
-    },
-  });
+  const { node } = toRefs(props);
+  const { list, onUpdate } = useDraggable(node);
 
   function dragStart() {
     document.body.classList.add('dragging');
@@ -83,13 +78,16 @@
 </script>
 
 <style lang="less">
+  .drag-item-class {
+    background: red !important;
+  }
+
   .widget-form-render {
     box-sizing: border-box;
-    padding: 16px;
+    padding: 10px;
     background: #fff;
     background: #f9fafc;
-    border-radius: 8px;
-
+    // border-radius: 8px;
     .widget-form__draggable {
       padding-bottom: 20px;
     }
@@ -103,6 +101,14 @@
       & > div {
         visibility: hidden;
       }
+    }
+
+    .fallback-class {
+      background: red !important;
+    }
+
+    .chosen-class {
+      // background: red !important;
     }
 
     .form-body__panel {

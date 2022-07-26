@@ -6,7 +6,6 @@
     class="preview-iframe"
     :src="src"
     frameborder="0"
-    :height="iframeHeight"
     :style="{
       height: iframeHeight,
     }"
@@ -19,6 +18,7 @@
   import { useDesignStore } from '@/store';
   import { watch, ref } from 'vue';
   import DesignChannel, {
+    DelWidgetEvent,
     KeyChangeEvent,
     SelectChangeEvent,
   } from '../design-channel';
@@ -26,7 +26,7 @@
   const designChannel = new DesignChannel(window);
 
   const src = `${window.location.origin}/preview.html`;
-  const iframeHeight = ref<string>('100%');
+  const iframeHeight = ref<string>('100vh');
 
   // const props = defineProps();
   const store = useDesignStore();
@@ -77,6 +77,13 @@
       const newKey = (e as KeyChangeEvent).detail;
       if (newKey !== store.hoveredKey) {
         store.hoveredKey = newKey;
+      }
+    });
+    previewChannel.$on('delWidget', (e: Event) => {
+      debugger;
+      const widget = (e as DelWidgetEvent).detail;
+      if (widget) {
+        store.handlerWidgetDelete(widget);
       }
     });
   }
@@ -134,6 +141,5 @@
   .preview-iframe {
     width: 100%;
     // height: inherit;
-    height: -webkit-fill-available;
   }
 </style>

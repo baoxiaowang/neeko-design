@@ -1,5 +1,5 @@
 <template>
-  <div :data-key="node.key" :style="style" class="image-render">
+  <div :data-key="node.key" class="image-render">
     <img :preview="false" :src="src" hide-footer />
   </div>
 </template>

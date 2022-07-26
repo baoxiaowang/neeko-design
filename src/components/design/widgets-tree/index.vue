@@ -201,7 +201,7 @@
   .widgets-tree {
     margin-top: 8px;
     // padding-left: 2px;
-    padding: 0 2px;
+    padding: 0 6px;
 
     .arco-tree-node-switcher {
       // margin-right: 2px;

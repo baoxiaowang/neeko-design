@@ -33,10 +33,14 @@ export default function useWatchDesign() {
       });
     }
   });
+  function emitDelWidget() {
+    selfChannel.$emit('delWidget', selectWidget.value!);
+  }
   return {
     selectWidget,
     hoverKey,
     emitSelectKeyChange,
     emitHoverKeyChange,
+    emitDelWidget,
   };
 }

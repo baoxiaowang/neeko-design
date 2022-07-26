@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="pre-html">
   <head>
     <meta charset="UTF-8" />
     <link rel="shortcut icon" type="image/x-icon" href="https://unpkg.byted-static.com/latest/byted/arco-config/assets/favicon.ico">
@@ -10,17 +10,18 @@
         margin: 0;
         padding: 0;
       }
-      html,body, #app {
+      .pre-html,.pre-body,html,body, #pre_app {
         height: max-content;
         width: 100%;
+        overflow: hidden;
       }
       .design-mode *[data-key] {
         cursor: pointer;
       }
     </style>
   </head>
-  <body>
-    <div id="app" class="design-mode"></div>
+  <body class="pre-body">
+    <div id="pre_app" class="design-mode"></div>
     <script type="module" src="/src/main.preview.ts"></script>
   </body>
 </html>

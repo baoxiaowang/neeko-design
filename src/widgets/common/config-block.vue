@@ -25,11 +25,12 @@
 
 <style lang="less">
   .config-block {
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 
     .config-title {
       display: inline-block;
       margin: 10px 0;
+      padding-left: 2px;
       font-weight: 700;
       font-size: 14px;
     }

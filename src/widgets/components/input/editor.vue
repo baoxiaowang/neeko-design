@@ -17,7 +17,12 @@
         @change-block="(val) => changeAttr('block', val)"
         @change="(val) => changeAttr('width', val)"
       ></AttrWidthVue>
+      <AttrRulesVue :node="node" :change="change"></AttrRulesVue>
+
       <AttrKeyVue :node-key="node.key"></AttrKeyVue>
+    </template>
+    <template #ext>
+      <AttrPermissionVue :node="node" :change="change"></AttrPermissionVue>
     </template>
   </formEditorLayoutVue>
 </template>
@@ -28,6 +33,9 @@
   import AttrLabelVue from '@/widgets/attr-blocks/attr-label.vue';
   import AttrWidthVue from '@/widgets/attr-blocks/attr-width.vue';
   import AttrKeyVue from '@/widgets/attr-blocks/attr-key.vue';
+  import AttrRulesVue from '@/widgets/attr-blocks/attr-rules.vue';
+  import AttrPermissionVue from '@/widgets/attr-blocks/attr-permission.vue';
+
   import { InputWidget, WidgetChange } from '../../types';
 
   const props = defineProps<{

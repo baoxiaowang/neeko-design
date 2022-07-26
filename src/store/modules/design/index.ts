@@ -142,14 +142,16 @@ const useDesignStore = defineStore('design', {
       }
     },
     async handlerWidgetDelete(data: Widget) {
+      debugger;
       const currentParent: Widget | undefined = this.widgetParentMap[data.key];
       const index = currentParent?.children?.findIndex(
         (c) => c.key === data.key
       );
-      if (index && index > -1) {
+      if (index !== undefined && index > -1) {
         currentParent?.children?.splice(index, 1);
         // this.widgetMap[data.key] = null
         delete this.widgetMap[data.key];
+        this.setSelectKey(currentParent?.key || '');
       }
     },
     async handlerWidgetCopy(data: Widget) {

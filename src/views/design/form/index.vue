@@ -1,11 +1,13 @@
 <template>
   <div class="design-form__page">
-    <renderWidgetVue
-      v-for="item in widgets"
-      :key="item.key"
-      :node="item"
-      :meta="{}"
-    ></renderWidgetVue>
+    <ElScrollbar>
+      <renderWidgetVue
+        v-for="item in widgets"
+        :key="item.key"
+        :node="item"
+        :meta="{}"
+      ></renderWidgetVue>
+    </ElScrollbar>
   </div>
 </template>
 
