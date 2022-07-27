@@ -86,6 +86,10 @@
         store.handlerWidgetDelete(widget);
       }
     });
+    previewChannel.$on('widgetUpdate', (e: Event) => {
+      const widget = (e as DelWidgetEvent).detail;
+      store.handlerWidgetUpdate(widget);
+    });
   }
 
   function onLoad() {

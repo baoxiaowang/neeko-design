@@ -6,9 +6,9 @@ import { Widget, WidgetType } from '@/widgets/types';
 import WidgetSourceMap from '@/widgets/config.index';
 import { getWidgetCloned } from '@/widgets/utils';
 import { reactive } from 'vue';
-import { DesignState, defaultState } from './types';
-import { createFormData, createCustomePage } from './constants';
-
+import { DesignState, defaultState, ToolWidgetGroupItem } from './types';
+import * as DesignConst from './constants';
+// { createFormData, createCustomePage }
 function formatData(
   widget: Widget[],
   root?: Widget
@@ -55,6 +55,7 @@ const useDesignStore = defineStore('design', {
     addDialogShow: false,
     currentActionWidget: null,
     previewDialogShow: false,
+    toolWidgetGroup: [],
   }),
 
   getters: {
@@ -83,10 +84,13 @@ const useDesignStore = defineStore('design', {
     // 初始化
     initState(type: 'form' | 'page') {
       let widgetList: Widget[] = [];
+      let toolWidgetGroup: ToolWidgetGroupItem[] = [];
       if (type === 'form') {
-        widgetList = createFormData();
+        widgetList = DesignConst.createFormData();
+        toolWidgetGroup = DesignConst.toolWidgetGroupMap.form;
       } else {
-        widgetList = createCustomePage();
+        widgetList = DesignConst.createCustomePage();
+        toolWidgetGroup = DesignConst.toolWidgetGroupMap.page;
       }
       const { node, parent } = formatData(widgetList);
 
@@ -100,6 +104,7 @@ const useDesignStore = defineStore('design', {
         widgetParentMap: parent,
         selectedKey: selectKey,
         selectWidget,
+        toolWidgetGroup,
       });
     },
     setSelectKey(key: string) {
@@ -175,7 +180,10 @@ const useDesignStore = defineStore('design', {
         alert('我找到父节点');
       }
     },
-    async handlerWidgetUpdate<T extends Widget = Widget>(data: Partial<T>) {
+    async handlerWidgetUpdate<T extends Widget = Widget>(
+      data: Partial<T>,
+      updateChildren = false
+    ) {
       const key = data.key || this.selectedKey;
       if (!key) {
         alert('更新节点必须传递key参数');
@@ -183,6 +191,12 @@ const useDesignStore = defineStore('design', {
       }
       const currentWidget = this.widgetMap[key];
       Object.assign(currentWidget, data);
+      if (updateChildren) {
+        const currentParent = this.widgetParentMap[key];
+        const { node, parent } = formatData([currentWidget], currentParent);
+        Object.assign(this.widgetMap, node);
+        Object.assign(this.widgetParentMap, parent);
+      }
     },
   },
 });

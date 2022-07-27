@@ -1,6 +1,6 @@
 <template>
   <draggable
-    v-model="list"
+    :model-value="list"
     force-fallback
     :class="{ 'child-empty': !list.length }"
     :data-key="node.key"
@@ -28,7 +28,7 @@
   import { nextTick, toRefs } from 'vue';
   import WidgetSourceMap from '@/widgets/config.index';
   import draggable from '@/components/vue-draggable/src/vuedraggable';
-  import useDraggable from '@/widgets/hooks/useDraggable';
+  import usePreviewDrag from '@/widgets/hooks/usePreviewDrag';
   import { useRenderStyle } from '@/widgets/hooks/useRenderHelp';
   import { getRenderWidget } from '../../render';
   import { Widget, WidgetType } from '../../types';
@@ -40,7 +40,7 @@
   }
   const props = defineProps<IPropType>();
   const { node } = toRefs(props);
-  const { list } = useDraggable(node);
+  const { list, onAdd } = usePreviewDrag(node);
   const style = useRenderStyle(node);
   const group = { name: 'form-widget' };
 
@@ -50,19 +50,6 @@
   async function dragEnd() {
     await nextTick();
     document.body.classList.remove('dragging');
-  }
-  function onAdd({ clone, newIndex }: any) {
-    const type = clone.dataset?.type as WidgetType;
-    const newItem = WidgetSourceMap[type].defaultVal();
-    const itemChildren = props.node.children || [];
-    itemChildren.splice(newIndex, 1, newItem);
-    // eslint-disable-next-line vue/no-mutating-props
-    props.node.children = itemChildren;
-    // const { key, children } = props.node;
-    // msgPipe.emitSelf(
-    //   'updateWidget',
-    //   JSON.stringify({ key, children: toRaw(children), newKey: newItem.key })
-    // );
   }
 </script>
 

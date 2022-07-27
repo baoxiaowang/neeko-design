@@ -27,7 +27,7 @@
 <script setup lang="ts" name="row-render">
   import { nextTick, computed, toRefs } from 'vue';
   import draggable from '@/components/vue-draggable/src/vuedraggable';
-  import useDraggable from '@/widgets/hooks/useDraggable';
+  import usePreviewDrag from '@/widgets/hooks/usePreviewDrag';
   import { Widget } from '@/widgets/types';
   import { useRenderStyle } from '@/widgets/hooks/useRenderHelp';
   import { getRenderWidget } from '../../render';
@@ -36,7 +36,7 @@
     node: Widget;
   }>();
   const { node } = toRefs(props);
-  const { list } = useDraggable(node);
+  const { list } = usePreviewDrag(node);
   const style = useRenderStyle(node);
   function dragStart() {
     document.body.classList.add('dragging');

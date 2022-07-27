@@ -1,5 +1,9 @@
-import { Widget } from '@/widgets/types';
+import { Widget, WidgetConfig } from '@/widgets/types';
 
+export interface ToolWidgetGroupItem {
+  label: string;
+  list: WidgetConfig[];
+}
 export interface DesignState {
   widgetList: Widget[];
   widgetMap: Record<string, Widget>; // key索引指向自身
@@ -11,6 +15,7 @@ export interface DesignState {
   addDialogShow: boolean; // 是否打开添加子节点的弹窗
   previewDialogShow: boolean;
   currentActionWidget: Widget | null; // 当前操作action的 widget
+  toolWidgetGroup: ToolWidgetGroupItem[]; // 组件面板中的组件
 }
 
 export const defaultState: DesignState = {
@@ -24,4 +29,5 @@ export const defaultState: DesignState = {
   addDialogShow: false,
   previewDialogShow: false,
   currentActionWidget: null,
+  toolWidgetGroup: [],
 };

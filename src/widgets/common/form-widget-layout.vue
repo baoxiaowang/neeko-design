@@ -21,7 +21,7 @@
           content="复制"
           placement="top"
         >
-          <icon-copy stroke-width="5" i-copy />
+          <icon-copy :stroke-width="5" i-copy />
         </a-tooltip>
       </div>
       <div class="tool-split"></div>
@@ -34,7 +34,7 @@
           content="删除"
           placement="top"
         >
-          <icon-delete stroke-width="5" i-del />
+          <icon-delete :stroke-width="5" i-del />
         </a-tooltip>
       </div>
     </div>
@@ -78,7 +78,7 @@
     padding: 12px;
     background: #fff;
     // border-radius: 8px;
-    cursor: pointer;
+    cursor: move;
     transition: all 0.1s;
     pointer-events: all;
 

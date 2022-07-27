@@ -19,9 +19,8 @@
     <div class="design-menu-panel">
       <el-scrollbar>
         <WidgetsTree v-show="activeTool === 'tree'"></WidgetsTree>
+        <WidgetsPanel v-show="activeTool === 'widget'"></WidgetsPanel>
       </el-scrollbar>
-
-      <!-- <WidgetsPanel v-show="activeTool === 'widget'"></WidgetsPanel> -->
     </div>
   </div>
 </template>
@@ -29,7 +28,8 @@
 <script setup lang="ts" name="DesignTool">
   import { ref } from 'vue';
   import WidgetsTree from './widgets-tree/index.vue';
-  // import WidgetsPanel from './widgets-panel/widgets-panel.vue';
+  import WidgetsPanel from './widgets-panel/widgets-panel.vue';
+
   type Tool = {
     name: string;
     icon: {

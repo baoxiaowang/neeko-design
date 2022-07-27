@@ -1,21 +1,17 @@
-import { useDesignStore } from '@/store';
 import { computed, nextTick, Ref } from 'vue';
 import WidgetSourceMap from '@/widgets/config.index';
+import DesignChannel from '@/components/design/design-channel';
 import { Widget, WidgetType } from '../types';
 
-export default function useDraggable(node: Ref<Widget>) {
-  const store = useDesignStore();
+const iframeChannel = new DesignChannel(window);
+export default function usePreviewDrag(node: Ref<Widget>) {
   const mapChildren = computed<Widget[]>({
     get() {
       const children = node.value.children || [];
       return [...children];
     },
     set(val) {
-      console.log('set', Date.now());
-      store.handlerWidgetUpdate({
-        key: node.value.key,
-        children: val,
-      });
+      debugger;
     },
   });
 
@@ -24,20 +20,16 @@ export default function useDraggable(node: Ref<Widget>) {
     document.body.classList.remove('dragging');
   }
   function onAdd({ clone, newIndex }: any) {
+    debugger;
     const type: WidgetType = clone.dataset?.type;
     const newItem = WidgetSourceMap[type].defaultVal();
 
-    if (node.value.children) {
+    if (node?.value?.children) {
       const childrenData = [...node.value.children] || [];
       childrenData.splice(newIndex, 1, newItem);
-      store.handlerWidgetUpdate(
-        {
-          key: node.value.key,
-          children: JSON.parse(JSON.stringify(childrenData)),
-        },
-        true
-      );
-      store.setSelectKey(newItem.key);
+      iframeChannel.$emit('widgetUpdate', {
+        children: JSON.parse(JSON.stringify(childrenData)),
+      });
     }
   }
   function dragStart() {
@@ -47,7 +39,7 @@ export default function useDraggable(node: Ref<Widget>) {
     const children = node.value?.children || [];
     const current = children[newIndex];
     if (current) {
-      store.setSelectKey(current.key);
+      // store.setSelectKey(current.key);
     }
   }
   return {

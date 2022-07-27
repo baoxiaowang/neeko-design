@@ -1,5 +1,7 @@
 import { InputWidget, Widget } from '@/widgets/types';
 import { styleObjToCode } from '@/widgets/utils';
+import widgetConfig from '@/widgets/config.index';
+import { ToolWidgetGroupItem } from './types';
 
 const temp1 = [
   {
@@ -1047,6 +1049,33 @@ const temp1 = [
   },
 ];
 
+export const toolWidgetGroupMap = {
+  form: [
+    {
+      label: '基础字段',
+      list: [widgetConfig.input, widgetConfig.textarea],
+    },
+    // {
+    //   label: '高级字段',
+    //   list: [],
+    // },
+    // {
+    //   label: '组织架构',
+    //   list: [],
+    // },
+  ] as ToolWidgetGroupItem[],
+  page: [
+    {
+      label: '布局组件',
+      list: [widgetConfig.container, widgetConfig.row, widgetConfig.column],
+    },
+    {
+      label: '数据展示',
+      list: [widgetConfig.image, widgetConfig.text],
+    },
+  ] as ToolWidgetGroupItem[],
+};
+
 export function createFormData(): Widget[] {
   return [
     {
@@ -1056,16 +1085,16 @@ export function createFormData(): Widget[] {
         minHeight: '100%',
       }),
       children: [
-        {
-          label: '姓名',
-          type: 'input',
-          key: 'input_1',
-        } as InputWidget,
-        {
-          label: '班级',
-          type: 'input',
-          key: 'input_2',
-        } as InputWidget,
+        // {
+        //   label: '姓名',
+        //   type: 'input',
+        //   key: 'input_1',
+        // } as InputWidget,
+        // {
+        //   label: '班级',
+        //   type: 'input',
+        //   key: 'input_2',
+        // } as InputWidget,
       ],
     },
   ];

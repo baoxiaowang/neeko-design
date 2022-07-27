@@ -5,11 +5,11 @@
         v-model="list"
         item-key="key"
         class="form-body__panel"
-        ghost-class="ghost-item"
+        ghost-class="ghost-widget-item"
         drag-class="drag-item-class"
         chosen-class="chosen-class"
         fallback-class="fallback-class"
-        :force-fallback="true"
+        :force-fallback="false"
         :fallback-on-body="true"
         :group="group"
         @end="dragEnd"
@@ -52,7 +52,7 @@
   });
 
   const { node } = toRefs(props);
-  const { list, onUpdate } = useDraggable(node);
+  const { list, onUpdate, onAdd } = useDraggable(node);
 
   function dragStart() {
     document.body.classList.add('dragging');
@@ -65,16 +65,6 @@
   onMounted(() => {
     //
   });
-  function onAdd({ clone, newIndex }: any) {
-    const type: WidgetType = clone.dataset?.type;
-    const newItem = WidgetSourceMap[type].defaultVal();
-
-    // eslint-disable-next-line vue/no-mutating-props
-    const childrenData = props.node.children || [];
-    childrenData.splice(newIndex, 1, newItem);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { key, children } = props.node;
-  }
 </script>
 
 <style lang="less">
@@ -92,11 +82,13 @@
       padding-bottom: 20px;
     }
 
-    .ghost-item {
+    .ghost-widget-item {
       width: 100%;
+      height: 50px !important;
       background: #fff !important;
       border: 1px dashed;
       border-color: rgb(var(--arcoblue-6));
+      border-radius: 0;
 
       & > div {
         visibility: hidden;

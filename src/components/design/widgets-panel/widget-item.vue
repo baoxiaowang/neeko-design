@@ -1,26 +1,27 @@
 <template>
-  <div :data-type="type" class="widget-item">
+  <div :data-type="config?.type" class="widget-item">
     <div class="widget-icon">
-      <svg-icon :name="editorConfig?.icon" size="14px" />
+      <svg-icon
+        color="rgb(var(--arcoblue-6))"
+        :name="config?.icon"
+        size="14px"
+      />
     </div>
     <div class="widget-name">
-      {{ editorConfig?.title }}
+      {{ config?.title }}
     </div>
   </div>
 </template>
 
 <script setup lang="ts" name="widget-item">
   import WidgetEditors from '@/widgets/config.index';
-  import { WidgetType } from '@/widgets/types';
+  import { WidgetConfig, WidgetType } from '@/widgets/types';
   import { computed } from 'vue';
 
   const props = defineProps<{
-    type: WidgetType;
+    config: WidgetConfig;
   }>();
   const emit = defineEmits({});
-  const editorConfig = computed(() => {
-    return WidgetEditors[props.type];
-  });
 </script>
 
 <style lang="less">
@@ -33,13 +34,14 @@
     // padding: 0 8px;
     padding-left: 10px;
     color: #666;
-    border: 1px solid #d9d9d9;
+    border: 1px solid var(--color-neutral-3);
     border-radius: 4px;
     cursor: move;
 
     &:hover {
       color: rgba(rgb(var(--arcoblue-6)), 0.7);
-      border-color: rgba(rgb(var(--arcoblue-6)), 0.7);
+      color: rgb(var(--arcoblue-6));
+      border-color: rgb(var(--arcoblue-5));
       border-style: dashed;
     }
 
