@@ -16,9 +16,12 @@ declare module '@vue/runtime-core' {
     ACard: typeof import('@arco-design/web-vue')['Card'];
     ACarousel: typeof import('@arco-design/web-vue')['Carousel'];
     ACarouselItem: typeof import('@arco-design/web-vue')['CarouselItem'];
+    ACascader: typeof import('@arco-design/web-vue')['Cascader'];
     ACheckbox: typeof import('@arco-design/web-vue')['Checkbox'];
+    ACheckboxGroup: typeof import('@arco-design/web-vue')['CheckboxGroup'];
     ACol: typeof import('@arco-design/web-vue')['Col'];
     AConfigProvider: typeof import('@arco-design/web-vue')['ConfigProvider'];
+    ADatePicker: typeof import('@arco-design/web-vue')['DatePicker'];
     ADivider: typeof import('@arco-design/web-vue')['Divider'];
     ADoption: typeof import('@arco-design/web-vue')['Doption'];
     ADrawer: typeof import('@arco-design/web-vue')['Drawer'];
@@ -43,11 +46,13 @@ declare module '@vue/runtime-core' {
     AMenu: typeof import('@arco-design/web-vue')['Menu'];
     AMenuItem: typeof import('@arco-design/web-vue')['MenuItem'];
     AModal: typeof import('@arco-design/web-vue')['Modal'];
+    AOption: typeof import('@arco-design/web-vue')['Option'];
     APopover: typeof import('@arco-design/web-vue')['Popover'];
     ARadio: typeof import('@arco-design/web-vue')['Radio'];
     ARadioGroup: typeof import('@arco-design/web-vue')['RadioGroup'];
     AResult: typeof import('@arco-design/web-vue')['Result'];
     ARow: typeof import('@arco-design/web-vue')['Row'];
+    ASelect: typeof import('@arco-design/web-vue')['Select'];
     ASpace: typeof import('@arco-design/web-vue')['Space'];
     ASpin: typeof import('@arco-design/web-vue')['Spin'];
     AStatistic: typeof import('@arco-design/web-vue')['Statistic'];
@@ -64,6 +69,7 @@ declare module '@vue/runtime-core' {
     ATypographyParagraph: typeof import('@arco-design/web-vue')['TypographyParagraph'];
     ATypographyText: typeof import('@arco-design/web-vue')['TypographyText'];
     ATypographyTitle: typeof import('@arco-design/web-vue')['TypographyTitle'];
+    AUpload: typeof import('@arco-design/web-vue')['Upload'];
     RouterLink: typeof import('vue-router')['RouterLink'];
     RouterView: typeof import('vue-router')['RouterView'];
   }

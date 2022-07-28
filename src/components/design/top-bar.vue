@@ -26,6 +26,23 @@
       </a-space>
     </div>
   </div>
+
+  <a-modal
+    v-model:visible="visible"
+    modal-class="preview-modal"
+    :body-style="{
+      borderRadio: 0,
+    }"
+    fullscreen
+    :footer="false"
+  >
+    <template #title>
+      <div class="preview-header"> 页面预览 </div>
+    </template>
+    <div>
+      <PreviewContent></PreviewContent>
+    </div>
+  </a-modal>
 </template>
 
 <script setup lang="ts" name="top-bar">
@@ -53,6 +70,14 @@
     emit('nameChange', val);
   }
   const widgetList = computed(() => store.widgetList);
+  const visible = computed({
+    get() {
+      return store.previewDialogShow;
+    },
+    set(val) {
+      store.previewDialogShow = val;
+    },
+  });
 
   function back() {
     router.go(-1);
@@ -66,39 +91,44 @@
     emit('update:name', e);
   }
   function previewPage() {
-    const preModal = Modal.open({
-      title: '',
-      fullscreen: true,
-      simple: true,
-      footer: undefined,
-      renderToBody: true,
-      closable: true,
-      modalClass: 'preview-modal',
+    store.previewDialogShow = true;
+    // const preModal = Modal.open({
+    //   title: '',
+    //   fullscreen: true,
+    //   simple: true,
+    //   footer: undefined,
+    //   renderToBody: true,
+    //   closable: true,
+    //   modalClass: 'preview-modal',
 
-      content: () =>
-        h(
-          'div',
-          { class: 'info-modal-content' },
-          h(PreviewContent, {
-            onClose() {
-              preModal.close();
-            },
-          })
-        ),
-    });
+    //   content: () =>
+    //     h(
+    //       'div',
+    //       { class: 'info-modal-content' },
+    //       h(PreviewContent, {
+    //         onClose() {
+    //           preModal.close();
+    //         },
+    //       })
+    //     ),
+    // });
   }
 </script>
 
 <style lang="less">
   body .preview-modal {
     padding: 0;
+    border-radius: 0;
 
     .arco-modal-header {
-      display: none;
+      margin-bottom: 10px;
+      background: #fff;
+      box-shadow: 0 4px 6px #0c1f500a;
     }
 
-    .arco-modal-footer {
-      display: none;
+    .arco-modal-body {
+      height: calc(100% - 58px);
+      padding: 0;
     }
   }
 

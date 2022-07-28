@@ -7,7 +7,8 @@ const temp1 = [
   {
     type: 'root',
     key: 'root',
-    codeStyle: '{\n\tmin-height:100vh;\n\tbackground:#f2f3f5;\n}',
+    codeStyle:
+      '{\n\tmin-height:100vh;\n\tbackground:#f2f3f5;\n\toverflow: hidden;\n}',
     children: [
       {
         type: 'container',

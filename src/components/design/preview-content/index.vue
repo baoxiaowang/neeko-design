@@ -1,14 +1,16 @@
 <template>
-  <div class="top-bar"></div>
-  <RenderWidgetVue
-    v-for="item in widgetList"
-    :key="item.key"
-    :meta="{}"
-    :state="{}"
-    :node="item"
-  >
-  </RenderWidgetVue>
-  <Tooltip
+  <el-scrollbar>
+    <RenderWidgetVue
+      v-for="item in widgetList"
+      :key="item.key"
+      :meta="{}"
+      :state="{}"
+      :node="item"
+    >
+    </RenderWidgetVue>
+  </el-scrollbar>
+
+  <!-- <Tooltip
     v-model:popup-visible="visible"
     content="点击退出预览"
     position="right"
@@ -22,7 +24,7 @@
     >
       <IconClose></IconClose>
     </Button>
-  </Tooltip>
+  </Tooltip> -->
 </template>
 
 <script setup lang="ts" name="preview-content">

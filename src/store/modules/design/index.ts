@@ -140,7 +140,6 @@ const useDesignStore = defineStore('design', {
           this.currentActionWidget.children = children;
           this.addDialogShow = false;
           this.setSelcetWidget(addWidget);
-
           this.widgetMap[addWidget.key] = addWidget;
           this.widgetParentMap[addWidget.key] = this.currentActionWidget;
         }
