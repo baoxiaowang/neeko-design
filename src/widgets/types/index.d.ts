@@ -9,7 +9,18 @@ export type WidgetType =
   | 'image'
   | 'form'
   | 'input'
-  | 'textarea';
+  | 'textarea'
+  | 'radio-group'
+  | 'checkbox-group'
+  | 'date-picker'
+  | 'input-number'
+  | 'select'
+  | 'select-group'
+  | 'divider'
+  | 'address'
+  | 'location'
+  | 'image-upload'
+  | 'file-upload';
 
 export interface Widget {
   type: WidgetType;
@@ -74,6 +85,10 @@ export interface FormWidget extends Widget {
 }
 
 export type InputWidget = FormWidget;
+
+export interface RadioGroupWidget extends FormWidget {
+  items: [];
+}
 export interface WidgetCompOptions {
   node: Widget;
   state: Record<string, any>;

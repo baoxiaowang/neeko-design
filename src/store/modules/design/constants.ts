@@ -1053,12 +1053,26 @@ export const toolWidgetGroupMap = {
   form: [
     {
       label: '基础字段',
-      list: [widgetConfig.input, widgetConfig.textarea],
+      list: [
+        widgetConfig.input,
+        widgetConfig.textarea,
+        widgetConfig['input-number'],
+        widgetConfig['date-picker'],
+        widgetConfig['radio-group'],
+        widgetConfig['checkbox-group'],
+        widgetConfig.select,
+        widgetConfig['select-group'],
+        widgetConfig.divider,
+      ],
     },
-    // {
-    //   label: '高级字段',
-    //   list: [],
-    // },
+    {
+      label: '高级字段',
+      list: [
+        widgetConfig.address,
+        widgetConfig.location,
+        widgetConfig['image-upload'],
+      ],
+    },
     // {
     //   label: '组织架构',
     //   list: [],

@@ -4,7 +4,7 @@
       <!-- <a-button class="back-btn" text @click="$router.push('/page-manage')">
         <icon-left />
       </a-button> -->
-      <a-button type="text">
+      <a-button type="text" @click="back">
         <template #icon>
           <icon-left />
         </template>
@@ -34,9 +34,10 @@
   import RenderWidgetVue from '@/widgets/render/render-widget.vue';
   import { useDesignStore } from '@/store';
   import PreviewContent from '@/components/design/preview-content/index.vue';
+  import { useRouter } from 'vue-router';
 
   const store = useDesignStore();
-
+  const router = useRouter();
   const props = defineProps<{
     name: string;
   }>();
@@ -53,6 +54,9 @@
   }
   const widgetList = computed(() => store.widgetList);
 
+  function back() {
+    router.go(-1);
+  }
   const currentName = ref<string>(props.name);
   watchEffect(() => {
     currentName.value = props.name;

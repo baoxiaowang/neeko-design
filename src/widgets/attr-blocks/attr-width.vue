@@ -9,6 +9,11 @@
         <a-radio value="50">50</a-radio>
         <a-radio value="75">75</a-radio>
         <a-radio value="100">100</a-radio>
+        <a-input-number
+          :model-value="+width"
+          size="small"
+          @update:model-value="changeAttr"
+        ></a-input-number>
       </a-radio-group>
       <a-checkbox v-model="check">独占一行</a-checkbox>
     </a-space>

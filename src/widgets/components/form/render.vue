@@ -106,7 +106,7 @@
     .form-body__panel {
       display: flex;
       flex-wrap: wrap;
-      padding: 12px;
+      padding: 24px 12px;
       background: #fff;
       border-radius: 8px;
 
