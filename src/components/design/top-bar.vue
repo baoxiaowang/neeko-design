@@ -67,12 +67,12 @@
   function change(val: any) {
     emit('nameChange', val);
   }
-  const designModel = computed(() => store.designMode);
-  const visible = computed({
+  const designModel = computed<'page' | 'form'>(() => store.designMode);
+  const visible = computed<boolean>({
     get() {
       return store.previewDialogShow;
     },
-    set(val) {
+    set(val: boolean) {
       store.previewDialogShow = val;
     },
   });

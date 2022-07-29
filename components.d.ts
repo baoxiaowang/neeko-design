@@ -50,6 +50,8 @@ declare module '@vue/runtime-core' {
     APopover: typeof import('@arco-design/web-vue')['Popover'];
     ARadio: typeof import('@arco-design/web-vue')['Radio'];
     ARadioGroup: typeof import('@arco-design/web-vue')['RadioGroup'];
+    ARate: typeof import('@arco-design/web-vue')['Rate'];
+    AResizeBox: typeof import('@arco-design/web-vue')['ResizeBox'];
     AResult: typeof import('@arco-design/web-vue')['Result'];
     ARow: typeof import('@arco-design/web-vue')['Row'];
     ASelect: typeof import('@arco-design/web-vue')['Select'];
