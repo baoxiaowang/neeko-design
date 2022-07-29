@@ -1,31 +1,16 @@
 <template>
-  <FormWidgetLayout
-    data-mark="false"
-    :block="node.block"
-    :width="node.width"
-    :node="node"
-    :data-key="node.key"
-    :node-key="node.key"
-    :data-type="node.type"
-    class="input-render"
-    :label="node?.label"
-  >
-    <a-space direction="vertical" fill>
-      <a-cascader
-        :options="options"
-        :style="{ width: '100%' }"
-        allow-search
-        path-mode
-        allow-clear
-        :multiple="false"
-      />
-      <a-textarea allow-clear />
-    </a-space>
-  </FormWidgetLayout>
+  <a-space direction="vertical" fill>
+    <a-cascader
+      expand-child
+      :options="options"
+      :style="{ width: '100%' }"
+      allow-clear
+    />
+    <a-textarea style="height: 80px" allow-clear />
+  </a-space>
 </template>
 
 <script setup lang="ts" name="input-render">
-  import FormWidgetLayout from 'src/widgets/common/form-widget-layout.vue';
   import { InputWidget } from '../../types';
 
   interface RenderProps {

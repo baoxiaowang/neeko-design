@@ -2,16 +2,16 @@
 import { InputWidget, WidgetConfig, WidgetType } from '../../types';
 import { createWidgetKey } from '../../utils';
 
-const type: WidgetType = 'file-upload';
+const type: WidgetType = 'rate';
 export default {
   type,
-  title: '文件上传',
+  title: '评分',
   icon: 'icon-text',
   childrenType: [] as WidgetType[],
   defaultVal() {
     return {
       type,
-      label: '文件上传',
+      label: '评分',
       key: createWidgetKey(type),
       codeStyle: '',
       width: '100',

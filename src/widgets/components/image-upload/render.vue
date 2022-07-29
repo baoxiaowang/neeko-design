@@ -1,26 +1,13 @@
 <template>
-  <FormWidgetLayout
-    data-mark="false"
-    :block="node.block"
-    :width="node.width"
-    :node="node"
-    :data-key="node.key"
-    :node-key="node.key"
-    :data-type="node.type"
-    class="input-render"
-    :label="node?.label"
-  >
-    <a-upload
-      list-type="picture-card"
-      action="/"
-      :default-file-list="fileList"
-      image-preview
-    />
-  </FormWidgetLayout>
+  <a-upload
+    list-type="picture-card"
+    action="/"
+    :default-file-list="fileList"
+    image-preview
+  />
 </template>
 
 <script setup lang="ts" name="input-render">
-  import FormWidgetLayout from 'src/widgets/common/form-widget-layout.vue';
   import { InputWidget } from '../../types';
 
   interface RenderProps {

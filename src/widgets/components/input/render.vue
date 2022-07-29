@@ -1,23 +1,15 @@
 <template>
-  <FormWidgetLayout
-    data-mark="false"
-    :block="node.block"
-    :width="node.width"
-    :node="node"
-    :data-key="node.key"
-    :node-key="node.key"
-    :data-type="node.type"
-    class="input-render"
-    :label="node?.label"
-  >
-    <a-input :placeholder="node.placeholder"></a-input>
-  </FormWidgetLayout>
+  <a-input
+    :placeholder="node.placeholder"
+    :size="isSubWidget ? 'small' : 'medium'"
+  ></a-input>
 </template>
 
 <script setup lang="ts" name="input-render">
-  import FormWidgetLayout from 'src/widgets/common/form-widget-layout.vue';
+  import useWidgetInject from '@/widgets/hooks/useWidgetInject';
   import { InputWidget } from '../../types';
 
+  const { isSubWidget } = useWidgetInject();
   interface RenderProps {
     node: InputWidget;
   }

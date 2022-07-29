@@ -1,10 +1,5 @@
 <template>
-  <a-button long>
-    <template #icon>
-      <icon-location />
-    </template>
-    获取位置
-  </a-button>
+  <a-rate />
 </template>
 
 <script setup lang="ts" name="input-render">

@@ -2,7 +2,10 @@
   <a-form-item
     field="name"
     class="form-widget-layout"
-    :class="{ 'form-widget__active': actived }"
+    :class="{
+      'form-widget__active': isDesign && actived,
+      'form-widget-layout__design': isDesign,
+    }"
     :style="widthStyle"
     :label="node?.label || ''"
     :required="!!node.rules?.required"
@@ -44,6 +47,7 @@
 <script setup lang="ts" name="form-widget-layout">
   import { useDesignStore } from '@/store';
   import { computed } from 'vue';
+  import useWidgetInject from '../hooks/useWidgetInject';
   import { FormWidget } from '../types';
 
   const store = useDesignStore();
@@ -53,6 +57,7 @@
     width: string;
     block?: number;
   }>();
+  const { designMode, isDesign } = useWidgetInject();
   // const emit = defineEmits({});
   const actived = computed(() => {
     return props.nodeKey === store.selectedKey;
@@ -66,6 +71,7 @@
     };
   });
   function formWidgetClick() {
+    if (!isDesign) return;
     store.setSelectKey(props.node.key);
   }
 </script>
@@ -77,13 +83,22 @@
     margin-bottom: 0 !important;
     padding: 12px;
     background: #fff;
-    // border-radius: 8px;
-    cursor: move;
     transition: all 0.1s;
     pointer-events: all;
 
-    &:hover {
-      background: #fafafb;
+    .widget-layout__body {
+      width: 100%;
+    }
+
+    &__design {
+      &:hover {
+        background: #fafafb;
+        cursor: move;
+      }
+
+      .widget-layout__body {
+        pointer-events: none;
+      }
     }
 
     // 标签
@@ -142,10 +157,5 @@
     .form-widget__tools {
       display: flex;
     }
-  }
-
-  .widget-layout__body {
-    width: 100%;
-    pointer-events: none;
   }
 </style>

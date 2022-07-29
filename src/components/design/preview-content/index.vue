@@ -1,20 +1,18 @@
 <template>
   <el-scrollbar>
-    <RenderWidgetVue
-      v-for="item in widgetList"
-      :key="item.key"
-      :meta="{}"
-      :state="{}"
-      :node="item"
-    >
-    </RenderWidgetVue>
+    <renderProvider :meta="{}" mode="runtime">
+      <RenderWidgetVue
+        v-for="item in widgetList"
+        :key="item.key"
+        :meta="{}"
+        :state="{}"
+        :node="item"
+      >
+      </RenderWidgetVue>
+    </renderProvider>
   </el-scrollbar>
 
-  <!-- <Tooltip
-    v-model:popup-visible="visible"
-    content="点击退出预览"
-    position="right"
-  >
+  <Tooltip v-if="previewDialogShow" content="点击退出预览" position="right">
     <Button
       status="normal"
       size="large"
@@ -24,7 +22,7 @@
     >
       <IconClose></IconClose>
     </Button>
-  </Tooltip> -->
+  </Tooltip>
 </template>
 
 <script setup lang="ts" name="preview-content">
@@ -33,10 +31,13 @@
   import RenderWidgetVue from '@/widgets/render/render-widget.vue';
   import { Button, Tooltip } from '@arco-design/web-vue';
   import { IconClose } from '@arco-design/web-vue/es/icon';
+  import renderProvider from '@/widgets/render/render-provider.vue';
 
   const store = useDesignStore();
   const widgetList = computed(() => store.widgetList);
+  const previewDialogShow = computed(() => store.previewDialogShow);
   const visible = ref<boolean>(false);
+  const mode = computed(() => store);
   const emit = defineEmits<{
     (e: 'close'): void;
   }>();

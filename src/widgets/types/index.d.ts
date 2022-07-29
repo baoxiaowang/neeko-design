@@ -1,5 +1,6 @@
 import type * as CSS from 'csstype';
 
+export type DesignMode = 'design' | 'runtime';
 export type WidgetType =
   | 'root'
   | 'text'
@@ -20,7 +21,9 @@ export type WidgetType =
   | 'address'
   | 'location'
   | 'image-upload'
-  | 'file-upload';
+  | 'file-upload'
+  | 'rate'
+  | 'subform';
 
 export interface Widget {
   type: WidgetType;

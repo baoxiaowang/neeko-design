@@ -1,21 +1,9 @@
 <template>
-  <FormWidgetLayout
-    data-mark="false"
-    :block="node.block"
-    :width="node.width"
-    :node="node"
-    :data-key="node.key"
-    :node-key="node.key"
-    :data-type="node.type"
-    class="input-render"
-    :label="node?.label"
-  >
-    <a-checkbox-group direction="vertical">
-      <a-checkbox value="1">选项一</a-checkbox>
-      <a-checkbox value="2">选项二</a-checkbox>
-      <a-checkbox value="3">选项三</a-checkbox>
-    </a-checkbox-group>
-  </FormWidgetLayout>
+  <a-checkbox-group direction="vertical">
+    <a-checkbox value="1">选项一</a-checkbox>
+    <a-checkbox value="2">选项二</a-checkbox>
+    <a-checkbox value="3">选项三</a-checkbox>
+  </a-checkbox-group>
 </template>
 
 <script setup lang="ts" name="input-render">

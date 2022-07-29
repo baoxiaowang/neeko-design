@@ -1063,6 +1063,7 @@ export const toolWidgetGroupMap = {
         widgetConfig['checkbox-group'],
         widgetConfig.select,
         widgetConfig['select-group'],
+        widgetConfig.rate,
         widgetConfig.divider,
       ],
     },
@@ -1072,8 +1073,19 @@ export const toolWidgetGroupMap = {
         widgetConfig.address,
         widgetConfig.location,
         widgetConfig['image-upload'],
+        widgetConfig['file-upload'],
+        widgetConfig.subform,
       ],
     },
+    // {
+    //   label: '高级字段',
+    //   list: [
+    //     widgetConfig.address,
+    //     widgetConfig.location,
+    //     widgetConfig['image-upload'],
+    //     widgetConfig['file-upload'],
+    //   ],
+    // },
     // {
     //   label: '组织架构',
     //   list: [],

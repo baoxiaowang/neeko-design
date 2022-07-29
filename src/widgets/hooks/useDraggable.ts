@@ -11,7 +11,6 @@ export default function useDraggable(node: Ref<Widget>) {
       return [...children];
     },
     set(val) {
-      console.log('set', Date.now());
       store.handlerWidgetUpdate({
         key: node.value.key,
         children: val,

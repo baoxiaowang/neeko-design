@@ -39,16 +39,14 @@
     <template #title>
       <div class="preview-header"> 页面预览 </div>
     </template>
-    <div>
-      <PreviewContent></PreviewContent>
+    <div class="designModel-body" :class="'designModel-body-' + designModel">
+      <PreviewContent v-if="visible" @close="close"></PreviewContent>
     </div>
   </a-modal>
 </template>
 
 <script setup lang="ts" name="top-bar">
   import { ref, watchEffect, h, computed } from 'vue';
-  import { Modal, Button } from '@arco-design/web-vue';
-  import RenderWidgetVue from '@/widgets/render/render-widget.vue';
   import { useDesignStore } from '@/store';
   import PreviewContent from '@/components/design/preview-content/index.vue';
   import { useRouter } from 'vue-router';
@@ -69,7 +67,7 @@
   function change(val: any) {
     emit('nameChange', val);
   }
-  const widgetList = computed(() => store.widgetList);
+  const designModel = computed(() => store.designMode);
   const visible = computed({
     get() {
       return store.previewDialogShow;
@@ -92,26 +90,10 @@
   }
   function previewPage() {
     store.previewDialogShow = true;
-    // const preModal = Modal.open({
-    //   title: '',
-    //   fullscreen: true,
-    //   simple: true,
-    //   footer: undefined,
-    //   renderToBody: true,
-    //   closable: true,
-    //   modalClass: 'preview-modal',
-
-    //   content: () =>
-    //     h(
-    //       'div',
-    //       { class: 'info-modal-content' },
-    //       h(PreviewContent, {
-    //         onClose() {
-    //           preModal.close();
-    //         },
-    //       })
-    //     ),
-    // });
+  }
+  function close() {
+    //
+    visible.value = false;
   }
 </script>
 
@@ -126,9 +108,24 @@
       box-shadow: 0 4px 6px #0c1f500a;
     }
 
+    .arco-modal-header {
+      display: none;
+    }
+
     .arco-modal-body {
-      height: calc(100% - 58px);
+      height: 100%;
       padding: 0;
+    }
+
+    .designModel-body {
+      height: 100%;
+      padding: 0 calc(50% - 412px);
+
+      &-form {
+        // width: 1200px;
+        margin: 0 auto;
+        background: #f9fafc;
+      }
     }
   }
 

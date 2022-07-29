@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts" name="root-render">
-  import { nextTick, toRefs } from 'vue';
+  import { nextTick, onMounted, toRefs } from 'vue';
   import WidgetSourceMap from '@/widgets/config.index';
   import draggable from '@/components/vue-draggable/src/vuedraggable';
   import usePreviewDrag from '@/widgets/hooks/usePreviewDrag';
@@ -38,6 +38,9 @@
     state: any;
     meta: any;
   }
+  const emit = defineEmits<{
+    (e: 'widgetMounted', k: string): void;
+  }>();
   const props = defineProps<IPropType>();
   const { node } = toRefs(props);
   const { list, onAdd } = usePreviewDrag(node);
@@ -51,6 +54,9 @@
     await nextTick();
     document.body.classList.remove('dragging');
   }
+  onMounted(() => {
+    emit('widgetMounted', 'root');
+  });
 </script>
 
 <style lang="less">

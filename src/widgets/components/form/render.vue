@@ -1,7 +1,7 @@
 <template>
   <div :style="style" :data-key="node.key" class="widget-form-render">
     <a-form :model="{}" :layout="layout">
-      <draggable
+      <VueDraggable
         v-model="list"
         item-key="key"
         class="form-body__panel"
@@ -18,15 +18,26 @@
         @dragstart="dragStart"
       >
         <template #item="{ element }">
-          <component
-            :is="getRenderWidget(element)"
+          <FormWidgetLayout
+            data-mark="false"
+            :block="element.block"
+            :width="element.width"
             :node="element"
-            :state="state"
-            :meta="meta"
+            :data-key="element.key"
+            :node-key="element.key"
+            :data-type="element.type"
+            class="input-render"
+            :label="element?.label"
           >
-          </component>
+            <component
+              :is="getRenderWidget(element)"
+              :node="element"
+              :state="state"
+              :meta="meta"
+            />
+          </FormWidgetLayout>
         </template>
-      </draggable>
+      </VueDraggable>
     </a-form>
   </div>
 </template>
@@ -34,10 +45,10 @@
 <script setup lang="ts" name="form-render">
   import { getRenderWidget } from '@/widgets/render';
   import { onMounted, ref, nextTick, computed, toRefs } from 'vue';
-  import WidgetSourceMap from '@/widgets/config.index';
-  import draggable from '@/components/vue-draggable/src/vuedraggable';
-  import { Widget, WidgetType } from '@/widgets/types';
+  import VueDraggable from '@/components/vue-draggable/src/vuedraggable';
+  import { Widget } from '@/widgets/types';
   import useDraggable from '@/widgets/hooks/useDraggable';
+  import FormWidgetLayout from '@/widgets/common/form-widget-layout.vue';
   import { styleToString } from '../../utils';
 
   const props = defineProps<{
@@ -68,10 +79,6 @@
 </script>
 
 <style lang="less">
-  .drag-item-class {
-    background: red !important;
-  }
-
   .widget-form-render {
     box-sizing: border-box;
     padding: 10px;
@@ -93,14 +100,6 @@
       & > div {
         visibility: hidden;
       }
-    }
-
-    .fallback-class {
-      background: red !important;
-    }
-
-    .chosen-class {
-      // background: red !important;
     }
 
     .form-body__panel {

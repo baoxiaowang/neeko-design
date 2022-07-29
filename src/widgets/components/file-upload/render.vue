@@ -1,32 +1,36 @@
 <template>
-  <FormWidgetLayout
-    data-mark="false"
-    :block="node.block"
-    :width="node.width"
-    :node="node"
-    :data-key="node.key"
-    :node-key="node.key"
-    :data-type="node.type"
-    class="input-render"
-    :label="node?.label"
-  >
-    <a-upload
-      list-type="picture-card"
-      action="/"
-      :default-file-list="fileList"
-      image-preview
-    />
-  </FormWidgetLayout>
+  <a-upload
+    action="/"
+    list-type="picture"
+    :default-file-list="fileList"
+    :custom-icon="getCustomIcon()"
+  />
 </template>
 
 <script setup lang="ts" name="input-render">
-  import FormWidgetLayout from 'src/widgets/common/form-widget-layout.vue';
+  import IconUpload from '@arco-design/web-vue/es/icon/icon-upload';
+  import IconFileAudio from '@arco-design/web-vue/es/icon/icon-file-audio';
+  import IconClose from '@arco-design/web-vue/es/icon/icon-close';
+  import IconFaceFrownFill from '@arco-design/web-vue/es/icon/icon-face-frown-fill';
+  import { h } from 'vue';
   import { InputWidget } from '../../types';
 
   interface RenderProps {
     node: InputWidget;
   }
   defineProps<RenderProps>();
+  const getCustomIcon = () => {
+    return {
+      retryIcon: () => h(IconUpload),
+      cancelIcon: () => h(IconClose),
+      fileIcon: () => h(IconFileAudio),
+      removeIcon: () => h(IconClose),
+      errorIcon: () => h(IconFaceFrownFill),
+      fileName: (file: any) => {
+        return `文件名： ${file.name}`;
+      },
+    };
+  };
   const fileList = [
     {
       uid: '-2',
