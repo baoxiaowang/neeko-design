@@ -46,6 +46,7 @@ export default defineConfig({
       },
       {
         find: 'vue',
+        // 'vue': 'vue/dist/vue.esm-bundler.js',
         replacement: 'vue/dist/vue.esm-bundler.js', // compile template
       },
     ],

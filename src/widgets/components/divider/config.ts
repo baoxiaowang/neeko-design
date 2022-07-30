@@ -6,7 +6,7 @@ const type: WidgetType = 'divider';
 export default {
   type,
   title: '分割线',
-  icon: 'icon-text',
+  icon: 'icon-separator',
   childrenType: [] as WidgetType[],
   defaultVal() {
     return {

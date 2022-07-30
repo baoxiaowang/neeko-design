@@ -6,7 +6,7 @@ const type: WidgetType = 'location';
 export default {
   type,
   title: '定位',
-  icon: 'icon-text',
+  icon: 'icon-map-pin-line',
   childrenType: [] as WidgetType[],
   defaultVal() {
     return {

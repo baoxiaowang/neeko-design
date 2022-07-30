@@ -23,7 +23,8 @@ export type WidgetType =
   | 'image-upload'
   | 'file-upload'
   | 'rate'
-  | 'subform';
+  | 'subform'
+  | 'code-render';
 
 export interface Widget {
   type: WidgetType;

@@ -6,7 +6,7 @@ const type: WidgetType = 'date-picker';
 export default {
   type,
   title: '时间日期',
-  icon: 'icon-text',
+  icon: 'icon-calendar-2-line',
   childrenType: [] as WidgetType[],
   defaultVal() {
     return {

@@ -6,7 +6,7 @@ const type: WidgetType = 'rate';
 export default {
   type,
   title: '评分',
-  icon: 'icon-text',
+  icon: 'icon-map-pin-range-line',
   childrenType: [] as WidgetType[],
   defaultVal() {
     return {

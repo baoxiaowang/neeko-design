@@ -6,7 +6,7 @@ const type: WidgetType = 'radio-group';
 export default {
   type,
   title: '单选框组',
-  icon: 'icon-text',
+  icon: 'icon-radio-button-line',
   childrenType: [] as WidgetType[],
   defaultVal() {
     return {

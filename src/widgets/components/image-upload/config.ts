@@ -6,7 +6,7 @@ const type: WidgetType = 'image-upload';
 export default {
   type,
   title: '图片上传',
-  icon: 'icon-text',
+  icon: 'icon-image-add-line',
   childrenType: [] as WidgetType[],
   defaultVal() {
     return {

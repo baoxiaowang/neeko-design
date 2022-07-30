@@ -1,5 +1,25 @@
 <template>
+  <a-popover
+    v-if="isSubWidget"
+    :content-style="{ width: '300px' }"
+    position="bottom"
+    trigger="click"
+  >
+    <div class="arco-input-wrapper image-render__sub" style="height: 32px">
+      <span
+        v-for="(item, index) in fileList"
+        :key="index"
+        class="image-render__sub-item"
+      >
+        <img :src="item.url" alt="" />
+      </span>
+    </div>
+    <template #content>
+      <file-render></file-render>
+    </template>
+  </a-popover>
   <a-upload
+    v-else
     action="/"
     list-type="picture"
     :default-file-list="fileList"
@@ -7,18 +27,21 @@
   />
 </template>
 
-<script setup lang="ts" name="input-render">
+<script setup lang="ts" name="file-render">
   import IconUpload from '@arco-design/web-vue/es/icon/icon-upload';
   import IconFileAudio from '@arco-design/web-vue/es/icon/icon-file-audio';
   import IconClose from '@arco-design/web-vue/es/icon/icon-close';
   import IconFaceFrownFill from '@arco-design/web-vue/es/icon/icon-face-frown-fill';
-  import { h } from 'vue';
+  import { h, provide } from 'vue';
+  import useWidgetInject from '@/widgets/hooks/useWidgetInject';
   import { InputWidget } from '../../types';
 
   interface RenderProps {
     node: InputWidget;
   }
   defineProps<RenderProps>();
+  const { isSubWidget } = useWidgetInject();
+  provide('isSubWidget', false);
   const getCustomIcon = () => {
     return {
       retryIcon: () => h(IconUpload),
@@ -27,7 +50,7 @@
       removeIcon: () => h(IconClose),
       errorIcon: () => h(IconFaceFrownFill),
       fileName: (file: any) => {
-        return `文件名： ${file.name}`;
+        return `${file.name}`;
       },
     };
   };

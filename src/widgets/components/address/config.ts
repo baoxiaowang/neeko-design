@@ -6,7 +6,7 @@ const type: WidgetType = 'address';
 export default {
   type,
   title: '地址',
-  icon: 'icon-text',
+  icon: 'icon-map-pin-range-line',
   childrenType: [] as WidgetType[],
   defaultVal() {
     return {

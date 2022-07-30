@@ -6,7 +6,7 @@ const type: WidgetType = 'select';
 export default {
   type,
   title: '下拉单选',
-  icon: 'icon-text',
+  icon: 'icon-select',
   childrenType: [] as WidgetType[],
   defaultVal() {
     return {

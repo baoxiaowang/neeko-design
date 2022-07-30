@@ -1,5 +1,26 @@
 <template>
+  <a-popover
+    v-if="isSubWidget"
+    :content-style="{ width: '300px' }"
+    position="bottom"
+    trigger="click"
+  >
+    <div class="arco-input-wrapper image-render__sub" style="height: 32px">
+      <span
+        v-for="(item, index) in fileList"
+        :key="index"
+        class="image-render__sub-item"
+      >
+        <img :src="item.url" alt="" />
+      </span>
+    </div>
+    <template #content>
+      <input-render></input-render>
+    </template>
+  </a-popover>
+
   <a-upload
+    v-else
     list-type="picture-card"
     action="/"
     :default-file-list="fileList"
@@ -8,7 +29,12 @@
 </template>
 
 <script setup lang="ts" name="input-render">
+  import useWidgetInject from '@/widgets/hooks/useWidgetInject';
+  import { provide } from 'vue';
   import { InputWidget } from '../../types';
+
+  const { isSubWidget } = useWidgetInject();
+  provide('isSubWidget', false);
 
   interface RenderProps {
     node: InputWidget;
@@ -31,4 +57,21 @@
 <style lang="less">
   // .input-render {
   // }
+  .image-render__sub {
+    display: flex;
+    align-items: center;
+    padding-left: 6px;
+    cursor: pointer !important;
+  }
+
+  .image-render__sub-item {
+    width: 24px;
+    height: 24px;
+    margin-right: 4px;
+    background: red;
+
+    & > img {
+      height: 100%;
+    }
+  }
 </style>

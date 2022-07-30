@@ -6,7 +6,7 @@ const type: WidgetType = 'select-group';
 export default {
   type,
   title: '下拉复选',
-  icon: 'icon-text',
+  icon: 'icon-select-group',
   childrenType: [] as WidgetType[],
   defaultVal() {
     return {

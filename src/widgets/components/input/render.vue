@@ -1,8 +1,5 @@
 <template>
-  <a-input
-    :placeholder="node.placeholder"
-    :size="isSubWidget ? 'small' : 'medium'"
-  ></a-input>
+  <a-input :placeholder="node.placeholder"></a-input>
 </template>
 
 <script setup lang="ts" name="input-render">

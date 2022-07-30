@@ -1,19 +1,21 @@
 import { WidgetConfig, WidgetType } from '../../types';
 import { createWidgetKey } from '../../utils';
 
-const type: WidgetType = 'textarea';
-export default {
+const type: WidgetType = 'code-render';
+const Text = {
   type,
-  title: '多行文本',
-  icon: 'icon-input-method-line',
+  icon: 'icon-text',
+  title: '文本',
   childrenType: [] as WidgetType[],
   defaultVal() {
     return {
       type,
-      label: '多行文本',
       key: createWidgetKey(type),
+      config: {
+        text: '文本',
+      },
       codeStyle: '',
-      config: {},
     };
   },
 } as WidgetConfig;
+export default Text;

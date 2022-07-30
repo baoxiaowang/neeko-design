@@ -6,7 +6,7 @@ const type: WidgetType = 'input';
 export default {
   type,
   title: '单行文本',
-  icon: 'icon-text',
+  icon: 'icon-t-box-line',
   childrenType: [] as WidgetType[],
   defaultVal() {
     return {

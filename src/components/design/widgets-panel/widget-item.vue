@@ -1,11 +1,12 @@
 <template>
   <div :data-type="config?.type" class="widget-item">
     <div class="widget-icon">
-      <svg-icon
+      <!-- <svg-icon
         color="rgb(var(--arcoblue-6))"
         :name="config?.icon"
         size="14px"
-      />
+      /> -->
+      <IconFont :type="config?.icon" :size="14"></IconFont>
     </div>
     <div class="widget-name">
       {{ config?.title }}
@@ -14,9 +15,7 @@
 </template>
 
 <script setup lang="ts" name="widget-item">
-  import WidgetEditors from '@/widgets/config.index';
-  import { WidgetConfig, WidgetType } from '@/widgets/types';
-  import { computed } from 'vue';
+  import { WidgetConfig } from '@/widgets/types';
 
   const props = defineProps<{
     config: WidgetConfig;
@@ -32,7 +31,7 @@
     height: 32px;
     margin-bottom: 8px;
     // padding: 0 8px;
-    padding-left: 10px;
+    padding-left: 8px;
     color: #666;
     border: 1px solid var(--color-neutral-3);
     border-radius: 4px;
@@ -49,8 +48,12 @@
       display: flex;
       align-items: center;
       margin-right: 8px;
-      color: rgb(var(--arcoblue-6));
-      font-size: 12px;
+      color: rgb(var(--color-neutral-3));
+      font-size: 14px;
+
+      &:hover {
+        color: rgb(var(--arcoblue-6));
+      }
     }
 
     .widget-name {

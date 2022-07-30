@@ -7,7 +7,7 @@ export default {
   type,
   // editor: Editor,
   title: '子表单',
-  icon: 'icon-image',
+  icon: 'icon-database-line',
   childrenType: ['input', 'textarea'],
   canCopy: false,
   canDel: false,

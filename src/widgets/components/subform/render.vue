@@ -9,6 +9,7 @@
 
     <VueDraggable
       v-model="list"
+      :disabled="!isDesign"
       item-key="key"
       class="subform-body__panel"
       ghost-class="ghost-subform-item"
@@ -32,7 +33,15 @@
               <div class="resizebox-demo-line" />
             </div>
           </template> -->
-          <div class="subform-item__cell">
+          <div
+            class="subform-item__cell subform-item__cell-widget"
+            :class="{
+              'subform-item__cell-widget--design': isDesign,
+              'subform-item__cell-widget--active':
+                isDesign && element.key === store.selectedKey,
+            }"
+            @click.stop="subWidgetClick(element)"
+          >
             <div class="subform-item__title subform__th">
               {{ element.label }}
             </div>
@@ -57,8 +66,8 @@
   import VueDraggable from '@/components/vue-draggable/src/vuedraggable';
   import { Widget } from '@/widgets/types';
   import useDraggable from '@/widgets/hooks/useDraggable';
-  import widgetConfigs from '@/widgets/config.index';
-  import { Space } from '@arco-design/web-vue';
+  import useWidgetInject from '@/widgets/hooks/useWidgetInject';
+  import { useDesignStore } from '@/store';
   import { styleToString } from '../../utils';
 
   const props = defineProps<{
@@ -67,16 +76,15 @@
     meta: any;
   }>();
   provide('isSubWidget', true);
+  const { isDesign } = useWidgetInject();
   const layout = ref<'vertical'>('vertical');
   const style = computed<any>(() => {
     return styleToString(props.node.codeStyle);
   });
-  const test = [
-    widgetConfigs.input.defaultVal(),
-    widgetConfigs.input.defaultVal(),
-  ];
+
   const { node } = toRefs(props);
   const { list, onUpdate, onAdd } = useDraggable(node);
+  const store = useDesignStore();
 
   function dragStart() {
     document.body.classList.add('dragging');
@@ -89,6 +97,10 @@
   onMounted(() => {
     //
   });
+  function subWidgetClick(widget: Widget) {
+    debugger;
+    store.setSelectKey(widget.key);
+  }
 </script>
 
 <style lang="less">
@@ -159,7 +171,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 36px;
+        height: 40px;
         padding: 0 6px;
         border-bottom: 1px solid var(--color-neutral-3);
 
@@ -169,13 +181,37 @@
       }
 
       &:nth-child(1) {
-        border-left: 1px solid var(--color-neutral-3);
+        // border-left: 1px solid var(--color-neutral-3);
       }
     }
 
     .subform-item__cell-index {
       width: @index-cell-width;
       background: #fff;
+    }
+
+    .subform-item__cell-widget {
+      border: 1px solid var(--color-neutral-3);
+      pointer-events: all;
+      // border-left: 1px solid transparent !important;
+      // border-right: 1px solid transparent !important;
+      &--design {
+        &:hover {
+          background: #fafafb;
+          border: 1px dashed rgb(var(--arcoblue-5));
+          cursor: move;
+        }
+
+        .subform__td {
+          pointer-events: none;
+        }
+      }
+
+      &--active {
+        position: relative;
+        z-index: 100;
+        border: 1px solid rgb(var(--arcoblue-6)) !important;
+      }
     }
 
     .ghost-subform-item {
@@ -192,12 +228,17 @@
 
     .subform-index__panel {
       padding-bottom: 20px;
+
+      .subform-item__cell-index {
+        border-left: 1px solid var(--color-neutral-3);
+      }
     }
 
     .subform-body__panel {
       display: flex;
       flex-wrap: nowrap;
       width: calc(100% - 60px);
+      padding-right: 20px;
       padding-bottom: 20px;
       overflow-x: scroll;
       overflow-y: hidden;

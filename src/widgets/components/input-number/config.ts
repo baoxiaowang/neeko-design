@@ -6,7 +6,7 @@ const type: WidgetType = 'input-number';
 export default {
   type,
   title: '数字',
-  icon: 'icon-text',
+  icon: 'icon-input-number',
   childrenType: [] as WidgetType[],
   defaultVal() {
     return {

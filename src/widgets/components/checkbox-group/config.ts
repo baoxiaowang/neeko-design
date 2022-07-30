@@ -6,7 +6,7 @@ const type: WidgetType = 'checkbox-group';
 export default {
   type,
   title: '复选框组',
-  icon: 'icon-text',
+  icon: 'icon-checkbox-multiple-line',
   childrenType: [] as WidgetType[],
   defaultVal() {
     return {
