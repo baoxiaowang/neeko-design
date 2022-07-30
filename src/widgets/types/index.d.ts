@@ -41,6 +41,12 @@ export interface TextWidget extends Widget {
   };
 }
 
+export interface CodeRenderWidget extends Widget {
+  config: {
+    code: string;
+  };
+}
+
 export interface ImageWidget extends Widget {
   config: {
     url?: string;

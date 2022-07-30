@@ -5,6 +5,7 @@
 </template>
 
 <script lang="ts" setup>
+  import { debounce } from 'lodash-es';
   import { onMounted, ref, watchEffect } from 'vue';
   // 核心
   import codeMirror, {
@@ -16,12 +17,15 @@
   import 'codemirror/lib/codemirror.css';
 
   // 主题 theme style
-  // import "codemirror/theme/base16-light.css";
+  // import 'codemirror/theme/base16-light.css';
   // import "codemirror/theme/base16-dark.css";
 
   // 语言 mode
   import 'codemirror/mode/javascript/javascript';
   import 'codemirror/mode/css/css';
+  import 'codemirror/mode/vue/vue';
+  // eslint-disable-next-line import/no-unresolved
+  // import 'code/mode/vue/vue';
 
   // 括号/标签 匹配
   import 'codemirror/addon/edit/matchbrackets';
@@ -45,7 +49,7 @@
 
   // 引入keymap
   import 'codemirror/addon/comment/comment';
-  // import "codemirror/keymap/sublime";
+  import 'codemirror/keymap/sublime';
 
   // 引入代码提示
   import 'codemirror/addon/hint/show-hint.css';
@@ -64,6 +68,7 @@
     styleActiveLine: false,
     lineNumbers: false,
     autofocus: false,
+    foldGutter: true,
     hint: codeMirror.hint.javascript,
   };
 
@@ -76,6 +81,9 @@
   const emit = defineEmits<{
     (e: 'update:value', d: string): void;
   }>();
+  const emitChange = debounce(function emitChange(val: string) {
+    emit('update:value', val);
+  }, 200);
   const el = ref<HTMLElement | null>(null);
   function initCodemirror() {
     const megeOpt = {
@@ -90,6 +98,7 @@
       lineNumbers,
       mode,
       autofocus,
+      foldGutter,
     } = megeOpt;
 
     // codeEditor?.toTextArea();
@@ -109,17 +118,17 @@
         autoCloseTags: true, // 标签自动关闭
         matchTags: true, // 标签匹配
         matchBrackets, // 括号匹配
-        foldGutter: true, // 代码折叠
+        foldGutter, // 代码折叠
         readOnly: false,
         showCursorWhenSelecting: true,
-        // keyMap: "sublime",
+        keyMap: 'sublime',
         smartIndent: true,
         autofocus,
         showHint: true,
         hintOptions: {
           completeSingle: false,
           alignWithWord: true,
-          hint: props.hintFunc || codeMirror.hint.javascript,
+          hint: props.hintFunc || codeMirror.hint.auto,
         },
       }
     );
@@ -142,13 +151,14 @@
       // 自动补全的时候，也会触发change事件，所有坐下判断，以免死循环，正则是为了不让空格，换行之类的也提示
       // 通过change对象你可以自定义一些规则去判断是否提示
       // && /\w|\./g.test(change.text[0])
-      if (change.origin !== 'complete') {
+      console.log('instance', instance);
+      const val = instance.getValue();
+      if (change.origin === '+input') {
         instance.showHint();
+        console.log(change.origin);
+        // emit('update:value', val);
+        emitChange(val);
       }
-      // const val = instance.getValue()
-      // if (val !== props.value) {
-      //   emit("update:value", val);
-      // }
     });
     codeEditor.on('blur', (instance, change) => {
       const val = instance.getValue();
@@ -157,16 +167,6 @@
       }
     });
     return codeEditor;
-    // codeEditor.on("mousedown", (cm) => {
-    //   // this.selection.from = cm.getCursor()
-    // });
-    // watchEffect(() => {
-    //   const val = this.value || '';
-    //   const currentVal = codeEditor.getValue()
-    //   if (val !== currentVal) {
-    //     codeEditor.setValue(this.value);
-    //   }
-    // });
   }
   onMounted(() => {
     const codeEditor = initCodemirror();
@@ -182,7 +182,7 @@
 
 <style lang="less">
   body .CodeMirror-hints {
-    z-index: 999;
+    z-index: 9999;
   }
 
   .codemirror-editor {

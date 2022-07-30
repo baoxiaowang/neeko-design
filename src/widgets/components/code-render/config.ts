@@ -5,14 +5,14 @@ const type: WidgetType = 'code-render';
 const Text = {
   type,
   icon: 'icon-text',
-  title: '文本',
+  title: '代码块',
   childrenType: [] as WidgetType[],
   defaultVal() {
     return {
       type,
       key: createWidgetKey(type),
       config: {
-        text: '文本',
+        code: `<template>\n  <div class="demo">\n    <a-button type="primary">{{name}}</a-button>\n  </div>\n</template>\n\x3Cscript>\n  export default {\n    data(){\n      return {\n        name: '按钮',\n      }\n    },\n    created(){\n    }\n  }\n\x3C/script>\n<style>\n  .demo {\n    padding: 10px;\n  }\n</style>`,
       },
       codeStyle: '',
     };

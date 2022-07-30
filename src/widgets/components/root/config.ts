@@ -8,7 +8,14 @@ export default {
   // editor: Editor,
   icon: 'icon-page',
   title: '页面',
-  childrenType: ['container', 'text', 'image', 'column', 'row'] as WidgetType[],
+  childrenType: [
+    'container',
+    'text',
+    'image',
+    'column',
+    'row',
+    'code-render',
+  ] as WidgetType[],
   defaultVal() {
     return {
       type,

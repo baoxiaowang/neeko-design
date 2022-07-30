@@ -1,20 +1,43 @@
 <template>
   <div class="text-edtior">
-    <EditorLayout :node="node" :change="change">
+    <EditorLayout :node="node" :change="otherChange">
       <config-block required label="内容">
-        <!-- <CodemirrorEditor
-          :options="options"
-          class="text-value-editor"
-          :value="node?.config?.text || ''"
-          :hint-func="hint"
-          @update:value="changeValue"
-        /> -->
-        <a-input
-          :model-value="node.config.text"
-          @update:model-value="changeText"
-        ></a-input>
+        <a-button type="text" @click="showEditor">
+          <template #icon><icon-code /></template>
+        </a-button>
       </config-block>
     </EditorLayout>
+    <a-drawer
+      :visible="visible"
+      width="100%"
+      unmount-on-close
+      @ok="handleOk"
+      @cancel="handleCancel"
+    >
+      <template #title>代码块</template>
+
+      <a-split
+        v-model="size"
+        :style="{
+          height: '100%',
+          width: '100%',
+          minWidth: '500px',
+          border: '1px solid var(--color-border)',
+        }"
+        min="80px"
+      >
+        <template #first>
+          <CodeRender :state="{}" :meta="{}" :node="currentNode" />
+        </template>
+        <template #second>
+          <vueEditorVue
+            class="code-render__editor"
+            :value="node?.config?.code || ''"
+            @update:value="changeValue"
+          />
+        </template>
+      </a-split>
+    </a-drawer>
   </div>
 </template>
 
@@ -24,56 +47,53 @@
     Editor,
     // ShowHintOptions,
   } from 'codemirror';
-
+  import { ref, computed } from 'vue';
   import ConfigBlock from '@/widgets/common/config-block.vue';
   import CodemirrorEditor from '@/components/codemirror-editor/base.vue';
   import EditorLayout from '@/widgets/common/element-editor-layout.vue';
-  import { TextWidget } from '@/widgets/types';
+  import { CodeRenderWidget, TextWidget, Widget } from '@/widgets/types';
+  import vueEditorVue from '@/components/codemirror-editor/vue-editor/vue-editor.vue';
+  import CodeRender from '@/widgets/components/code-render/render.vue';
+  import { vi } from 'element-plus/es/locale';
 
   const props = defineProps<{
-    node: TextWidget;
-    change: (e: Partial<TextWidget>) => void;
+    node: CodeRenderWidget;
+    change: (e: Partial<CodeRenderWidget>) => void;
   }>();
-  function changeValue() {
-    //
+
+  const visible = ref(false);
+  const size = ref(0.5);
+  const currentCode = ref('');
+  const currentNode = computed(() => {
+    return {
+      ...props.node,
+      key: `${props.node.key}_editor`,
+      config: {
+        code: currentCode.value,
+      },
+    };
+  });
+  function showEditor() {
+    currentCode.value = props.node.config.code;
+    visible.value = true;
   }
-  function changeText(val: string) {
+  function otherChange(e: Partial<Widget>) {
+    props.change(e as Partial<CodeRenderWidget>);
+  }
+  function changeValue(val: string) {
+    currentCode.value = val;
+  }
+  function handleOk() {
     props.change({
       config: {
-        text: val,
+        code: currentCode.value,
       },
     });
+    visible.value = false;
   }
-  const options: EditorConfiguration = {};
-  // _: ShowHintOptions
-  const hint = (editor: Editor) => {
-    const WORD = /[\w+.$]+/;
-    const cursor = editor.getCursor(); // 光标
-    const curLine = editor.getLine(cursor.line); // 行内容
-    let start = cursor.ch;
-    const end = cursor.ch;
-    while (start && WORD.test(curLine.charAt(start - 1))) {
-      start -= 1;
-    }
-    const old = editor.getRange(
-      {
-        line: cursor.line,
-        ch: start,
-      },
-      {
-        line: cursor.line,
-        ch: end,
-      }
-    );
-    return {
-      from: codeMirror.Pos(cursor.line, start),
-      to: codeMirror.Pos(cursor.line, end),
-      list: ['state', 'state.name', 'Date', ''].filter((i) => {
-        if (!old.trim()) return false;
-        return new RegExp(old).test(i);
-      }),
-    };
-  };
+  function handleCancel() {
+    visible.value = false;
+  }
 </script>
 
 <style lang="less">
@@ -82,6 +102,14 @@
 
     .text-value-editor .CodeMirror {
       height: 100px !important;
+    }
+  }
+
+  .code-render__editor {
+    height: 100%;
+
+    .CodeMirror {
+      height: 100%;
     }
   }
 </style>

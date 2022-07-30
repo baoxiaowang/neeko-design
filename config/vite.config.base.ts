@@ -49,6 +49,10 @@ export default defineConfig({
         // 'vue': 'vue/dist/vue.esm-bundler.js',
         replacement: 'vue/dist/vue.esm-bundler.js', // compile template
       },
+      {
+        find: 'code',
+        replacement: 'codemirror', // compile template
+      },
     ],
     extensions: ['.ts', '.js'],
   },
