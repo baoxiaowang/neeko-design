@@ -5,7 +5,7 @@ const type: WidgetType = 'image';
 export default {
   type,
   title: '图片',
-  icon: 'icon-image',
+  icon: 'icon-image-add-line',
   childrenType: [] as WidgetType[],
   defaultVal() {
     return {

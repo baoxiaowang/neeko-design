@@ -1,7 +1,8 @@
 <template>
   <div class="widget-item-card">
     <div class="widget-item-icon">
-      <svg-icon :name="icon" size="24px" color="#000" />
+      <!-- <svg-icon :name="icon" size="24px" color="#000" /> -->
+      <span class="iconfont widget-item__icon" :class="icon"></span>
     </div>
     <div class="widget-item-label">
       {{ label }}
@@ -31,6 +32,13 @@
 
     &:hover {
       background: rgba(#000, 0.1);
+    }
+
+    .widget-item-icon {
+    }
+
+    .widget-item__icon {
+      font-size: 24px;
     }
   }
 </style>

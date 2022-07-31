@@ -45,6 +45,8 @@ export default function configStyleImportPlugin() {
             'option',
             'optgroup',
             'icon',
+            'icon-component',
+            'button-group',
           ];
           // List of components that need to map imported styles
           // 需要映射引入样式的组件列表
@@ -71,6 +73,7 @@ export default function configStyleImportPlugin() {
             'image-preview': 'image',
             'image-preview-group': 'image',
             'button-group': 'button',
+            'icon': 'icon-component',
           };
           if (ignoreList.includes(name)) return '';
           // eslint-disable-next-line no-prototype-builtins

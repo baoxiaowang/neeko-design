@@ -9,7 +9,7 @@ export default {
   type,
   // editor: Editor,
   title: '列',
-  icon: 'icon-column',
+  icon: 'icon-layout-row-line',
   childrenType: ['container', 'text', 'image', 'row', 'column'].concat(
     formWidgetTypes
   ) as WidgetType[],

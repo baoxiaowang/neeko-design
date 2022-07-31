@@ -6,7 +6,8 @@
         :name="config?.icon"
         size="14px"
       /> -->
-      <IconFont :type="config?.icon" :size="14"></IconFont>
+      <!-- <IconFont :type="config?.icon" :size="14"></IconFont> -->
+      <span class="iconfont" :class="config?.icon"></span>
     </div>
     <div class="widget-name">
       {{ config?.title }}

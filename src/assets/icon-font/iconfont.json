@@ -1,0 +1,177 @@
+{
+  "id": "3555335",
+  "name": "neeko-design",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "5596032",
+      "name": "9",
+      "font_class": "select-group",
+      "unicode": "e6e6",
+      "unicode_decimal": 59110
+    },
+    {
+      "icon_id": "5596010",
+      "name": "3",
+      "font_class": "input-number",
+      "unicode": "e6e0",
+      "unicode_decimal": 59104
+    },
+    {
+      "icon_id": "5596031",
+      "name": "8",
+      "font_class": "select",
+      "unicode": "e6e5",
+      "unicode_decimal": 59109
+    },
+    {
+      "icon_id": "30958116",
+      "name": "font-size",
+      "font_class": "font-size",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "30958117",
+      "name": "database-line",
+      "font_class": "database-line",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "30958118",
+      "name": "code-box-line",
+      "font_class": "code-box-line1",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "30958119",
+      "name": "global-line",
+      "font_class": "global-line",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "30958120",
+      "name": "image-add-line",
+      "font_class": "image-add-line",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "30958121",
+      "name": "code-s-slash-line",
+      "font_class": "code-s-slash-line",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "30958122",
+      "name": "input-method-line",
+      "font_class": "input-method-line",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "30958123",
+      "name": "layout-row-line",
+      "font_class": "layout-row-line",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "30958124",
+      "name": "map-pin-range-line",
+      "font_class": "map-pin-range-line",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "30958125",
+      "name": "map-pin-line",
+      "font_class": "map-pin-line",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "30958126",
+      "name": "layout-column-line",
+      "font_class": "layout-column-line",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "30958127",
+      "name": "node-tree",
+      "font_class": "node-tree",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
+      "icon_id": "30958128",
+      "name": "separator",
+      "font_class": "separator",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "30958129",
+      "name": "organization-chart",
+      "font_class": "organization-chart",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "30958130",
+      "name": "t-box-line",
+      "font_class": "t-box-line",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "30958131",
+      "name": "radio-button-line",
+      "font_class": "radio-button-line",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "30949441",
+      "name": "checkbox-multiple-line",
+      "font_class": "checkbox-multiple-line",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "30949442",
+      "name": "code-box-fill",
+      "font_class": "code-box-fill",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "30949443",
+      "name": "checkbox-line",
+      "font_class": "checkbox-line",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "30949444",
+      "name": "code-box-line",
+      "font_class": "code-box-line",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "30946284",
+      "name": "calendar-2-line",
+      "font_class": "calendar-2-line",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    }
+  ]
+}

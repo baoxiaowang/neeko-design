@@ -12,12 +12,17 @@
       v-model:selected-keys="selectWidgetProps"
       size="mini"
       block-node
+      draggable
       :data="page"
       :show-line="true"
       :default-expand-selected="true"
       :default-expanded-keys="defaltExpanded"
+      :allow-drop="allowDrop"
       @select="handleNodeClick"
+      @drag-start="dragStart"
+      @drop="onDrop"
     >
+      <template #drag-icon></template>
       <template #title="data">
         <TreeNode :actived="data.key === selectKey" :node="data" :data="data">
         </TreeNode>
@@ -52,6 +57,7 @@
     onMounted,
     onUnmounted,
     watch,
+    nextTick,
   } from 'vue';
   import TreeNode from './tree-node.vue';
 
@@ -124,9 +130,26 @@
       store.handlerWidgetDelete(node);
     }
   }
+
   const selectKey = computed(() => store.selectedKey);
 
   const widgetTree = ref(null);
+  // const page = ref([
+  //   {
+  //     key: 'root',
+  //     type: 'root',
+  //     children: [
+  //       {
+  //         key: 'text_1',
+  //         type: 'image',
+  //       },
+  //       {
+  //         key: 'text_2',
+  //         type: 'text',
+  //       },
+  //     ],
+  //   },
+  // ]);
   const page = computed(() => {
     function format(node: Widget) {
       const slotChildren: Widget[] = [];
@@ -151,6 +174,93 @@
     }
     return widgetData.value.map((item) => format(item));
   });
+  const dragKey = ref('');
+  function allowDrop({ dropNode, dropPosition }: any) {
+    const dropKey = dropNode.key;
+    const parentNode = store.widgetParentMap[dragKey.value];
+    const children = parentNode?.children || [];
+
+    // 不能拖成子集，且只能在同级拖拽
+    return dropPosition !== 0 && children.some((item) => item.key === dropKey);
+  }
+  function dragStart(event: any) {
+    const { nodeKey } = event.target.querySelector('.tree-node')?.dataset || {};
+    dragKey.value = nodeKey;
+    // store.setSelectKey('');
+  }
+  function onDrop({ dragNode, dropNode, dropPosition }: any) {
+    console.log(dragNode.key, dropNode.key, dropPosition, '##');
+    const parent = store.widgetParentMap[dragNode.key];
+    const dragIndex = parent?.children?.findIndex(
+      (item) => item.key === dragNode.key
+    );
+
+    if (parent?.children && dragIndex !== undefined) {
+      const newChildren = [...parent?.children];
+      // newChildren.splice(dragIndex, 1);
+      // 放到了目标上面
+      // if (dropPosition === -1) {
+      //   console.log('放到了上面');
+      //   newChildren.splice(dropIndex, 0, dragNode);
+      //   newChildren.splice(dragIndex + 1, 1);
+      // } else if (dropPosition === 1) {
+      //   console.log('放到了下面');
+      //   newChildren.splice(dropIndex + 1, 0, dragNode);
+      //   newChildren.splice(dragIndex, 1);
+      // }
+      newChildren.splice(dragIndex, 1);
+      const dropIndex = newChildren.findIndex(
+        (item) => item.key === dropNode.key
+      );
+      newChildren.splice(
+        dropPosition < 0 ? dropIndex : dropIndex + 1,
+        0,
+        dragNode
+      );
+      console.log(newChildren.map((item) => item.key));
+      store.handlerWidgetUpdate({
+        ...parent,
+        children: newChildren,
+      });
+      store.setSelectKey(parent.key);
+      nextTick(() => {
+        store.setSelectKey(dragNode.key);
+      });
+    }
+
+    // console.log(dragNode.key, dropNode.key);
+    // const treeData = page.value;
+    // const loop = (data: Widget[], key: string, callback: any) => {
+    //   data.some((item, index, arr) => {
+    //     if (item.key === key) {
+    //       callback(item, index, arr);
+    //       return true;
+    //     }
+    //     if (item.children) {
+    //       return loop(item.children, key, callback);
+    //     }
+    //     return false;
+    //   });
+    // };
+
+    // loop(treeData, dragNode.key, (_: any, index: any, arr: any) => {
+    //   // const parent = store.widgetParentMap;
+    //   // const children = parent.children || [];
+    //   // children.splice(index, 1);
+    //   arr.splice(index, 1);
+    // });
+    // if (dropPosition === 0) {
+    //   loop(treeData, dropNode.key, (item: any) => {
+    //     item.children = item.children || [];
+    //     item.children.push(dragNode);
+    //   });
+    // } else {
+
+    // loop(treeData, dropNode.key, (_: any, index: any, arr: any) => {
+    //   arr.splice(dropPosition < 0 ? index : index + 1, 0, dragNode);
+    // });
+    // }
+  }
 
   watchEffect(() => {
     (widgetTree.value as any)?.setCurrentKey(selectKey.value);

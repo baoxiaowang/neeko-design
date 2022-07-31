@@ -1,5 +1,5 @@
 <template>
-  <div class="tree-node">
+  <div class="tree-node" :data-node-key="data.key">
     <div class="node-label">{{ nodeLabel || data.type }}</div>
   </div>
 </template>

@@ -4,7 +4,7 @@ import { createWidgetKey } from '../../utils';
 const type: WidgetType = 'text';
 const Text = {
   type,
-  icon: 'icon-text',
+  icon: 'icon-t-box-line',
   title: '文本',
   childrenType: [] as WidgetType[],
   defaultVal() {

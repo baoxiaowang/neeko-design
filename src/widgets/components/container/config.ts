@@ -5,7 +5,7 @@ const type: WidgetType = 'container';
 export default {
   type,
   title: '容器',
-  icon: 'icon-container',
+  icon: 'icon-t-box-line',
   childrenType: ['container', 'text', 'image', 'row', 'column'] as WidgetType[],
   defaultVal() {
     return {

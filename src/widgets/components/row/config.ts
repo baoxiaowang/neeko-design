@@ -5,7 +5,7 @@ const type: WidgetType = 'row';
 export default {
   type,
   title: '行',
-  icon: 'icon-row',
+  icon: 'icon-layout-column-line',
   canDel: false,
   childrenType: ['container', 'text', 'image', 'row', 'column'] as WidgetType[],
   defaultVal() {

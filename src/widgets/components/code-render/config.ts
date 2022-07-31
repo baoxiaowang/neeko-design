@@ -4,7 +4,7 @@ import { createWidgetKey } from '../../utils';
 const type: WidgetType = 'code-render';
 const Text = {
   type,
-  icon: 'icon-text',
+  icon: 'icon-code-box-line1',
   title: '代码块',
   childrenType: [] as WidgetType[],
   defaultVal() {
