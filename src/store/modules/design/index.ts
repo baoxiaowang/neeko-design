@@ -46,7 +46,7 @@ function formatData(
 }
 const useDesignStore = defineStore('design', {
   state: (): DesignState => ({
-    designMode: 'page',
+    designType: 'page',
     widgetList: [],
     widgetMap: reactive({}),
     widgetParentMap: reactive({}),
@@ -106,7 +106,7 @@ const useDesignStore = defineStore('design', {
         selectedKey: selectKey,
         selectWidget,
         toolWidgetGroup,
-        designMode: type,
+        designType: type,
       });
     },
     setSelectKey(key: string) {

@@ -1,9 +1,12 @@
 <template>
-  <component :is="comp" v-if="show" :data-key="node.key"></component>
+  <div ref="el" :data-key="node.key" class="code-render"> </div>
 </template>
 
 <script setup lang="ts" name="code-render">
   import { Widget } from '@/widgets/types';
+  import ArcoVue from '@arco-design/web-vue';
+  import ArcoVueIcon from '@arco-design/web-vue/es/icon';
+
   import {
     ref,
     defineComponent,
@@ -13,6 +16,7 @@
     watch,
     onMounted,
     nextTick,
+    createApp,
   } from 'vue';
 
   const props = defineProps<{
@@ -22,6 +26,14 @@
   }>();
   const comp = ref(null);
   const show = ref(true);
+  const el = ref();
+  function renderMounted(App: any) {
+    debugger;
+    const app = createApp(App);
+    app.use(ArcoVue, {});
+    app.use(ArcoVueIcon);
+    app.mount(el.value);
+  }
   function createComp() {
     try {
       // style
@@ -53,10 +65,7 @@
         document.head.removeChild(styleEl);
       });
       comp.value = markRaw(codeComp as any);
-      show.value = false;
-      nextTick(() => {
-        show.value = true;
-      });
+      renderMounted(codeComp);
     } catch (error) {
       const options = {
         template: `代码编译错误${error}`,
@@ -67,6 +76,7 @@
       nextTick(() => {
         show.value = true;
       });
+      renderMounted(codeComp);
     }
   }
   onMounted(() => {

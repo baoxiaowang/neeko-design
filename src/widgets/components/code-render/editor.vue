@@ -27,7 +27,7 @@
         min="80px"
       >
         <template #first>
-          <CodeRender :state="{}" :meta="{}" :node="currentNode" />
+          <designRenderVue :state="{}" :meta="{}" :node="currentNode" />
         </template>
         <template #second>
           <vueEditorVue
@@ -54,7 +54,7 @@
   import { CodeRenderWidget, TextWidget, Widget } from '@/widgets/types';
   import vueEditorVue from '@/components/codemirror-editor/vue-editor/vue-editor.vue';
   import CodeRender from '@/widgets/components/code-render/render.vue';
-  import { vi } from 'element-plus/es/locale';
+  import designRenderVue from './design-render.vue';
 
   const props = defineProps<{
     node: CodeRenderWidget;

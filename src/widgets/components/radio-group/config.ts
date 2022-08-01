@@ -1,5 +1,10 @@
 // import Editor from "./editor.vue";
-import { InputWidget, WidgetConfig, WidgetType } from '../../types';
+import {
+  InputWidget,
+  RadioGroupWidget,
+  WidgetConfig,
+  WidgetType,
+} from '../../types';
 import { createWidgetKey } from '../../utils';
 
 const type: WidgetType = 'radio-group';
@@ -16,6 +21,7 @@ export default {
       codeStyle: '',
       width: '100',
       config: {},
+      direction: 'vertical',
       default: {
         type: 'custom',
         exp: '',
@@ -32,4 +38,4 @@ export default {
       block: 0,
     };
   },
-} as WidgetConfig<InputWidget>;
+} as WidgetConfig<RadioGroupWidget>;

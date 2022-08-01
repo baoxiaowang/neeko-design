@@ -96,8 +96,15 @@ export interface FormWidget extends Widget {
 
 export type InputWidget = FormWidget;
 
+export interface WidgetOptionItem {
+  label: string;
+  value: string;
+  defaultCheck?: boolean;
+}
+
 export interface RadioGroupWidget extends FormWidget {
-  items: [];
+  items: WidgetOptionItem[];
+  direction?: 'horizontal' | 'vertical';
 }
 export interface WidgetCompOptions {
   node: Widget;

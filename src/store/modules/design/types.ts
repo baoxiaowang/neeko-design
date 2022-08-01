@@ -5,7 +5,7 @@ export interface ToolWidgetGroupItem {
   list: WidgetConfig[];
 }
 export interface DesignState {
-  designMode: 'page' | 'form';
+  designType: 'page' | 'form';
   widgetList: Widget[];
   widgetMap: Record<string, Widget>; // key索引指向自身
   widgetParentMap: Record<string, Widget | undefined>; // key索引指向自身父节点
@@ -20,7 +20,7 @@ export interface DesignState {
 }
 
 export const defaultState: DesignState = {
-  designMode: 'page',
+  designType: 'page',
   widgetList: [],
   widgetMap: {},
   widgetParentMap: {},

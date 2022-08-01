@@ -36,13 +36,23 @@
     fullscreen
     :footer="false"
   >
-    <template #title>
-      <div class="preview-header"> 页面预览 </div>
+    <template v-if="designType === 'form'" #title>
+      <div class="preview-header"> 表单预览 </div>
     </template>
-    <div class="designModel-body" :class="'designModel-body-' + designModel">
+    <div class="design-model-body" :class="'design-model-body-' + designType">
       <PreviewContent v-if="visible" @close="close"></PreviewContent>
     </div>
   </a-modal>
+  <!-- <a-drawer
+    v-model:visible="visible"
+    placement="bottom"
+    class="preview-modal"
+    height="100%"
+  >
+    <div class="design-model-body" :class="'design-model-body-' + designModel">
+      <PreviewContent v-if="visible" @close="close"></PreviewContent>
+    </div>
+  </a-drawer> -->
 </template>
 
 <script setup lang="ts" name="top-bar">
@@ -67,7 +77,7 @@
   function change(val: any) {
     emit('nameChange', val);
   }
-  const designModel = computed<'page' | 'form'>(() => store.designMode);
+  const designType = computed<'page' | 'form'>(() => store.designType);
   const visible = computed<boolean>({
     get() {
       return store.previewDialogShow;
@@ -117,13 +127,13 @@
       padding: 0;
     }
 
-    .designModel-body {
+    .design-model-body {
       height: 100%;
-      padding: 0 calc(50% - 412px);
 
       &-form {
         // width: 1200px;
         margin: 0 auto;
+        padding: 0 calc(50% - 412px);
         background: #f9fafc;
       }
     }
