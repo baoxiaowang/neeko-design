@@ -7,6 +7,7 @@ import vitePluginForArco from '@arco-plugins/vite-vue';
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 // eslint-disable-next-line import/no-unresolved
 import ElementPlus from 'unplugin-element-plus/vite';
+import vueSetupExtend from 'vite-plugin-vue-setup-extend-plus';
 
 export default defineConfig({
   plugins: [
@@ -25,6 +26,7 @@ export default defineConfig({
     ElementPlus({
       // options
     }),
+    vueSetupExtend(),
   ],
   resolve: {
     alias: [
