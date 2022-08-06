@@ -23,6 +23,16 @@ const DASHBOARD: AppRouteRecordRaw = {
     //   },
     // },
     {
+      path: 'apps',
+      name: 'designApps',
+      component: () => import('@/views/design/apps/index.vue'),
+      meta: {
+        locale: '应用中心',
+        requiresAuth: true,
+        roles: ['*'],
+      },
+    },
+    {
       path: 'page',
       name: 'designPage',
       component: () => import('@/views/design/page/index.vue'),
