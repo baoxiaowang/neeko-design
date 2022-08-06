@@ -15,6 +15,7 @@
     <a-cascader
       expand-child
       :options="options"
+      :field-names="fieldNames"
       :style="{ width: '100%' }"
       allow-clear
       placeholder="请选择城市"
@@ -26,6 +27,7 @@
 <script setup lang="ts" name="address-render">
   import useWidgetInject from '@/widgets/hooks/useWidgetInject';
   import { provide } from 'vue';
+  import AddressJson from '@/assets/address/pca-code.json';
   import { InputWidget } from '../../types';
 
   interface RenderProps {
@@ -34,56 +36,8 @@
   defineProps<RenderProps>();
   const { isSubWidget } = useWidgetInject();
   provide('isSubWidget', false);
-  const options = [
-    {
-      value: 'beijing',
-      label: 'Beijing',
-      children: [
-        {
-          value: 'chaoyang',
-          label: 'ChaoYang',
-          children: [
-            {
-              value: 'datunli',
-              label: 'Datunli',
-            },
-          ],
-        },
-        {
-          value: 'haidian',
-          label: 'Haidian',
-        },
-        {
-          value: 'dongcheng',
-          label: 'Dongcheng',
-        },
-        {
-          value: 'xicheng',
-          label: 'Xicheng',
-          children: [
-            {
-              value: 'jinrongjie',
-              label: 'Jinrongjie',
-            },
-            {
-              value: 'tianqiao',
-              label: 'Tianqiao',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      value: 'shanghai',
-      label: 'Shanghai',
-      children: [
-        {
-          value: 'huangpu',
-          label: 'Huangpu',
-        },
-      ],
-    },
-  ];
+  const options = AddressJson;
+  const fieldNames = { value: 'code', label: 'name' };
 </script>
 
 <style lang="less">

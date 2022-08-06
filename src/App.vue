@@ -1,5 +1,5 @@
 <template>
-  <a-config-provider :locale="locale">
+  <a-config-provider update-at-scroll :locale="locale">
     <router-view />
     <global-setting />
   </a-config-provider>

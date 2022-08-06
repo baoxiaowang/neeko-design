@@ -8,9 +8,6 @@
         ghost-class="ghost-widget-item"
         drag-class="drag-item-class"
         chosen-class="chosen-class"
-        fallback-class="fallback-class"
-        :force-fallback="false"
-        :fallback-on-body="true"
         :group="group"
         @end="dragEnd"
         @add="onAdd"
@@ -26,7 +23,7 @@
             :data-key="element.key"
             :node-key="element.key"
             :data-type="element.type"
-            class="input-render"
+            class="form-widget__item"
             :label="element?.label"
           >
             <component
@@ -89,9 +86,12 @@
       padding-bottom: 20px;
     }
 
+    .form-widget__item {
+    }
+
     .ghost-widget-item {
-      width: 100%;
-      height: 50px !important;
+      width: 100% !important;
+      // height: 50px !important;
       background: #fff !important;
       border: 1px dashed;
       border-color: rgb(var(--arcoblue-6));

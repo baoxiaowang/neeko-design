@@ -1,5 +1,9 @@
 <template>
-  <a-date-picker :size="size" style="width: 100%" />
+  <a-date-picker
+    :placeholder="node.placeholder || ' '"
+    :size="size"
+    style="width: 100%"
+  />
 </template>
 
 <script setup lang="ts" name="input-render">

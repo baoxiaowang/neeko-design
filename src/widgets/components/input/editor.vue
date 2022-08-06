@@ -5,12 +5,7 @@
         :label="node.label || ''"
         @change="(val) => changeAttr('label', val)"
       ></AttrLabelVue>
-      <ConfigBlock label="输入提示">
-        <a-input
-          :model-value="node.placeholder"
-          @update:model-value="(val) => changeAttr('placeholder', val)"
-        />
-      </ConfigBlock>
+      <AttrPlaceholderVue :node="node" :change="change"></AttrPlaceholderVue>
       <AttrWidthVue
         :block="node.block"
         :width="node.width"
@@ -35,7 +30,7 @@
   import AttrKeyVue from '@/widgets/attr-blocks/attr-key.vue';
   import AttrRulesVue from '@/widgets/attr-blocks/attr-rules.vue';
   import AttrPermissionVue from '@/widgets/attr-blocks/attr-permission.vue';
-
+  import AttrPlaceholderVue from '@/widgets/attr-blocks/attr-placeholder.vue';
   import { InputWidget, WidgetChange } from '../../types';
 
   const props = defineProps<{
