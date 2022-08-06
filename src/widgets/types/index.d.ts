@@ -58,8 +58,11 @@ export interface LinkInfo {
   condition: [];
   linkField: string;
 }
+
+export type NumBoolean = 0 | 1;
 export interface FormWidget extends Widget {
   label?: string;
+  hideLabel?: NumBoolean;
   default: {
     type: 'custom' | 'func' | 'link';
     exp: string;

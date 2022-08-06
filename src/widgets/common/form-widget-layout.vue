@@ -9,6 +9,7 @@
     :style="widthStyle"
     :label="node?.label || ''"
     :required="!!node.rules?.required"
+    :hide-label="!!node.hideLabel"
     @click="formWidgetClick"
   >
     <div class="widget-layout__body">
@@ -81,7 +82,7 @@
     position: relative;
     box-sizing: border-box;
     margin-bottom: 0 !important;
-    padding: 12px;
+    padding: 10px 12px;
     background: #fff;
     transition: all 0.1s;
     pointer-events: all;

@@ -3,6 +3,8 @@
     <template #attrs>
       <AttrLabelVue
         :label="node.label || ''"
+        :node="node"
+        :change="change"
         @change="(val) => changeAttr('label', val)"
       ></AttrLabelVue>
       <AttrPlaceholderVue :node="node" :change="change"></AttrPlaceholderVue>

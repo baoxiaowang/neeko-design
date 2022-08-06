@@ -1,5 +1,5 @@
 <template>
-  <a-divider orientation="left"></a-divider>
+  <a-divider class="divider-render" orientation="left"></a-divider>
 </template>
 
 <script setup lang="ts" name="input-render">
@@ -14,4 +14,7 @@
 <style lang="less">
   // .input-render {
   // }
+  .divider-render {
+    margin: 0 !important;
+  }
 </style>

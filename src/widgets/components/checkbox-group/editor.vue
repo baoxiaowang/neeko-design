@@ -2,7 +2,9 @@
   <formEditorLayoutVue :node="node" :node-key="node.key" class="editor">
     <template #attrs>
       <AttrLabelVue
-        :label="node.label || ''"
+        :label="node.label"
+        :node="node"
+        :change="change"
         @change="(val) => changeAttr('label', val)"
       ></AttrLabelVue>
       <ConfigBlock label="输入提示">
