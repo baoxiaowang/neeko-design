@@ -1,6 +1,11 @@
 <template>
-  <div class="tree-node" :data-node-key="data.key">
-    <div class="node-label">{{ nodeLabel || data.type }}</div>
+  <div
+    class="tree-node"
+    :data-node-key="node.key"
+    @mouseleave.stop="mouseleave"
+    @mouseover.stop="mouseover"
+  >
+    <div class="node-label">{{ nodeLabel || node.type }}</div>
   </div>
 </template>
 
@@ -10,22 +15,27 @@
   import { computed } from 'vue';
 
   const props = defineProps<{
-    data: Widget;
-    node: any;
-    actived: boolean;
+    node: Widget;
   }>();
-  // const emit = defineEmits(['action']);
+
+  const emit = defineEmits<{
+    (e: 'mouseleave', d: Widget): void;
+    (e: 'mouseover', d: Widget): void;
+  }>();
 
   const WidgetConfig = computed(() => {
-    return WidgetSourceMap[props.data.type];
+    return WidgetSourceMap[props.node.type];
   });
 
-  // const canAddChildrenType = computed<WidgetType[]>(() => {
-  //   return WidgetConfig.value?.childrenType || [];
-  // });
+  function mouseover() {
+    emit('mouseover', props.node);
+  }
+  function mouseleave() {
+    emit('mouseleave', props.node);
+  }
 
   const nodeLabel = computed(() => {
-    return WidgetConfig.value?.title || props.data.type;
+    return WidgetConfig.value?.title || props.node.type;
   });
 </script>
 
@@ -34,6 +44,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
     padding-right: 5px;
 
     .node-label {

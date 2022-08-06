@@ -102,9 +102,17 @@ export interface WidgetOptionItem {
   defaultCheck?: boolean;
 }
 
-export interface RadioGroupWidget extends FormWidget {
-  items: WidgetOptionItem[];
+export interface OptionWidget {
+  options: WidgetOptionItem[];
   direction?: 'horizontal' | 'vertical';
+}
+export interface RadioGroupWidget extends FormWidget, OptionWidget {
+  // items: WidgetOptionItem[];
+  // direction?: 'horizontal' | 'vertical';
+}
+export interface CheckboxGroupWidget extends FormWidget, OptionWidget {
+  // items: WidgetOptionItem[];
+  // direction?: 'horizontal' | 'vertical';
 }
 export interface WidgetCompOptions {
   node: Widget;

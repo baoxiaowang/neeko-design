@@ -80,7 +80,6 @@
       }
     });
     previewChannel.$on('delWidget', (e: Event) => {
-      debugger;
       const widget = (e as DelWidgetEvent).detail;
       if (widget) {
         store.handlerWidgetDelete(widget);

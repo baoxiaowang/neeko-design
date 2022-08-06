@@ -6,7 +6,15 @@ import { Widget, WidgetType } from '@/widgets/types';
 import WidgetSourceMap from '@/widgets/config.index';
 import { getWidgetCloned } from '@/widgets/utils';
 import { reactive } from 'vue';
-import { DesignState, defaultState, ToolWidgetGroupItem } from './types';
+import {
+  DesignState,
+  defaultState,
+  ToolWidgetGroupItem,
+  tools,
+  WidgetTreeTool,
+  WidgetPanelTool,
+  WidgetDataTool,
+} from './types';
 import * as DesignConst from './constants';
 // { createFormData, createCustomePage }
 function formatData(
@@ -57,6 +65,7 @@ const useDesignStore = defineStore('design', {
     currentActionWidget: null,
     previewDialogShow: false,
     toolWidgetGroup: [],
+    tools,
   }),
 
   getters: {
@@ -86,12 +95,15 @@ const useDesignStore = defineStore('design', {
     initState(type: 'form' | 'page') {
       let widgetList: Widget[] = [];
       let toolWidgetGroup: ToolWidgetGroupItem[] = [];
+      let designTools = [WidgetTreeTool, WidgetPanelTool, WidgetDataTool];
       if (type === 'form') {
         widgetList = DesignConst.createFormData();
         toolWidgetGroup = DesignConst.toolWidgetGroupMap.form;
+        designTools = [WidgetPanelTool, WidgetTreeTool, WidgetDataTool];
       } else {
         widgetList = DesignConst.createCustomePage();
         toolWidgetGroup = DesignConst.toolWidgetGroupMap.page;
+        designTools = [WidgetTreeTool, WidgetPanelTool, WidgetDataTool];
       }
       const { node, parent } = formatData(widgetList);
 
@@ -107,6 +119,7 @@ const useDesignStore = defineStore('design', {
         selectWidget,
         toolWidgetGroup,
         designType: type,
+        tools: designTools,
       });
     },
     setSelectKey(key: string) {
@@ -148,7 +161,6 @@ const useDesignStore = defineStore('design', {
       }
     },
     async handlerWidgetDelete(data: Widget) {
-      debugger;
       const currentParent: Widget | undefined = this.widgetParentMap[data.key];
       const index = currentParent?.children?.findIndex(
         (c) => c.key === data.key

@@ -98,7 +98,7 @@
     //
   });
   function subWidgetClick(widget: Widget) {
-    debugger;
+    if (!isDesign) return;
     store.setSelectKey(widget.key);
   }
 </script>

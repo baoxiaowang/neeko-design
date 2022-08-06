@@ -17,6 +17,10 @@
         @change-block="(val) => changeAttr('block', val)"
         @change="(val) => changeAttr('width', val)"
       ></AttrWidthVue>
+      <AttrDirectionVue
+        :direction="node.direction"
+        :change="(e) => changeAttr('direction', e)"
+      ></AttrDirectionVue>
       <AttrRulesVue :node="node" :change="change"></AttrRulesVue>
 
       <AttrKeyVue :node-key="node.key"></AttrKeyVue>
@@ -35,14 +39,15 @@
   import AttrKeyVue from '@/widgets/attr-blocks/attr-key.vue';
   import AttrRulesVue from '@/widgets/attr-blocks/attr-rules.vue';
   import AttrPermissionVue from '@/widgets/attr-blocks/attr-permission.vue';
+  import AttrDirectionVue from '@/widgets/attr-blocks/attr-direction.vue';
 
-  import { InputWidget, WidgetChange } from '../../types';
+  import { CheckboxGroupWidget, InputWidget, WidgetChange } from '../../types';
 
   const props = defineProps<{
-    node: InputWidget;
+    node: CheckboxGroupWidget;
     change: WidgetChange<InputWidget>;
   }>();
-  function changeAttr(key: keyof InputWidget, val: any) {
+  function changeAttr(key: keyof CheckboxGroupWidget, val: any) {
     props.change({
       [key]: val,
     });

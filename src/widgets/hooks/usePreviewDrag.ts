@@ -10,9 +10,7 @@ export default function usePreviewDrag(node: Ref<Widget>) {
       const children = node.value.children || [];
       return [...children];
     },
-    set(val) {
-      debugger;
-    },
+    set(val) {},
   });
 
   async function dragEnd() {
@@ -20,7 +18,6 @@ export default function usePreviewDrag(node: Ref<Widget>) {
     document.body.classList.remove('dragging');
   }
   function onAdd({ clone, newIndex }: any) {
-    debugger;
     const type: WidgetType = clone.dataset?.type;
     const newItem = WidgetSourceMap[type].defaultVal();
 

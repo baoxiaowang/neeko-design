@@ -28,7 +28,6 @@
   const show = ref(true);
   const el = ref();
   function renderMounted(App: any) {
-    debugger;
     const app = createApp(App);
     app.use(ArcoVue, {});
     app.use(ArcoVueIcon);

@@ -24,11 +24,19 @@
     >
       <template #drag-icon></template>
       <template #title="data">
-        <TreeNode :actived="data.key === selectKey" :node="data" :data="data">
+        <TreeNode
+          :actived="data.key === selectKey"
+          :node="data"
+          @mouseover="nodeMouseover"
+          @mouseleave="nodeMouseleave"
+        >
         </TreeNode>
       </template>
       <template #extra="nodeData">
-        <div class="widget-node-action">
+        <div
+          v-if="hoverOrSelectKey.includes(nodeData.key)"
+          class="widget-node-action"
+        >
           <a-button type="text" size="mini" @click="onAdd(nodeData)">
             <IconPlus />
           </a-button>
@@ -63,6 +71,16 @@
 
   const store = useDesignStore();
   const searchKey = ref('');
+  const hoverOrSelectKey = computed(() => {
+    const res = [];
+    if (store.hoveredKey) {
+      res.push(store.hoveredKey);
+    }
+    if (store.selectedKey) {
+      res.push(store.selectedKey);
+    }
+    return res;
+  });
 
   const handleNodeClick = ([selectKey]: Array<string | number>) => {
     store.setSelectKey(selectKey.toString());
@@ -78,7 +96,13 @@
   });
   const defaltExpanded = ref<Array<string | number>>([]);
   const treeRef = ref<any>(null);
-  // watchEffect(() => {});
+  function nodeMouseover(node: Widget) {
+    console.log('###', node.key);
+    store.setHoverKey(node.key);
+  }
+  function nodeMouseleave() {
+    store.setHoverKey('');
+  }
   watch(
     () => store.selectedKey,
     () => {
@@ -315,6 +339,10 @@
 
     .arco-tree-node-switcher {
       // margin-right: 2px;
+    }
+
+    .arco-tree-node-title-text {
+      width: 100%;
     }
 
     .arco-tree-node-indent {

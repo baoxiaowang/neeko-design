@@ -17,7 +17,11 @@
       </div>
     </div>
     <div class="design-menu-panel">
-      <el-scrollbar>
+      <el-scrollbar
+        :view-style="{
+          paddingBottom: '50px',
+        }"
+      >
         <WidgetsTree v-show="activeTool === 'tree'"></WidgetsTree>
         <WidgetsPanel v-show="activeTool === 'widget'"></WidgetsPanel>
       </el-scrollbar>
@@ -26,48 +30,21 @@
 </template>
 
 <script setup lang="ts" name="DesignTool">
-  import { ref } from 'vue';
+  import { computed, onMounted, ref } from 'vue';
+  import { Tool } from '@/store/modules/design/types';
+  import { useDesignStore } from '@/store';
   import WidgetsTree from './widgets-tree/index.vue';
   import WidgetsPanel from './widgets-panel/widgets-panel.vue';
 
-  type Tool = {
-    name: string;
-    icon: {
-      default: string;
-      active: string;
-    };
-    type: 'tree' | 'widget' | 'data';
-  };
-  const tools: Tool[] = [
-    {
-      name: '结构',
-      icon: {
-        default: 'icon-tree_outlined',
-        active: 'icon-tree_filled',
-      },
-      type: 'tree',
-    },
-    {
-      name: '组件',
-      icon: {
-        default: 'icon-grid_view_outliend',
-        active: 'icon-grid_view_filled',
-      },
-      type: 'widget',
-    },
-    {
-      name: '数据',
-      icon: {
-        default: 'icon-database-cog-outline',
-        active: 'icon-database-cog',
-      },
-      type: 'data',
-    },
-  ];
-  const activeTool = ref('tree');
+  const store = useDesignStore();
+  const tools = computed(() => store.tools);
+  const activeTool = ref('');
   const onClick = (item: Tool) => {
     activeTool.value = item.type;
   };
+  onMounted(() => {
+    activeTool.value = tools.value[0]?.type;
+  });
 </script>
 
 <style lang="less">

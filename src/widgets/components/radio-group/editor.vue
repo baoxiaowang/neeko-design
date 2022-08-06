@@ -17,6 +17,11 @@
         @change-block="(val) => changeAttr('block', val)"
         @change="(val) => changeAttr('width', val)"
       ></AttrWidthVue>
+      <AttrOptionsVue> </AttrOptionsVue>
+      <AttrDirectionVue
+        :direction="node.direction"
+        :change="(e) => changeAttr('direction', e)"
+      ></AttrDirectionVue>
       <AttrRulesVue :node="node" :change="change"></AttrRulesVue>
 
       <AttrKeyVue :node-key="node.key"></AttrKeyVue>
@@ -35,14 +40,15 @@
   import AttrKeyVue from '@/widgets/attr-blocks/attr-key.vue';
   import AttrRulesVue from '@/widgets/attr-blocks/attr-rules.vue';
   import AttrPermissionVue from '@/widgets/attr-blocks/attr-permission.vue';
-
-  import { InputWidget, WidgetChange } from '../../types';
+  import AttrDirectionVue from '@/widgets/attr-blocks/attr-direction.vue';
+  import AttrOptionsVue from '@/widgets/attr-blocks/attr-options.vue';
+  import { RadioGroupWidget, WidgetChange } from '../../types';
 
   const props = defineProps<{
-    node: InputWidget;
-    change: WidgetChange<InputWidget>;
+    node: RadioGroupWidget;
+    change: WidgetChange<RadioGroupWidget>;
   }>();
-  function changeAttr(key: keyof InputWidget, val: any) {
+  function changeAttr(key: keyof RadioGroupWidget, val: any) {
     props.change({
       [key]: val,
     });

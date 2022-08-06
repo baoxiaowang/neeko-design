@@ -1,5 +1,10 @@
 // import Editor from "./editor.vue";
-import { InputWidget, WidgetConfig, WidgetType } from '../../types';
+import {
+  CheckboxGroupWidget,
+  InputWidget,
+  WidgetConfig,
+  WidgetType,
+} from '../../types';
 import { createWidgetKey } from '../../utils';
 
 const type: WidgetType = 'checkbox-group';
@@ -25,6 +30,7 @@ export default {
           linkField: '',
         },
       },
+      direction: 'vertical',
       placeholder: '',
       rules: {
         required: 0,
@@ -32,4 +38,4 @@ export default {
       block: 0,
     };
   },
-} as WidgetConfig<InputWidget>;
+} as WidgetConfig<CheckboxGroupWidget>;
