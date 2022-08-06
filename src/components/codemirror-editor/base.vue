@@ -65,7 +65,7 @@
     lineWrapping: false,
     tabSize: 2,
     codeHandler: undefined,
-    styleActiveLine: false,
+    styleActiveLine: true,
     lineNumbers: false,
     autofocus: false,
     foldGutter: true,

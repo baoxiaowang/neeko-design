@@ -9,12 +9,7 @@
         :label="node.label || ''"
         @change="(val) => changeAttr('label', val)"
       ></AttrLabelVue>
-      <ConfigBlock label="输入提示">
-        <el-input
-          :model-value="node.placeholder"
-          @update:model-value="(val: any) => changeAttr('placeholder', val)"
-        />
-      </ConfigBlock>
+      <AttrPlaceholderVue :node="node" :change="change"></AttrPlaceholderVue>
       <AttrWidthVue
         :block="node.block"
         :width="node.width"
@@ -28,10 +23,11 @@
 
 <script setup lang="ts" name="textarea-editor">
   import formEditorLayoutVue from '@/widgets/common/form-editor-layout.vue';
-  import ConfigBlock from '@/widgets/common/config-block.vue';
   import AttrLabelVue from '@/widgets/attr-blocks/attr-label.vue';
   import AttrWidthVue from '@/widgets/attr-blocks/attr-width.vue';
   import AttrKeyVue from '@/widgets/attr-blocks/attr-key.vue';
+  import AttrPlaceholderVue from '@/widgets/attr-blocks/attr-placeholder.vue';
+
   import { InputWidget, WidgetChange } from '../../types';
 
   const props = defineProps<{

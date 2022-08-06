@@ -6,12 +6,22 @@ const DASHBOARD: AppRouteRecordRaw = {
   name: 'design',
   component: DESIGN_LAYOUT,
   meta: {
-    locale: '页面管理',
+    locale: '应用管理',
     requiresAuth: true,
-    icon: 'icon-list',
+    icon: 'icon-apps',
     order: 1,
   },
   children: [
+    {
+      path: 'apps',
+      name: 'designApps',
+      component: () => import('@/views/design/apps/index.vue'),
+      meta: {
+        locale: '应用中心',
+        requiresAuth: true,
+        roles: ['*'],
+      },
+    },
     {
       path: 'page',
       name: 'designPage',
