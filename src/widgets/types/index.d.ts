@@ -71,7 +71,7 @@ export interface FormWidget extends Widget {
   width?: string;
   placeholder?: string;
   rules?: {
-    required: number;
+    required?: number;
     noRepeat?: number;
   };
   permission?: {
@@ -99,7 +99,7 @@ export interface FormWidget extends Widget {
 }
 export interface FormRootWidget extends FormWidget {
   layout?: 'horizontal' | 'vertical';
-  labelAlign?: 'left' | 'right';
+  labelAlign?: 'left' | 'right' | undefined;
 }
 export type InputWidget = FormWidget;
 

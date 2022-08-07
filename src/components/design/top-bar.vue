@@ -31,7 +31,7 @@
     v-model:visible="visible"
     modal-class="preview-modal"
     :body-style="{
-      borderRadio: 0,
+      borderRadius: 0,
     }"
     fullscreen
     :footer="false"
@@ -131,9 +131,9 @@
       height: 100%;
 
       &-form {
-        // width: 1200px;
+        // width: 800px;
         margin: 0 auto;
-        padding: 0 calc(50% - 412px);
+        padding: 0 calc(50% - 400px);
         background: #f9fafc;
       }
     }

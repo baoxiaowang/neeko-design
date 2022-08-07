@@ -14,7 +14,7 @@ export async function showFormModel(widgetData: FormWidget[], optons: any) {
     // simple: true,
     content: () =>
       h(FormDataModal, {
-        'widget-List': widgetData,
+        widgetList: widgetData,
       }),
   });
 }

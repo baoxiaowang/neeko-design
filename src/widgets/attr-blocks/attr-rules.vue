@@ -33,7 +33,7 @@
       rules: {
         ...props.node.rules,
         noRepeat: +e,
-      },
+      } as any,
     });
   }
 </script>

@@ -14,20 +14,20 @@
 </template>
 
 <script setup lang="ts" name="attr-form-layout">
-  import { computed, ref } from 'vue';
+  import { computed } from 'vue';
   import ConfigBlockVue from '../common/config-block.vue';
-  import { FormRootWidget, FormWidget, NumBoolean } from '../types';
+  import { FormRootWidget } from '../types';
 
   const props = defineProps<{
     node: FormRootWidget;
     change: (e: Partial<FormRootWidget>) => void;
   }>();
 
-  const layout = computed({
+  const layout = computed<'horizontal' | 'vertical'>({
     get() {
       return props.node.layout || 'vertical';
     },
-    set(val) {
+    set(val: 'horizontal' | 'vertical') {
       props.change({
         layout: val,
       });
@@ -37,7 +37,7 @@
     get() {
       return props.node.labelAlign || 'right';
     },
-    set(val) {
+    set(val: 'left' | 'right') {
       props.change({
         labelAlign: val,
       });
