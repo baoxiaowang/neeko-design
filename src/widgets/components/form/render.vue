@@ -1,6 +1,11 @@
 <template>
   <div :style="style" :data-key="node.key" class="widget-form-render">
-    <a-form :model="{}" :layout="layout">
+    <a-form
+      :model="{}"
+      auto-label-width
+      :layout="node.layout || 'vertical'"
+      :label-align="node.labelAlign"
+    >
       <VueDraggable
         v-model="list"
         item-key="key"
@@ -43,18 +48,17 @@
   import { getRenderWidget } from '@/widgets/render';
   import { onMounted, ref, nextTick, computed, toRefs } from 'vue';
   import VueDraggable from '@/components/vue-draggable/src/vuedraggable';
-  import { Widget } from '@/widgets/types';
+  import { FormRootWidget, Widget } from '@/widgets/types';
   import useDraggable from '@/widgets/hooks/useDraggable';
   import FormWidgetLayout from '@/widgets/common/form-widget-layout.vue';
   import { styleToString } from '../../utils';
 
   const props = defineProps<{
-    node: Widget;
+    node: FormRootWidget;
     state: any;
     meta: any;
   }>();
 
-  const layout = ref<'vertical'>('vertical');
   const style = computed<any>(() => {
     return styleToString(props.node.codeStyle);
   });
@@ -78,9 +82,9 @@
 <style lang="less">
   .widget-form-render {
     box-sizing: border-box;
-    padding: 10px;
+    // padding: 10px;
     background: #fff;
-    background: #f9fafc;
+    // background: #f9fafc;
     // border-radius: 8px;
     .widget-form__draggable {
       padding-bottom: 20px;

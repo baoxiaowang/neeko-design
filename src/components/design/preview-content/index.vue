@@ -27,6 +27,7 @@
 
 <script setup lang="ts" name="preview-content">
   import { ref, computed, onMounted } from 'vue';
+  // eslint-disable-next-line import/no-cycle
   import { useDesignStore } from '@/store';
   import RenderWidgetVue from '@/widgets/render/render-widget.vue';
   import { Button, Tooltip } from '@arco-design/web-vue';

@@ -1,5 +1,5 @@
 import { createApp } from 'vue';
-import ArcoVue from '@arco-design/web-vue';
+import ArcoVue, { Modal } from '@arco-design/web-vue';
 import ArcoVueIcon from '@arco-design/web-vue/es/icon';
 import globalComponents from '@/components';
 import SvgIcon from '@/components/svg-icon/index.vue';
@@ -18,7 +18,6 @@ import '@arco-themes/vue-neeko/index.less';
 // eslint-disable-next-line import/no-unresolved
 import 'virtual:svg-icons-register';
 import 'src/assets/icon-font/iconfont.css';
-
 //
 
 (window as any).Sortable = Sortable; // 注入同一个Sortable 函数
@@ -37,5 +36,6 @@ app.use(store);
 app.use(i18n);
 app.use(globalComponents);
 app.use(directive);
-
+// eslint-disable-next-line no-underscore-dangle
+Modal._context = app._context;
 app.mount('#app');

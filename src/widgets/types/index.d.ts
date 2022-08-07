@@ -63,18 +63,18 @@ export type NumBoolean = 0 | 1;
 export interface FormWidget extends Widget {
   label?: string;
   hideLabel?: NumBoolean;
-  default: {
+  default?: {
     type: 'custom' | 'func' | 'link';
     exp: string;
     linkInfo?: LinkInfo;
   };
-  width: string;
+  width?: string;
   placeholder?: string;
-  rules: {
+  rules?: {
     required: number;
     noRepeat?: number;
   };
-  permission: {
+  permission?: {
     visibleType: 0 | 1 | 2; // 0 不可见 1 全部 2 // 部分
     visableInclude: {
       user: [];
@@ -94,9 +94,13 @@ export interface FormWidget extends Widget {
       role: [];
     };
   };
-  block: number;
+  block?: number;
+  children?: FormWidget[];
 }
-
+export interface FormRootWidget extends FormWidget {
+  layout?: 'horizontal' | 'vertical';
+  labelAlign?: 'left' | 'right';
+}
 export type InputWidget = FormWidget;
 
 export interface WidgetOptionItem {

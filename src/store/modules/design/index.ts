@@ -1,11 +1,12 @@
 import { defineStore } from 'pinia';
-import { Widget, WidgetType } from '@/widgets/types';
+import { FormWidget, Widget, WidgetType } from '@/widgets/types';
 // eslint-disable-next-line import/no-cycle
 // import router from '@/router';
-
+import { Modal } from '@arco-design/web-vue';
+import FormDataModal from '@/components/design/form-data-modal/index.vue';
+import { h, reactive } from 'vue';
 import WidgetSourceMap from '@/widgets/config.index';
 import { getWidgetCloned } from '@/widgets/utils';
-import { reactive } from 'vue';
 import {
   DesignState,
   defaultState,
@@ -210,6 +211,20 @@ const useDesignStore = defineStore('design', {
         Object.assign(this.widgetMap, node);
         Object.assign(this.widgetParentMap, parent);
       }
+    },
+    async showFormModel(widgetData: FormWidget[], optons: any) {
+      return Modal.open({
+        title: '新建客户',
+        renderToBody: true,
+        alignCenter: true,
+        width: '888px',
+        titleAlign: 'center',
+        // simple: true,
+        content: () =>
+          h(FormDataModal, {
+            'widget-List': widgetData,
+          }),
+      });
     },
   },
 });

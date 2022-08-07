@@ -6,8 +6,13 @@
       justify
       class="editor-expanded__tabs"
     >
-      <a-tab-pane key="config" title="字段属性">
+      <a-tab-pane v-if="$slots.attrs" key="config" title="字段属性">
         <slot name="attrs"></slot>
+        <AttrKeyVue :node-key="nodeKey"></AttrKeyVue>
+      </a-tab-pane>
+
+      <a-tab-pane v-if="$slots.form" key="config" title="表单属性">
+        <slot name="form"></slot>
         <AttrKeyVue :node-key="nodeKey"></AttrKeyVue>
       </a-tab-pane>
 
