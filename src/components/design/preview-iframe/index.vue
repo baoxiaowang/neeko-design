@@ -4,6 +4,7 @@
     ref="iframeEl"
     name="preview"
     class="preview-iframe"
+    :class="'preview-iframe__' + windowType"
     :src="src"
     frameborder="0"
     :style="{
@@ -16,7 +17,7 @@
 
 <script setup lang="ts" name="preview-iframe">
   import { useDesignStore } from '@/store';
-  import { watch, ref } from 'vue';
+  import { watch, ref, computed } from 'vue';
   import DesignChannel, {
     DelWidgetEvent,
     KeyChangeEvent,
@@ -30,6 +31,8 @@
 
   // const props = defineProps();
   const store = useDesignStore();
+
+  const windowType = computed(() => store.windowType);
 
   defineEmits([]);
   function initMutationObserver() {
@@ -144,5 +147,9 @@
   .preview-iframe {
     width: 100%;
     // height: inherit;
+    &__mobile {
+      width: 375px;
+      margin: 0 auto;
+    }
   }
 </style>

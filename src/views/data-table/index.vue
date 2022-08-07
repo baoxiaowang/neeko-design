@@ -1,8 +1,8 @@
 <template>
   <div class="data-table">
     <TableRender
-      :widget-data="contactsTable"
-      :table-data="contactsTableData"
+      :widget-data="customerTable"
+      :table-data="customerTableData"
       @on-add="handlerAdd"
     ></TableRender>
   </div>
@@ -17,7 +17,7 @@
   import * as WidgetSdk from '@/widgets/sdk';
 
   function handlerAdd() {
-    WidgetSdk.showFormModel(contactsTable, {});
+    WidgetSdk.showFormModel(customerTable, {});
   }
 </script>
 

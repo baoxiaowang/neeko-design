@@ -65,6 +65,7 @@ const useDesignStore = defineStore('design', {
     previewDialogShow: false,
     toolWidgetGroup: [],
     tools,
+    windowType: 'pc',
   }),
 
   getters: {

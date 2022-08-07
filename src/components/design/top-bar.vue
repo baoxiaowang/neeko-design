@@ -17,7 +17,49 @@
       >
       </a-input> -->
     </div>
-    <div class="page-title"> 页面设计 </div>
+    <div class="page-title">
+      <a-menu mode="horizontal" :default-selected-keys="['1']">
+        <!-- 页面模式 -->
+        <template v-if="designType === 'page'">
+          <a-menu-item key="1">
+            <template #icon><icon-computer /></template>页面设计
+          </a-menu-item>
+          <a-menu-item key="5">
+            <template #icon><icon-send /></template>页面发布
+          </a-menu-item>
+        </template>
+        <template v-else-if="designType === 'form'">
+          <!-- 表单模式 -->
+          <a-menu-item key="1">
+            <template #icon> <icon-bookmark /> </template>表单设计
+          </a-menu-item>
+          <a-menu-item key="2">
+            <template #icon>
+              <i class="iconfont icon-organization-chart" /> </template
+            >流程设计
+          </a-menu-item>
+          <a-sub-menu key="0">
+            <template #icon><icon-apps></icon-apps></template>
+            <template #title>其他设计</template>
+            <a-menu-item key="0_2">
+              <template #icon>
+                <icon-unordered-list />
+              </template>
+              列表设计
+            </a-menu-item>
+            <a-menu-item key="0_3">
+              <template #icon>
+                <icon-idcard />
+              </template>
+              详情设计
+            </a-menu-item>
+          </a-sub-menu>
+          <a-menu-item key="5">
+            <template #icon><icon-send /></template>发布设置
+          </a-menu-item>
+        </template>
+      </a-menu>
+    </div>
     <div class="action-btn">
       <a-space>
         <a-button @click="previewPage">预 览</a-button>
@@ -74,9 +116,7 @@
   function saveData() {
     emit('saveData');
   }
-  function change(val: any) {
-    emit('nameChange', val);
-  }
+
   const designType = computed<'page' | 'form'>(() => store.designType);
   const visible = computed<boolean>({
     get() {
@@ -94,15 +134,11 @@
   watchEffect(() => {
     currentName.value = props.name;
   });
-  function modelChange(e: string) {
-    currentName.value = e;
-    emit('update:name', e);
-  }
+
   function previewPage() {
     store.previewDialogShow = true;
   }
   function close() {
-    //
     visible.value = false;
   }
 </script>
@@ -154,24 +190,26 @@
       display: flex;
       flex: 1;
       justify-content: center;
-      margin-right: 20px;
-      font-weight: 600;
-      font-size: 18px;
-
-      .el-tag__content {
+      // margin-right: 20px;
+      // font-weight: 600;
+      // font-size: 18px;
+      .arco-menu-overflow-wrap {
+        text-align: center;
       }
     }
 
     .top-left {
       display: flex;
-      flex: 1;
       align-items: center;
+      // flex: 1;
+      width: 300px;
     }
 
     .action-btn {
       display: flex;
-      flex: 1;
       justify-content: flex-end;
+      // flex: 1;
+      width: 300px;
     }
 
     .page-name__input {

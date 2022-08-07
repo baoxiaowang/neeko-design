@@ -11,24 +11,28 @@ export const customerTable: FormWidget[] = [
         label: '客户编号',
         key: 'customer_no',
         width: '50',
+        placeholder: '客户编号自动生成',
       },
       {
         type: 'input',
         label: '客户名称',
         key: 'customer_name',
         width: '50',
+        placeholder: '请输入客户名称',
       },
       {
         type: 'input',
         label: '客户电话',
         key: 'customer_phone',
         width: '50',
+        placeholder: '请输入客户电话',
       },
       {
         type: 'input',
         label: '客户邮箱',
         key: 'customer_email',
         width: '50',
+        placeholder: '请输入邮箱号码',
       },
       {
         type: 'rate',

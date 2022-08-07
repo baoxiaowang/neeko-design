@@ -61,7 +61,7 @@
 </script>
 
 <style lang="less">
-  @header-height: 50px;
+  @header-height: 58px;
 
   .design-layout {
     width: 100%;
@@ -87,6 +87,7 @@
       flex: 1;
       padding: 8px;
       overflow: hidden;
+      text-align: center;
       background: rgb(249, 250, 252);
     }
   }

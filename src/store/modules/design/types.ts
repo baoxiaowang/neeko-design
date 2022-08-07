@@ -51,6 +51,7 @@ export interface DesignState {
   previewDialogShow: boolean;
   currentActionWidget: Widget | null; // 当前操作action的 widget
   toolWidgetGroup: ToolWidgetGroupItem[]; // 组件面板中的组件
+  windowType: 'pc' | 'mobile'; // 设计窗口类型
 }
 
 export const defaultState: DesignState = {
@@ -67,4 +68,5 @@ export const defaultState: DesignState = {
   previewDialogShow: false,
   currentActionWidget: null,
   toolWidgetGroup: [],
+  windowType: 'pc',
 };
