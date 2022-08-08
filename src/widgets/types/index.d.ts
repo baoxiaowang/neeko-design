@@ -1,4 +1,5 @@
 import type * as CSS from 'csstype';
+import { DefineComponent } from 'vue';
 
 export type DesignMode = 'design' | 'runtime';
 export type WidgetType =
@@ -127,7 +128,7 @@ export interface WidgetCompOptions {
   meta: Record<string, any>;
 }
 export type WidgetComponents = DefineComponent<WidgetCompOptions>;
-interface WidgetChange<T extends Widget> {
+export interface WidgetChange<T extends Widget> {
   (e: Partial<T>): void;
 }
 export interface WidgetConfig<T extends Widget = Widget> {

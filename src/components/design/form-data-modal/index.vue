@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts" name="FormDataModal">
-  import { FormWidget } from '@/widgets/types/index.js';
+  import { FormWidget } from '@/widgets/types';
   import RenderWidgetVue from '@/widgets/render/render-widget.vue';
   import renderProvider from '@/widgets/render/render-provider.vue';
 

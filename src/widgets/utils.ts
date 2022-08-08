@@ -173,7 +173,8 @@ export function styleToString(obj: any) {
 }
 
 export function getRenderWidget(node: any): WidgetComponents {
-  return renderModule[node.type] || renderModule.container;
+  return (renderModule[node.type] ||
+    renderModule.container) as WidgetComponents;
 }
 
 // eslint-disable-next-line no-underscore-dangle

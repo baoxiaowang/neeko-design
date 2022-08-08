@@ -60,11 +60,11 @@
     getParent(activeKey.value);
     return res;
   });
-  const windowType = computed({
+  const windowType = computed<'pc' | 'mobile'>({
     get() {
-      return store.windowType;
+      return store.windowType || 'pc';
     },
-    set(val) {
+    set(val: 'pc' | 'mobile') {
       store.windowType = val;
     },
   });

@@ -108,6 +108,7 @@
             :key="item.key"
             :title="item.label"
             :data-index="item.key"
+            class="aaaa"
           >
             <template v-if="['subform'].includes(item.type)">
               <a-table-column
@@ -115,9 +116,8 @@
                 :key="sub.key"
                 :title="sub.label"
                 :data-index="sub.key"
-                :body-cell-style="{
-                  padding: 0,
-                }"
+                class="subform__column"
+                :body-cell-style="bodyCellStyle"
               >
                 <template #cell="{ record }">
                   <div v-if="record[item.key]" class="subform-column">
@@ -144,7 +144,8 @@
 
 <script setup lang="ts" name="widget-table-render">
   import { computed } from 'vue';
-  import { FormWidget } from '../types/index.js';
+  import type * as CSS from 'csstype';
+  import { FormWidget } from '../types';
 
   const props = withDefaults(
     defineProps<{
@@ -162,7 +163,9 @@
     const [formWidget] = props.widgetData;
     return formWidget.children || [];
   });
-
+  const bodyCellStyle = {
+    '--cell-padding': 0,
+  } as CSS.Properties;
   const data = [
     {
       key: '1',
@@ -255,6 +258,7 @@
       .arco-table-td {
         .arco-table-cell {
           // padding: 0;
+          padding: var(--cell-padding, 7px 16px);
         }
       }
     }

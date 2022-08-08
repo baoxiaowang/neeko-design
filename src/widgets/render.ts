@@ -3,8 +3,8 @@ import { WidgetComponents } from './types';
 import renderModule from './render.index';
 
 export function getRenderWidget(node: any): WidgetComponents {
-  console.log(renderModule);
-  return renderModule[node.type] || renderModule.container;
+  return (renderModule[node.type] ||
+    renderModule.container) as WidgetComponents;
 }
 
 export function createRenderWidget() {
