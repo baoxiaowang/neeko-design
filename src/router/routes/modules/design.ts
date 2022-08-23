@@ -37,7 +37,7 @@ const DASHBOARD: AppRouteRecordRaw = {
       name: 'designPage',
       component: () => import('@/views/design/page/index.vue'),
       meta: {
-        locale: '视图页面',
+        locale: '页面设计',
         requiresAuth: false,
         roles: ['*'],
       },
@@ -47,7 +47,7 @@ const DASHBOARD: AppRouteRecordRaw = {
       name: 'designForm',
       component: () => import('@/views/design/form/index.vue'),
       meta: {
-        locale: '表单页面',
+        locale: '表单设计',
         requiresAuth: true,
         roles: ['*'],
       },

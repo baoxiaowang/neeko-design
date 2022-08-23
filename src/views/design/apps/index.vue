@@ -1,13 +1,30 @@
 <template>
-  <div class="index"></div>
+  <swiper
+    :slides-per-view="3"
+    :space-between="50"
+    @swiper="onSwiper"
+    @slideChange="onSlideChange"
+  >
+    <swiper-slide>Slide 1</swiper-slide>
+    <swiper-slide>Slide 2</swiper-slide>
+    <swiper-slide>Slide 3</swiper-slide>
+    ...
+  </swiper>
 </template>
 
-<script setup lang="ts" name="index">
-  // const props = defineProps();
-  // const emit = defineEmits();
-</script>
+<script setup lang="ts">
+  // Import Swiper Vue.js components
+  // import { Swiper, SwiperSlide } from 'swiper/vue';
 
-<style lang="less">
-  .index {
-  }
-</style>
+  // Import Swiper styles
+  // import 'swiper/css';
+  const { Swiper } = window as any;
+  const { SwiperSlide } = window as any;
+
+  const onSwiper = (swiper: any) => {
+    console.log(swiper);
+  };
+  const onSlideChange = () => {
+    console.log('slide change');
+  };
+</script>

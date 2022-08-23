@@ -18,6 +18,10 @@ import '@arco-themes/vue-neeko/index.less';
 // eslint-disable-next-line import/no-unresolved
 import 'virtual:svg-icons-register';
 import 'src/assets/icon-font/iconfont.css';
+// const IconFont = Icon.addFromIconFontCn({
+//   src: '//at.alicdn.com/t/c/font_3555335_eljclygj71j.js',
+// });
+// import 'src/assets/icon-font/iconfont.css';
 //
 
 (window as any).Sortable = Sortable; // 注入同一个Sortable 函数

@@ -4,6 +4,7 @@
     class="form-widget-layout"
     :class="{
       'form-widget__active': isDesign && actived,
+      'form-widget__hover': isDesign && hovered,
       'form-widget-layout__design': isDesign,
     }"
     :style="widthStyle"
@@ -17,7 +18,7 @@
     </div>
 
     <div class="form-widget__tools">
-      <div class="form-widget__tool-item">
+      <div class="form-widget__tool-item form-widget__tool-item--copy">
         <a-tooltip
           mini
           class="box-item"
@@ -30,7 +31,7 @@
       </div>
       <div class="tool-split"></div>
 
-      <div class="form-widget__tool-item">
+      <div class="form-widget__tool-item form-widget__tool-item--del">
         <a-tooltip
           mini
           class="box-item"
@@ -63,6 +64,9 @@
   const actived = computed(() => {
     return props.nodeKey === store.selectedKey;
   });
+  const hovered = computed(() => {
+    return props.nodeKey === store.hoveredKey;
+  });
   const widthStyle = computed(() => {
     const width = +props.width || 100;
     const marginRight = props.block ? `${100 - width}%` : 0;
@@ -82,13 +86,14 @@
     position: relative;
     box-sizing: border-box;
     margin-bottom: 0 !important;
-    padding: 10px 12px;
+    padding: 12px 12px;
     background: #fff;
     transition: all 0.1s;
     pointer-events: all;
 
     .widget-layout__body {
       width: 100%;
+      text-align: left;
     }
 
     &__design {
@@ -118,7 +123,7 @@
       justify-content: space-evenly;
       width: 60px;
       height: 24px;
-      padding: 0 4px;
+      padding: 0;
       font-size: 12px;
       background: #fff;
       border-radius: 14px;
@@ -126,11 +131,27 @@
 
       .form-widget__tool-item {
         display: flex;
+        // border-radius: 4px;
+        display: flex;
         align-items: center;
+        justify-content: center;
+        width: 50%;
+        height: 100%;
         color: #767e89;
         cursor: pointer;
+        transition: 1ms all;
+
+        &--copy {
+          padding-left: 4px;
+        }
+
+        &-del {
+          padding-right: 4px;
+        }
 
         &:hover {
+          background-color: var(--color-neutral-2);
+
           [i-copy] {
             color: #00bd77;
           }

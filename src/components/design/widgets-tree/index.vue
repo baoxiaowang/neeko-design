@@ -73,9 +73,9 @@
   const searchKey = ref('');
   const hoverOrSelectKey = computed(() => {
     const res = [];
-    if (store.hoveredKey) {
-      res.push(store.hoveredKey);
-    }
+    // if (store.hoveredKey) {
+    //   res.push(store.hoveredKey);
+    // }
     if (store.selectedKey) {
       res.push(store.selectedKey);
     }

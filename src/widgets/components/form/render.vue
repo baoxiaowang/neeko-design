@@ -14,6 +14,12 @@
         drag-class="drag-item-class"
         chosen-class="chosen-class"
         :group="group"
+        tag="transition-group"
+        :component-data="{
+          tag: 'ul',
+          type: 'transition-group',
+          name: 'flip-list',
+        }"
         @end="dragEnd"
         @add="onAdd"
         @update="onUpdate"
@@ -91,10 +97,11 @@
     }
 
     .form-widget__item {
+      border-radius: 4px;
     }
 
     .ghost-widget-item {
-      width: 100% !important;
+      width: 100%;
       // height: 50px !important;
       background: #fff !important;
       border: 1px dashed;
