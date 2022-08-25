@@ -7,20 +7,19 @@
       <a-layout-sider style="z-index: 33" :width="300">
         <DesignTools></DesignTools>
       </a-layout-sider>
-      <!-- <a-layout-sider style="width: 206px; margin-left: 1px">
-        Sider
-      </a-layout-sider> -->
       <a-layout-content class="design-layout__content design-mode">
         <widgetNavVue></widgetNavVue>
-        <router-view>
-          <template #default="{ Component, route }">
-            <component
-              :is="Component"
-              :key="route.meta.usePathKey ? route.path : undefined"
-              class="design-layout__view"
-            />
-          </template>
-        </router-view>
+        <slot>
+          <router-view>
+            <template #default="{ Component, route }">
+              <component
+                :is="Component"
+                :key="route.meta.usePathKey ? route.path : undefined"
+                class="design-layout__view"
+              />
+            </template>
+          </router-view>
+        </slot>
       </a-layout-content>
       <a-layout-sider v-show="selectKey" style="z-index: 33" :width="300">
         <EditorWrapVue></EditorWrapVue>

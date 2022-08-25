@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@arco-design/web-vue": "^2.34.1",
-    "@arco-themes/vue-neeko": "^0.0.6",
+    "@arco-themes/vue-neeko": "^0.0.7",
     "@types/mockjs": "^1.0.4",
     "@vueuse/core": "^7.3.0",
     "arco-design-pro-vue": "^2.5.7",

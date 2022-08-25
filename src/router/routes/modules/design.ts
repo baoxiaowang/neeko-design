@@ -10,18 +10,9 @@ const DASHBOARD: AppRouteRecordRaw = {
     requiresAuth: false,
     icon: 'icon-apps',
     order: 1,
+    hideInMenu: true,
   },
   children: [
-    // {
-    //   path: 'apps',
-    //   name: 'designApps',
-    //   component: () => import('@/views/design/apps/index.vue'),
-    //   meta: {
-    //     locale: '应用中心',
-    //     requiresAuth: false,
-    //     roles: ['*'],
-    //   },
-    // },
     {
       path: 'apps',
       name: 'designApps',
@@ -30,6 +21,7 @@ const DASHBOARD: AppRouteRecordRaw = {
         locale: '应用中心',
         requiresAuth: true,
         roles: ['*'],
+        hideInMenu: true,
       },
     },
     {
@@ -40,6 +32,7 @@ const DASHBOARD: AppRouteRecordRaw = {
         locale: '页面设计',
         requiresAuth: false,
         roles: ['*'],
+        hideInMenu: true,
       },
     },
     {
@@ -50,6 +43,7 @@ const DASHBOARD: AppRouteRecordRaw = {
         locale: '表单设计',
         requiresAuth: true,
         roles: ['*'],
+        hideInMenu: true,
       },
     },
   ],
