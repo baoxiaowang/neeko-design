@@ -14,11 +14,8 @@
         drag-class="drag-item-class"
         chosen-class="chosen-class"
         :group="group"
-        tag="transition-group"
         :component-data="{
           tag: 'ul',
-          type: 'transition-group',
-          name: 'flip-list',
         }"
         @end="dragEnd"
         @add="onAdd"
