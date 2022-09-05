@@ -2,6 +2,7 @@
   <ConfigBlockVue label="输入提示" class="attr-placeholder">
     <a-input
       :model-value="node.placeholder"
+      placeholder="输入占位提示"
       @update:model-value="(val) => changeAttr('placeholder', val)"
     />
   </ConfigBlockVue>

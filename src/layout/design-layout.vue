@@ -1,29 +1,33 @@
 <template>
   <a-layout class="design-layout">
     <a-layout-header class="design-layout__header">
-      <top-bar name="资产管理"></top-bar>
+      <slot name="header">
+        <top-bar name="资产管理"></top-bar>
+      </slot>
     </a-layout-header>
     <a-layout class="design-layout__body">
-      <a-layout-sider style="z-index: 33" :width="300">
-        <DesignTools></DesignTools>
-      </a-layout-sider>
-      <a-layout-content class="design-layout__content design-mode">
-        <widgetNavVue></widgetNavVue>
-        <slot>
-          <router-view>
-            <template #default="{ Component, route }">
-              <component
-                :is="Component"
-                :key="route.meta.usePathKey ? route.path : undefined"
-                class="design-layout__view"
-              />
-            </template>
-          </router-view>
-        </slot>
-      </a-layout-content>
-      <a-layout-sider v-show="selectKey" style="z-index: 33" :width="300">
-        <EditorWrapVue></EditorWrapVue>
-      </a-layout-sider>
+      <slot name="body">
+        <a-layout-sider style="z-index: 33" :width="300">
+          <DesignTools></DesignTools>
+        </a-layout-sider>
+        <a-layout-content class="design-layout__content design-mode">
+          <widgetNavVue></widgetNavVue>
+          <slot name="panel">
+            <router-view>
+              <template #default="{ Component, route }">
+                <component
+                  :is="Component"
+                  :key="route.meta.usePathKey ? route.path : undefined"
+                  class="design-layout__view"
+                />
+              </template>
+            </router-view>
+          </slot>
+        </a-layout-content>
+        <a-layout-sider v-show="selectKey" style="z-index: 33" :width="300">
+          <EditorWrapVue></EditorWrapVue>
+        </a-layout-sider>
+      </slot>
     </a-layout>
   </a-layout>
   <AddWidgetDialog

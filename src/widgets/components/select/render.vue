@@ -1,20 +1,24 @@
 <template>
   <a-select style="width: 100%" placeholder="">
-    <a-option>选项一</a-option>
-    <a-option>选项二</a-option>
-    <a-option>选项三</a-option>
+    <a-option v-for="(item, index) in options" :key="index" :value="item.label">
+      {{ item.label }}
+    </a-option>
   </a-select>
 </template>
 
 <script setup lang="ts" name="input-render">
   import useWidgetInject from '@/widgets/hooks/useWidgetInject';
-  import { InputWidget } from '../../types';
+  import { computed } from 'vue';
+  import { InputWidget, SelectWidget } from '../../types';
 
   const { isSubWidget } = useWidgetInject();
   interface RenderProps {
-    node: InputWidget;
+    node: SelectWidget;
   }
-  defineProps<RenderProps>();
+  const props = defineProps<RenderProps>();
+  const options = computed(() => {
+    return props.node.options;
+  });
 </script>
 
 <style lang="less">

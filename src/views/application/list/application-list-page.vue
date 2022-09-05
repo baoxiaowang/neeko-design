@@ -34,8 +34,10 @@
         <applicationCard
           v-for="item in appList"
           :key="item._id"
+          class="application__grid-item"
           :item="item"
           @del="delApp"
+          @click="goAppDetial(item._id)"
         ></applicationCard>
         <div class="empty-create__card" @click="createForm">
           <div class="empty-create__btn">
@@ -57,6 +59,7 @@
   import { computed, onMounted, ref } from 'vue';
   import { useAppStore } from '@/store';
   import { getAppList, delApp as delOneApp } from '@/api/application';
+  import { useRouter } from 'vue-router';
   import applicationFormVue from './components/application-form.vue';
   import applicationCard from './components/application-card.vue';
 
@@ -70,6 +73,7 @@
   }
   // const props = defineProps();
   // const emit = defineEmits();
+  const router = useRouter();
   const appStore = useAppStore();
   const visible = ref<boolean>(false);
   const AppType = [
@@ -107,6 +111,11 @@
     const { data } = await getAppList();
     appList.value = data;
   });
+  function goAppDetial(id: string) {
+    router.push({
+      path: `/application-detail/${id}`,
+    });
+  }
 </script>
 
 <style lang="less">
@@ -150,6 +159,14 @@
       grid-template-columns: repeat(4, 1fr);
       align-items: center;
       margin-top: 20px;
+    }
+
+    .application__grid-item {
+      transition: all 300ms;
+
+      &:hover {
+        transform: scale(1.05);
+      }
     }
 
     .empty-create__card {

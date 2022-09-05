@@ -7,19 +7,14 @@
         :change="change"
         @change="(val) => changeAttr('label', val)"
       ></AttrLabelVue>
-      <ConfigBlock label="输入提示">
-        <a-input
-          :model-value="node.placeholder"
-          @update:model-value="(val) => changeAttr('placeholder', val)"
-        />
-      </ConfigBlock>
+      <AttrPlaceholderVue :node="node" :change="change"></AttrPlaceholderVue>
       <AttrWidthVue
         :block="node.block"
         :width="node.width"
         @change-block="(val) => changeAttr('block', val)"
         @change="(val) => changeAttr('width', val)"
       ></AttrWidthVue>
-      <AttrOptionsVue> </AttrOptionsVue>
+      <AttrOptionsVue :node="node" :change="change"> </AttrOptionsVue>
       <AttrDirectionVue
         :direction="node.direction"
         :change="(e) => changeAttr('direction', e)"
@@ -44,6 +39,8 @@
   import AttrPermissionVue from '@/widgets/attr-blocks/attr-permission.vue';
   import AttrDirectionVue from '@/widgets/attr-blocks/attr-direction.vue';
   import AttrOptionsVue from '@/widgets/attr-blocks/attr-options.vue';
+  import AttrPlaceholderVue from '@/widgets/attr-blocks/attr-placeholder.vue';
+
   import { RadioGroupWidget, WidgetChange } from '../../types';
 
   const props = defineProps<{

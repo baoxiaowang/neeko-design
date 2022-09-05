@@ -12,7 +12,11 @@
         <svg-icon
           :name="activeTool === t.type ? t.icon.active : t.icon.default"
           size="20px"
-          :color="activeTool === t.type ? '#FFF' : '#FFF'"
+          :color="
+            activeTool === t.type
+              ? 'rgb(var(--arcoblue-6))'
+              : 'var(--color-text-2)'
+          "
         />
       </div>
     </div>
@@ -30,7 +34,7 @@
 </template>
 
 <script setup lang="ts" name="DesignTool">
-  import { computed, onMounted, ref } from 'vue';
+  import { computed, onMounted, ref, watchEffect } from 'vue';
   import { Tool } from '@/store/modules/design/types';
   import { useDesignStore } from '@/store';
   import WidgetsTree from './widgets-tree/index.vue';
@@ -42,13 +46,16 @@
   const onClick = (item: Tool) => {
     activeTool.value = item.type;
   };
-  onMounted(() => {
+  // onMounted(() => {
+  //   activeTool.value = tools.value[0]?.type;
+  // });
+  watchEffect(() => {
     activeTool.value = tools.value[0]?.type;
   });
 </script>
 
 <style lang="less">
-  @left-bg: var(--color-neutral-10);
+  @left-bg: var(--color-menu-light-bg); //var(--color-neutral-10);;
   @select-bg: rgb(var(--arcoblue-6)); // #fb9337; //rgb(var(--orange-6));
 
   .design-tools {
@@ -64,6 +71,7 @@
       // background-color: var(--color-neutral-10);
       // background-color: var(--color-neutral-1);
       background-color: @left-bg;
+      box-shadow: 2px 0 2px 0 rgb(0 0 0 / 8%);
     }
 
     .tool-item {
@@ -82,7 +90,8 @@
       transition: all 200ms ease-in-out;
 
       &:hover {
-        background: rgba(255, 255, 255, 0.16);
+        // background: rgba(255, 255, 255, 0.16);
+        background-color: var(--color-secondary-hover);
       }
 
       &::before {

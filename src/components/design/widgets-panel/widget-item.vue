@@ -33,7 +33,7 @@
     margin-bottom: 8px;
     // padding: 0 8px;
     padding-left: 8px;
-    color: #666;
+    color: var(--color-neutral-8);
     border: 1px solid var(--color-neutral-3);
     border-radius: 4px;
     cursor: move;

@@ -1,7 +1,8 @@
 <template>
   <div :style="style" :data-key="node.key" class="widget-form-render">
     <a-form
-      :model="{}"
+      ref="formRef"
+      :model="formModel"
       auto-label-width
       :layout="node.layout || 'vertical'"
       :label-align="node.labelAlign"
@@ -36,6 +37,7 @@
           >
             <component
               :is="getRenderWidget(element)"
+              v-model="formModel[(element.key) as string]"
               :node="element"
               :state="state"
               :meta="meta"
@@ -49,11 +51,12 @@
 
 <script setup lang="ts" name="form-render">
   import { getRenderWidget } from '@/widgets/render';
-  import { onMounted, ref, nextTick, computed, toRefs } from 'vue';
+  import { onMounted, ref, nextTick, computed, toRefs, reactive } from 'vue';
   import VueDraggable from '@/components/vue-draggable/src/vuedraggable';
   import { FormRootWidget, Widget } from '@/widgets/types';
   import useDraggable from '@/widgets/hooks/useDraggable';
   import FormWidgetLayout from '@/widgets/common/form-widget-layout.vue';
+  import { Form } from '@arco-design/web-vue';
   import { styleToString } from '../../utils';
 
   const props = defineProps<{
@@ -65,6 +68,9 @@
   const style = computed<any>(() => {
     return styleToString(props.node.codeStyle);
   });
+
+  const formModel = reactive<Record<string, any>>({});
+  const formRef = ref<InstanceType<typeof Form>>();
 
   const { node } = toRefs(props);
   const { list, onUpdate, onAdd } = useDraggable(node);
@@ -79,6 +85,16 @@
   const group = { name: 'form-widget' };
   onMounted(() => {
     //
+  });
+
+  defineExpose({
+    name: '333',
+    validate(cb: (e: any, d: Record<string, any>) => void) {
+      return formRef.value?.validate((error) => {
+        cb(error, formModel);
+      });
+    },
+    data: formModel,
   });
 </script>
 

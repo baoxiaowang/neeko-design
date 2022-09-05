@@ -1,5 +1,5 @@
 import { createApp } from 'vue';
-import ArcoVue, { Modal } from '@arco-design/web-vue';
+import ArcoVue, { Modal, Message } from '@arco-design/web-vue';
 import ArcoVueIcon from '@arco-design/web-vue/es/icon';
 import globalComponents from '@/components';
 import SvgIcon from '@/components/svg-icon/index.vue';
@@ -42,4 +42,6 @@ app.use(globalComponents);
 app.use(directive);
 // eslint-disable-next-line no-underscore-dangle
 Modal._context = app._context;
+// eslint-disable-next-line no-underscore-dangle
+Message._context = app._context;
 app.mount('#app');

@@ -1,5 +1,9 @@
 <template>
-  <a-input :placeholder="node.placeholder"></a-input>
+  <a-input
+    :placeholder="node.placeholder"
+    :model-value="value"
+    @change="(val) => emit('update:value', val)"
+  ></a-input>
 </template>
 
 <script setup lang="ts" name="input-render">
@@ -9,8 +13,14 @@
   const { isSubWidget } = useWidgetInject();
   interface RenderProps {
     node: InputWidget;
+    value: string;
   }
-  defineProps<RenderProps>();
+  withDefaults(defineProps<RenderProps>(), {
+    value: '',
+  });
+  const emit = defineEmits<{
+    (e: 'update:value', d: string): void;
+  }>();
 </script>
 
 <style lang="less">

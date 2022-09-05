@@ -1,5 +1,5 @@
 // import Editor from "./editor.vue";
-import { InputWidget, WidgetConfig, WidgetType } from '../../types';
+import { SelectWidget, WidgetConfig, WidgetType } from '../../types';
 import { createWidgetKey } from '../../utils';
 
 const type: WidgetType = 'select';
@@ -25,6 +25,11 @@ export default {
           linkField: '',
         },
       },
+      options: [
+        { defaultCheck: 0, label: '选项一' },
+        { defaultCheck: 0, label: '选项二' },
+        { defaultCheck: 0, label: '选项三' },
+      ],
       placeholder: '',
       rules: {
         required: 0,
@@ -32,4 +37,4 @@ export default {
       block: 0,
     };
   },
-} as WidgetConfig<InputWidget>;
+} as WidgetConfig<SelectWidget>;

@@ -15,7 +15,7 @@
   import useWidgetInject from '@/widgets/hooks/useWidgetInject';
   import { InputWidget } from '../../types';
 
-  const { isSubWidget, size } = useWidgetInject();
+  const { isSubWidget } = useWidgetInject();
   interface RenderProps {
     node: InputWidget;
   }

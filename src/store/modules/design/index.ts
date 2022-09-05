@@ -92,16 +92,16 @@ const useDesignStore = defineStore('design', {
       return this.widgetParentMap[key] as T;
     },
     // 初始化
-    initState(type: 'form' | 'page') {
-      let widgetList: Widget[] = [];
+    initState(type: 'form' | 'page', widgetList: Widget[]) {
+      // let widgetList: Widget[] = [];
       let toolWidgetGroup: ToolWidgetGroupItem[] = [];
       let designTools = [WidgetTreeTool, WidgetPanelTool, WidgetDataTool];
       if (type === 'form') {
-        widgetList = DesignConst.createFormData();
+        // widgetList = DesignConst.createFormData();
         toolWidgetGroup = DesignConst.toolWidgetGroupMap.form;
         designTools = [WidgetPanelTool, WidgetTreeTool, WidgetDataTool];
       } else {
-        widgetList = DesignConst.createCustomePage();
+        // widgetList = DesignConst.createCustomePage();
         toolWidgetGroup = DesignConst.toolWidgetGroupMap.page;
         designTools = [WidgetTreeTool, WidgetPanelTool, WidgetDataTool];
       }
@@ -135,7 +135,7 @@ const useDesignStore = defineStore('design', {
     },
     async createPage(type: 'form' | 'page') {
       // this.$dispose('init', type);
-      this.initState(type);
+      // this.initState(type);
       // router.push({
       //   path: '/design',
       //   query: { type },

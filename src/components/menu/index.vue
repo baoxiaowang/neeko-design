@@ -30,6 +30,7 @@
       const selectedKey = ref<string[]>([]);
 
       const goto = (item: RouteRecordRaw) => {
+        console.log('');
         // Open external link
         if (regexUrl.test(item.path)) {
           openWindow(item.path);

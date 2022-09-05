@@ -1,6 +1,7 @@
 <template>
   <a-form-item
     field="name"
+    v-bind="$attrs"
     class="form-widget-layout"
     :class="{
       'form-widget__active': isDesign && actived,

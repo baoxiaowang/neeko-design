@@ -35,3 +35,9 @@ export interface GeneralChart {
   xAxis: string[];
   data: Array<{ name: string; value: number[] }>;
 }
+
+export interface HttpResult<T> {
+  data: T;
+  code: number;
+  msg: string;
+}

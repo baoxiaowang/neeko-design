@@ -1,5 +1,5 @@
 <template>
-  <ConfigBlockVue label="排列方式" class="attr-direction">
+  <ConfigBlockVue label="排列" class="attr-direction">
     <a-radio-group :model-value="direction" @update:model-value="change">
       <a-radio value="vertical">竖向排布</a-radio>
       <a-radio value="horizontal">横线排布</a-radio>

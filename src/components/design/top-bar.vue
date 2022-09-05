@@ -1,27 +1,29 @@
 <template>
   <div class="app-top top-bar">
     <div class="top-left">
-      <!-- <a-button class="back-btn" text @click="$router.push('/page-manage')">
-        <icon-left />
-      </a-button> -->
       <a-button type="text" @click="back">
         <template #icon>
           <icon-left />
         </template>
       </a-button>
-      <!-- <a-input
+      <a-input
         class="page-name__input"
+        :style="{
+          width: inputWidth + 'px',
+        }"
         :model-value="currentName"
+        @input="handInput"
         @update:model-value="modelChange"
         @change="change"
       >
-      </a-input> -->
+      </a-input>
+      <span ref="iptTextEl" class="page-name__text">{{ currentName }}</span>
     </div>
     <div class="page-title">
-      <a-menu mode="horizontal" :default-selected-keys="['1']">
+      <a-menu mode="horizontal" :selected-keys="selectKeys">
         <!-- 页面模式 -->
         <template v-if="designType === 'page'">
-          <a-menu-item key="1">
+          <a-menu-item key="designPage">
             <template #icon><icon-computer /></template>页面设计
           </a-menu-item>
           <a-menu-item key="5">
@@ -30,10 +32,10 @@
         </template>
         <template v-else-if="designType === 'form'">
           <!-- 表单模式 -->
-          <a-menu-item key="1">
+          <a-menu-item key="designForm" @click="link('form')">
             <template #icon> <icon-bookmark /> </template>表单设计
           </a-menu-item>
-          <a-menu-item key="2">
+          <a-menu-item key="designFlow" @click="link('flow')">
             <template #icon>
               <i class="iconfont icon-organization-chart" /> </template
             >流程设计
@@ -98,13 +100,14 @@
 </template>
 
 <script setup lang="ts" name="top-bar">
-  import { ref, watchEffect, h, computed } from 'vue';
+  import { ref, watchEffect, h, computed, nextTick, watch } from 'vue';
   import { useDesignStore } from '@/store';
   import PreviewContent from '@/components/design/preview-content/index.vue';
-  import { useRouter } from 'vue-router';
+  import { useRoute, useRouter } from 'vue-router';
 
   const store = useDesignStore();
   const router = useRouter();
+  const route = useRoute();
   const props = defineProps<{
     name: string;
   }>();
@@ -116,7 +119,8 @@
   function saveData() {
     emit('saveData');
   }
-
+  const iptTextEl = ref<any>();
+  const inputWidth = ref<number>(100);
   const designType = computed<'page' | 'form'>(() => store.designType);
   const visible = computed<boolean>({
     get() {
@@ -127,19 +131,63 @@
     },
   });
 
+  const currentName = ref('客户管理');
+
   function back() {
     router.go(-1);
   }
-  const currentName = ref<string>(props.name);
-  watchEffect(() => {
+  // const currentName = ref<string>(props.name);
+  watchEffect(async () => {
     currentName.value = props.name;
   });
+  watch(
+    currentName,
+    async () => {
+      await nextTick();
+      inputWidth.value = iptTextEl.value?.offsetWidth + 22;
+    },
+    {
+      immediate: true,
+    }
+  );
 
   function previewPage() {
     store.previewDialogShow = true;
   }
   function close() {
     visible.value = false;
+  }
+  function modelChange(val: string) {
+    currentName.value = val;
+  }
+  function change(val: string) {
+    emit('nameChange', val);
+  }
+  function handInput() {}
+  const selectKeys = computed(() => {
+    return [route.name];
+  });
+  function link(type: string) {
+    switch (type) {
+      case 'flow':
+        router.push({
+          path: `/design-flow/${route.params.pageId}`,
+        });
+        break;
+      case 'page':
+        router.push({
+          path: `/design-page/${route.params.pageId}`,
+        });
+        break;
+      case 'form':
+        router.push({
+          path: `/design-form/${route.params.pageId}`,
+        });
+        break;
+
+      default:
+        break;
+    }
   }
 </script>
 
@@ -186,6 +234,14 @@
     background: #fff;
     box-shadow: 0 4px 6px #0c1f500a;
 
+    .page-name__text {
+      position: absolute;
+      z-index: -1;
+      font-size: 14px;
+      line-height: 1.5715;
+      opacity: 0;
+    }
+
     .page-title {
       display: flex;
       flex: 1;
@@ -213,19 +269,17 @@
     }
 
     .page-name__input {
+      box-sizing: border-box;
       width: min-content;
-      min-width: 100px;
+      min-width: 80px;
+      // box-shadow: 0 0 0 1px transparent inset !important;
+      border: 1px solid transparent;
+      border-bottom: 1px solid transparent;
+      border-radius: 0;
+    }
 
-      .el-input__wrapper {
-        box-sizing: border-box;
-        border-bottom: 1px solid transparent;
-        border-radius: 0;
-        box-shadow: 0 0 0 1px transparent inset !important;
-
-        &.is-focus {
-          border-bottom: 1px dashed var(--el-input-focus-border-color);
-        }
-      }
+    .arco-input-focus {
+      border-bottom: 1px dashed var(--color-neutral-6) !important;
     }
 
     .back-btn {

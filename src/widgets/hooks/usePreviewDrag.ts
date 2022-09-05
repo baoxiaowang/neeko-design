@@ -10,7 +10,9 @@ export default function usePreviewDrag(node: Ref<Widget>) {
       const children = node.value.children || [];
       return [...children];
     },
-    set(val) {},
+    set(val: any) {
+      console.log(val);
+    },
   });
 
   async function dragEnd() {

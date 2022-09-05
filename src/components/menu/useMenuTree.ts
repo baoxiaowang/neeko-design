@@ -57,7 +57,7 @@ export default function useMenuTree() {
 
         return null;
       });
-      return collector.filter(Boolean);
+      return collector.filter((r: any) => r && !r?.meta?.hideInMenu);
     }
     return travel(copyRouter, 0);
   });

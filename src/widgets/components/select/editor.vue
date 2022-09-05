@@ -1,25 +1,17 @@
 <template>
   <formEditorLayoutVue :node="node" :node-key="node.key" class="editor">
     <template #attrs>
-      <AttrLabelVue
-        :label="node.label"
-        :node="node"
-        :change="change"
-        @change="(val) => changeAttr('label', val)"
-      ></AttrLabelVue>
-      <ConfigBlock label="输入提示">
-        <a-input
-          :model-value="node.placeholder"
-          @update:model-value="(val) => changeAttr('placeholder', val)"
-        />
-      </ConfigBlock>
+      <AttrLabelVue :label="node.label" :node="node" :change="change" />
+
+      <AttrPlaceholderVue :node="node" :change="change" />
       <AttrWidthVue
         :block="node.block"
         :width="node.width"
         @change-block="(val) => changeAttr('block', val)"
         @change="(val) => changeAttr('width', val)"
-      ></AttrWidthVue>
-      <AttrRulesVue :node="node" :change="change"></AttrRulesVue>
+      />
+      <AttrOptionsVue :node="node" :change="change" />
+      <AttrRulesVue :node="node" :change="change" />
 
       <AttrKeyVue :node-key="node.key"></AttrKeyVue>
     </template>
@@ -37,14 +29,15 @@
   import AttrKeyVue from '@/widgets/attr-blocks/attr-key.vue';
   import AttrRulesVue from '@/widgets/attr-blocks/attr-rules.vue';
   import AttrPermissionVue from '@/widgets/attr-blocks/attr-permission.vue';
-
-  import { InputWidget, WidgetChange } from '../../types';
+  import AttrOptionsVue from '@/widgets/attr-blocks/attr-options.vue';
+  import AttrPlaceholderVue from '@/widgets/attr-blocks/attr-placeholder.vue';
+  import { SelectWidget, WidgetChange } from '../../types';
 
   const props = defineProps<{
-    node: InputWidget;
-    change: WidgetChange<InputWidget>;
+    node: SelectWidget;
+    change: WidgetChange<SelectWidget>;
   }>();
-  function changeAttr(key: keyof InputWidget, val: any) {
+  function changeAttr(key: keyof SelectWidget, val: any) {
     props.change({
       [key]: val,
     });

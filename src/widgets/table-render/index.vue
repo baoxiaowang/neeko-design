@@ -136,6 +136,24 @@
               {{ record[item.key] }}
             </template>
           </a-table-column>
+
+          <a-table-column :width="220" title="操作" align="right">
+            <template #cell="{ record }">
+              <a-button-group size="small">
+                <a-button type="text" @click="() => record">查看</a-button>
+                <a-button type="text" @click="() => record">编辑</a-button>
+                <a-popconfirm
+                  content="确定删除该页面？"
+                  ok-text="删除"
+                  cancel-text="取消"
+                  position="br"
+                  @ok="delFormData(record.id)"
+                >
+                  <a-button type="text" status="danger">删除</a-button>
+                </a-popconfirm>
+              </a-button-group>
+            </template>
+          </a-table-column>
         </template>
       </a-table>
     </a-card>
@@ -143,8 +161,9 @@
 </template>
 
 <script setup lang="ts" name="widget-table-render">
-  import { computed } from 'vue';
+  import { computed, onBeforeMount } from 'vue';
   import type * as CSS from 'csstype';
+  import { getFormDataByPage } from '@/api/form';
   import { FormWidget } from '../types';
 
   const props = withDefaults(
@@ -158,73 +177,20 @@
   );
   const emit = defineEmits<{
     (e: 'onAdd'): void;
+    (e: 'onDel', d: string): void;
   }>();
   const formWidgetList = computed(() => {
     const [formWidget] = props.widgetData;
-    return formWidget.children || [];
+    return formWidget?.children || [];
   });
   const bodyCellStyle = {
     '--cell-padding': 0,
   } as CSS.Properties;
-  const data = [
-    {
-      key: '1',
-      customer_no: 'no.0000001',
-      customer_name: '张三',
-      address: '5',
-      email: 'jane.doe@example.com',
-      customer_contacts: [
-        {
-          phone: '3131',
-          name: '联系人1',
-        },
-        {
-          phone: '151',
-          name: '联系人2',
-        },
-      ],
-      customer_review: [
-        {
-          time: '3131',
-          remake: '联系人1',
-        },
-      ],
-    },
-    {
-      key: '2',
-      customer_no: 'no.0000002',
-      customer_name: '李四',
-      salary: 25000,
-      address: '35 Park Road, London',
-      email: 'alisa.ross@example.com',
-    },
-    {
-      key: '3',
-      customer_no: 'no.0000003',
-      customer_name: '王五',
-      salary: 22000,
-      address: '31 Park Road, London',
-      email: 'kevin.sandra@example.com',
-    },
-    {
-      key: '4',
-      customer_no: 'no.0000004',
-      customer_name: 'Ed Hellen',
-      salary: 17000,
-      address: '42 Park Road, London',
-      email: 'ed.hellen@example.com',
-    },
-    {
-      key: '5',
-      customer_no: 'no.0000004',
-      customer_name: 'William Smith',
-      salary: 27000,
-      address: '62 Park Road, London',
-      email: 'william.smith@example.com',
-    },
-  ];
   function onAdd() {
     emit('onAdd');
+  }
+  function delFormData(id: string) {
+    emit('onDel', id);
   }
 </script>
 

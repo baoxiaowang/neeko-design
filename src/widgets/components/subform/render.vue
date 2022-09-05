@@ -23,16 +23,14 @@
       @dragstart="dragStart"
     >
       <template #item="{ element }">
-        <a-resize-box
+        <component
+          :is="isDesign ? 'a-resize-box' : 'div'"
           class="subform-item__cell-box"
-          style="width: 200px"
+          :width="element.subWidth || 200"
+          :style="{ width: (element.subWidth || 200) + 'px' }"
           :directions="['right']"
+          @update:width="(w: number)=> updateWidth(element, w)"
         >
-          <!-- <template #resize-trigger>
-            <div class="resizebox-demo resizebox-demo-vertical">
-              <div class="resizebox-demo-line" />
-            </div>
-          </template> -->
           <div
             class="subform-item__cell subform-item__cell-widget"
             :class="{
@@ -48,13 +46,14 @@
             <div class="subform__td">
               <component
                 :is="getRenderWidget(element)"
+                v-model="modelValue[0][element.key]"
                 :node="element"
                 :state="state"
                 :meta="meta"
               />
             </div>
           </div>
-        </a-resize-box>
+        </component>
       </template>
     </VueDraggable>
   </div>
@@ -62,24 +61,44 @@
 
 <script setup lang="ts" name="subform-render">
   import { getRenderWidget } from '@/widgets/render';
-  import { onMounted, ref, nextTick, computed, toRefs, provide } from 'vue';
+  import { onMounted, nextTick, computed, toRefs, provide } from 'vue';
   import VueDraggable from '@/components/vue-draggable/src/vuedraggable';
-  import { Widget } from '@/widgets/types';
+  import { FormWidget, Widget } from '@/widgets/types';
   import useDraggable from '@/widgets/hooks/useDraggable';
   import useWidgetInject from '@/widgets/hooks/useWidgetInject';
   import { useDesignStore } from '@/store';
   import { styleToString } from '../../utils';
 
-  const props = defineProps<{
-    node: Widget;
-    state: any;
-    meta: any;
+  const props = withDefaults(
+    defineProps<{
+      node: Widget;
+      state: any;
+      meta: any;
+      value: Record<string, any>[];
+    }>(),
+    {
+      value: () => {
+        return [{}];
+      },
+    }
+  );
+  const emit = defineEmits<{
+    (e: 'update:value', val: Record<string, any>[]): void;
   }>();
   provide('isSubWidget', true);
   const { isDesign } = useWidgetInject();
-  const layout = ref<'vertical'>('vertical');
+  // const layout = ref<'vertical'>('vertical');
   const style = computed<any>(() => {
     return styleToString(props.node.codeStyle);
+  });
+
+  const modelValue = computed({
+    get() {
+      return props.value;
+    },
+    set(val: Record<string, any>[]) {
+      emit('update:value', val);
+    },
   });
 
   const { node } = toRefs(props);
@@ -101,6 +120,12 @@
     if (!isDesign) return;
     store.setSelectKey(widget.key);
   }
+  const updateWidth = function updateWidth(sub: FormWidget, width: number) {
+    store.handlerWidgetUpdate({
+      key: sub.key,
+      subWidth: width,
+    } as FormWidget);
+  };
 </script>
 
 <style lang="less">
@@ -148,6 +173,12 @@
 
     .subform-item__cell-box {
       flex-shrink: 0;
+
+      &:last-child {
+        .subform-item__cell-widget {
+          border-right: 1px solid var(--color-neutral-3);
+        }
+      }
     }
 
     .subform-item__cell {
@@ -191,8 +222,9 @@
     }
 
     .subform-item__cell-widget {
-      border: 1px solid var(--color-neutral-3);
+      border-left: 1px solid var(--color-neutral-3);
       pointer-events: all;
+
       // border-left: 1px solid transparent !important;
       // border-right: 1px solid transparent !important;
       &--design {

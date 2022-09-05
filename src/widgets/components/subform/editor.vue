@@ -1,12 +1,25 @@
 <template>
-  <div class="editor">333 </div>
+  <formEditorLayoutVue :node="node" :node-key="node.key" class="editor">
+    <template #attrs>
+      <AttrLabelVue
+        :label="node.label"
+        :node="node"
+        :change="change"
+      ></AttrLabelVue>
+
+      <AttrKeyVue :node-key="node.key"></AttrKeyVue>
+    </template>
+  </formEditorLayoutVue>
 </template>
 
 <script setup lang="ts" name="editor">
   import { FormWidget } from '@/widgets/types';
+  import formEditorLayoutVue from '@/widgets/common/form-editor-layout.vue';
+  import AttrLabelVue from '@/widgets/attr-blocks/attr-label.vue';
+  import AttrKeyVue from '@/widgets/attr-blocks/attr-key.vue';
 
   defineProps<{
-    value: FormWidget;
+    node: FormWidget;
     change: (e: Partial<FormWidget>) => void;
   }>();
 </script>

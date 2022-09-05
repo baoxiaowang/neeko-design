@@ -1,10 +1,5 @@
 // import Editor from "./editor.vue";
-import {
-  InputWidget,
-  RadioGroupWidget,
-  WidgetConfig,
-  WidgetType,
-} from '../../types';
+import { RadioGroupWidget, WidgetConfig, WidgetType } from '../../types';
 import { createWidgetKey } from '../../utils';
 
 const type: WidgetType = 'radio-group';
@@ -14,7 +9,7 @@ export default {
   icon: 'icon-radio-button-line',
   childrenType: [] as WidgetType[],
   defaultVal() {
-    return {
+    const data: RadioGroupWidget = {
       type,
       label: '单选框组',
       key: createWidgetKey(type),
@@ -22,20 +17,17 @@ export default {
       width: '100',
       config: {},
       direction: 'vertical',
-      default: {
-        type: 'custom',
-        exp: '',
-        linkInfo: {
-          linkFormId: '',
-          condition: [],
-          linkField: '',
-        },
-      },
       placeholder: '',
       rules: {
         required: 0,
       },
       block: 0,
+      options: [
+        { defaultCheck: 0, label: '选项一' },
+        { defaultCheck: 0, label: '选项二' },
+        { defaultCheck: 0, label: '选项三' },
+      ],
     };
+    return data;
   },
 } as WidgetConfig<RadioGroupWidget>;

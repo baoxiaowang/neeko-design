@@ -1,4 +1,5 @@
 import type * as CSS from 'csstype';
+import { S } from 'mockjs';
 import { DefineComponent } from 'vue';
 
 export type DesignMode = 'design' | 'runtime';
@@ -70,6 +71,7 @@ export interface FormWidget extends Widget {
     linkInfo?: LinkInfo;
   };
   width?: string;
+  subWidth?: number;
   placeholder?: string;
   rules?: {
     required?: number;
@@ -106,18 +108,17 @@ export type InputWidget = FormWidget;
 
 export interface WidgetOptionItem {
   label: string;
-  value: string;
-  defaultCheck?: boolean;
+  // value: string;
+  defaultCheck?: NumBoolean;
 }
 
-export interface OptionWidget {
+export interface OptionWidget extends FormWidget {
   options: WidgetOptionItem[];
   direction?: 'horizontal' | 'vertical';
 }
-export interface RadioGroupWidget extends FormWidget, OptionWidget {
-  // items: WidgetOptionItem[];
-  // direction?: 'horizontal' | 'vertical';
-}
+export type RadioGroupWidget = OptionWidget;
+export type SelectWidget = OptionWidget;
+export type SelectGroupWidget = OptionWidget;
 export interface CheckboxGroupWidget extends FormWidget, OptionWidget {
   // items: WidgetOptionItem[];
   // direction?: 'horizontal' | 'vertical';

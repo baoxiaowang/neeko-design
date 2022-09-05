@@ -30,6 +30,9 @@
   }>();
   function changeAttr(val: string) {
     emit('change', val);
+    props.change({
+      label: val,
+    });
   }
   function changeHideLabel(val: any) {
     props.change({

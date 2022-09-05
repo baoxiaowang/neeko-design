@@ -1,10 +1,5 @@
 // import Editor from "./editor.vue";
-import {
-  CheckboxGroupWidget,
-  InputWidget,
-  WidgetConfig,
-  WidgetType,
-} from '../../types';
+import { CheckboxGroupWidget, WidgetConfig, WidgetType } from '../../types';
 import { createWidgetKey } from '../../utils';
 
 const type: WidgetType = 'checkbox-group';
