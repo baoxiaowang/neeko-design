@@ -19,6 +19,7 @@
         @change-block="(val) => changeAttr('block', val)"
         @change="(val) => changeAttr('width', val)"
       ></AttrWidthVue>
+      <AttrOptionsVue :node="node" :change="change" />
       <AttrDirectionVue
         :direction="node.direction"
         :change="(e) => changeAttr('direction', e)"
@@ -42,6 +43,7 @@
   import AttrRulesVue from '@/widgets/attr-blocks/attr-rules.vue';
   import AttrPermissionVue from '@/widgets/attr-blocks/attr-permission.vue';
   import AttrDirectionVue from '@/widgets/attr-blocks/attr-direction.vue';
+  import AttrOptionsVue from '@/widgets/attr-blocks/attr-options.vue';
 
   import { CheckboxGroupWidget, InputWidget, WidgetChange } from '../../types';
 

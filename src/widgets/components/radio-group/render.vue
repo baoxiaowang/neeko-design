@@ -1,9 +1,9 @@
 <template>
   <a-select v-if="isSubWidget" size="small" readonly>
     <template #arrow-icon><icon-record /></template>
-    <a-option value="A"><icon-record />选项一</a-option>
-    <a-option value="B"><icon-record />选项二</a-option>
-    <a-option value="C"><icon-record />选项三</a-option>
+    <a-option v-for="(item, index) in options" :key="index" :value="item.label">
+      <icon-record />{{ item.label }}
+    </a-option>
   </a-select>
   <a-radio-group v-else :direction="node.direction">
     <a-radio v-for="(item, index) in options" :key="index" :value="item.label">

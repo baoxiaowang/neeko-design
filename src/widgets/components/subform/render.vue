@@ -1,61 +1,77 @@
 <template>
   <div :style="style" :data-key="node.key" class="widget-subform-render">
-    <div class="subform-index__panel">
-      <div class="subform-item__cell-index subform-item__cell">
-        <div class="subform-item__title subform__th"></div>
-        <div class="subform-item__index subform__td">1</div>
+    <div
+      class="widget-subform-render__table"
+      :class="{
+        'widget-subform-render__table--design': isDesign,
+        'widget-subform-render__table--runtime': !isDesign,
+      }"
+    >
+      <div class="subform-index__panel">
+        <div class="subform-item__cell-index subform-item__cell">
+          <div class="subform-item__title subform__th"></div>
+          <div class="subform-item__index subform__td">1</div>
+        </div>
       </div>
+      <VueDraggable
+        v-model="list"
+        :disabled="!isDesign"
+        item-key="key"
+        class="subform-body__panel"
+        ghost-class="ghost-subform-item"
+        chosen-class="chosen-class"
+        :force-fallback="false"
+        :fallback-on-body="true"
+        :group="group"
+        @end="dragEnd"
+        @add="onAdd"
+        @update="onUpdate"
+        @dragstart="dragStart"
+      >
+        <template #item="{ element }">
+          <component
+            :is="isDesign ? 'a-resize-box' : 'div'"
+            class="subform-item__cell-box"
+            :width="element.subWidth || 200"
+            :style="{ width: (element.subWidth || 200) + 'px' }"
+            :directions="['right']"
+            @update:width="(w: number)=> updateWidth(element, w)"
+          >
+            <div
+              class="subform-item__cell subform-item__cell-widget"
+              :class="{
+                'subform-item__cell-widget--design': isDesign,
+                'subform-item__cell-widget--active':
+                  isDesign && element.key === store.selectedKey,
+              }"
+              @click.stop="subWidgetClick(element)"
+            >
+              <div class="subform-item__title subform__th">
+                {{ element.label }}
+              </div>
+              <div class="subform__td">
+                <component
+                  :is="getRenderWidget(element)"
+                  v-model:value="modelValue[0][element.key]"
+                  :node="element"
+                  :state="state"
+                  :meta="meta"
+                />
+              </div>
+            </div>
+          </component>
+        </template>
+      </VueDraggable>
     </div>
 
-    <VueDraggable
-      v-model="list"
-      :disabled="!isDesign"
-      item-key="key"
-      class="subform-body__panel"
-      ghost-class="ghost-subform-item"
-      chosen-class="chosen-class"
-      :force-fallback="false"
-      :fallback-on-body="true"
-      :group="group"
-      @end="dragEnd"
-      @add="onAdd"
-      @update="onUpdate"
-      @dragstart="dragStart"
-    >
-      <template #item="{ element }">
-        <component
-          :is="isDesign ? 'a-resize-box' : 'div'"
-          class="subform-item__cell-box"
-          :width="element.subWidth || 200"
-          :style="{ width: (element.subWidth || 200) + 'px' }"
-          :directions="['right']"
-          @update:width="(w: number)=> updateWidth(element, w)"
-        >
-          <div
-            class="subform-item__cell subform-item__cell-widget"
-            :class="{
-              'subform-item__cell-widget--design': isDesign,
-              'subform-item__cell-widget--active':
-                isDesign && element.key === store.selectedKey,
-            }"
-            @click.stop="subWidgetClick(element)"
-          >
-            <div class="subform-item__title subform__th">
-              {{ element.label }}
-            </div>
-            <div class="subform__td">
-              <component
-                :is="getRenderWidget(element)"
-                v-model="modelValue[0][element.key]"
-                :node="element"
-                :state="state"
-                :meta="meta"
-              />
-            </div>
-          </div>
-        </component>
-      </template>
-    </VueDraggable>
+    <div v-if="!isDesign" class="subform-actions">
+      <a-button class="subform-btn--add" type="text">
+        <template #icon>
+          <icon-plus />
+        </template>
+        <template #default>添加单条</template>
+      </a-button>
+    </div>
   </div>
 </template>
 
@@ -78,7 +94,11 @@
     }>(),
     {
       value: () => {
-        return [{}];
+        return [
+          {
+            number_k1M9: 20,
+          },
+        ];
       },
     }
   );
@@ -87,7 +107,6 @@
   }>();
   provide('isSubWidget', true);
   const { isDesign } = useWidgetInject();
-  // const layout = ref<'vertical'>('vertical');
   const style = computed<any>(() => {
     return styleToString(props.node.codeStyle);
   });
@@ -97,6 +116,7 @@
       return props.value;
     },
     set(val: Record<string, any>[]) {
+      debugger;
       emit('update:value', val);
     },
   });
@@ -155,16 +175,20 @@
     height: 100%;
   }
 
-  .widget-subform-render {
+  .widget-subform-render__table {
     display: flex;
     box-sizing: border-box;
-    // padding: 20px 24px 24px 10px;
-    padding-bottom: 20px;
-    // background: #fff;
     background: transparent;
 
-    .widget-subform {
+    &--design {
       padding-bottom: 20px;
+    }
+
+    &--runtime {
+      .subform-body__panel,
+      .subform-index__panel {
+        padding-bottom: 6px !important;
+      }
     }
 
     .subform-item {
@@ -225,8 +249,6 @@
       border-left: 1px solid var(--color-neutral-3);
       pointer-events: all;
 
-      // border-left: 1px solid transparent !important;
-      // border-right: 1px solid transparent !important;
       &--design {
         &:hover {
           background: #fafafb;
@@ -291,6 +313,12 @@
           content: '添加或拖拽字段到此';
         }
       }
+    }
+  }
+
+  .subform-actions {
+    .subform-btn--add {
+      padding: 0 6px;
     }
   }
 </style>

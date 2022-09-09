@@ -3,6 +3,9 @@
     :placeholder="node.placeholder || ' '"
     :size="size"
     style="width: 100%"
+    :model-value="value"
+    value-format="timestamp"
+    @change="dateChange"
   />
 </template>
 
@@ -13,8 +16,15 @@
   const { size } = useWidgetInject();
   interface RenderProps {
     node: InputWidget;
+    value?: number;
   }
   defineProps<RenderProps>();
+  const emit = defineEmits<{
+    (e: 'update:value', d: number | undefined): void;
+  }>();
+  function dateChange(val: number | undefined) {
+    emit('update:value', val);
+  }
 </script>
 
 <style lang="less">

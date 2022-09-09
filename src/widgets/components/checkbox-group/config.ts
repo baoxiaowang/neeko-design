@@ -18,12 +18,6 @@ export default {
       config: {},
       default: {
         type: 'custom',
-        exp: '',
-        linkInfo: {
-          linkFormId: '',
-          condition: [],
-          linkField: '',
-        },
       },
       direction: 'vertical',
       placeholder: '',
@@ -31,6 +25,11 @@ export default {
         required: 0,
       },
       block: 0,
+      options: [
+        { defaultCheck: 0, label: '选项一' },
+        { defaultCheck: 0, label: '选项二' },
+        { defaultCheck: 0, label: '选项三' },
+      ],
     };
   },
 } as WidgetConfig<CheckboxGroupWidget>;
