@@ -1,7 +1,6 @@
 <template>
   <div class="condition-block__add">
     <a-button type="outline" shape="round" @click="addBranch">
-      <!-- <icon-plus /> -->
       添加分支
     </a-button>
   </div>
@@ -14,7 +13,7 @@
       item-key="uid"
       class="condition-block__branch-wrap"
       ghost-class="branch-item--ghost"
-      drag-class=""
+      drag-class="branch-item--drag"
       chosen-class=""
       :component-data="{
         tag: 'div',
@@ -29,19 +28,6 @@
         </div>
       </template>
     </VueDraggable>
-    <!-- <TransitionGroup
-      class="condition-block__branch-wrap"
-      name="flow-branch"
-      tag="div"
-    >
-      <div
-        v-for="item in branchList"
-        :key="item.uid"
-        class="condition-block__branch-item"
-      >
-        <flowNodeWrapVue :node="item" :pre-node="node"></flowNodeWrapVue>
-      </div>
-    </TransitionGroup> -->
     <div class="condition-boder boder-mark__bottom"></div>
   </div>
 </template>
@@ -68,13 +54,14 @@
     },
   });
   function addBranch() {
-    debugger;
-
     // eslint-disable-next-line vue/no-mutating-props
     props.node.branchList?.push({
+      preUid: props.node.uid,
       uid: `branch_${props.node.branchList.length}${1}`,
       type: 'branch',
+      title: `分支${props.node.branchList.length + 1}`,
       data: {},
+      conditionId: props.node.uid,
     });
   }
   function onUpdate() {
@@ -96,6 +83,17 @@
 
       &:last-child {
         margin-right: 0;
+      }
+    }
+  }
+
+  .condition-block__branch-item {
+    display: flex;
+    flex-direction: column;
+
+    .node-block__wrap {
+      &:last-child {
+        flex: 1;
       }
     }
   }
@@ -144,7 +142,10 @@
     margin-bottom: -16px;
 
     .arco-btn {
+      padding-right: 12px;
+      padding-left: 12px;
       color: var(--color-neutral-10);
+      font-size: 12px;
       background-color: #fff;
       border-color: var(--color-neutral-3);
       border-width: 2px;
@@ -158,11 +159,24 @@
 
   .branch-item--ghost {
     .node-block {
+      background-color: transparent !important;
       border: 1px dashed rgb(var(--arcoblue-6));
+    }
 
-      & > * {
-        opacity: 0;
-      }
+    .node-block__arrow {
+      border-color: rgb(var(--arcoblue-6)) !important;
+      border-style: dashed !important;
+      opacity: 1 !important;
+    }
+  }
+
+  .branch-item--drag {
+    .node-block__arrow {
+      opacity: 0;
+    }
+
+    .node-block {
+      background: #fff;
     }
   }
 

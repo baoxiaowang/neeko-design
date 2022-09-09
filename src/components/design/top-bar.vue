@@ -87,16 +87,6 @@
       <PreviewContent v-if="visible" @close="close"></PreviewContent>
     </div>
   </a-modal>
-  <!-- <a-drawer
-    v-model:visible="visible"
-    placement="bottom"
-    class="preview-modal"
-    height="100%"
-  >
-    <div class="design-model-body" :class="'design-model-body-' + designModel">
-      <PreviewContent v-if="visible" @close="close"></PreviewContent>
-    </div>
-  </a-drawer> -->
 </template>
 
 <script setup lang="ts" name="top-bar">
@@ -110,6 +100,7 @@
   const route = useRoute();
   const props = defineProps<{
     name: string;
+    onBack?: () => void;
   }>();
   const emit = defineEmits<{
     (e: 'saveData'): void;
@@ -134,7 +125,11 @@
   const currentName = ref('客户管理');
 
   function back() {
-    router.go(-1);
+    if (props.onBack) {
+      props.onBack();
+    } else {
+      router.go(-1);
+    }
   }
   // const currentName = ref<string>(props.name);
   watchEffect(async () => {

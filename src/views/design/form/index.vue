@@ -3,6 +3,7 @@
     <template #header>
       <TopBar
         :name="pageName"
+        :on-back="onBack"
         @name-change="handNameChange"
         @save-data="saveForm"
       />
@@ -32,7 +33,7 @@
   import TopBar from '@/components/design/top-bar.vue';
   import { computed, onBeforeMount, ref } from 'vue';
   import { getById, updatePageName, updatePageWidget } from '@/api/page';
-  import { useRoute } from 'vue-router';
+  import { useRoute, useRouter } from 'vue-router';
   import { Widget } from '@/widgets/types';
   import { Message } from '@arco-design/web-vue';
 
@@ -40,12 +41,15 @@
   const widgets = computed<Widget[]>(() => store.widgetList);
 
   const route = useRoute();
+  const router = useRouter();
   const pageId = computed<string>(() => route.params.pageId.toString());
   const pageName = ref<string>('');
+  const appId = ref<string>('');
 
   onBeforeMount(async () => {
     const { data } = await getById(pageId.value);
     pageName.value = data.name;
+    appId.value = data.appId;
     useDesignStore().initState('form', data.widgets);
   });
   async function saveForm() {
@@ -61,6 +65,9 @@
       id: pageId.value,
       name,
     });
+  }
+  function onBack() {
+    router.push(`/application-detail/${appId.value}`);
   }
 </script>
 

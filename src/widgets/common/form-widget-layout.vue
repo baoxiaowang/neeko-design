@@ -32,7 +32,10 @@
       </div>
       <div class="tool-split"></div>
 
-      <div class="form-widget__tool-item form-widget__tool-item--del">
+      <div
+        class="form-widget__tool-item form-widget__tool-item--del"
+        @click="deleteFormWidget"
+      >
         <a-tooltip
           mini
           class="box-item"
@@ -79,6 +82,10 @@
   function formWidgetClick() {
     if (!isDesign) return;
     store.setSelectKey(props.node.key);
+  }
+  function deleteFormWidget() {
+    //
+    store.handlerWidgetDelete(props.node);
   }
 </script>
 
