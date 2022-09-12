@@ -37,7 +37,7 @@
           >
             <component
               :is="getRenderWidget(element)"
-              v-model="formModel[(element.key) as string]"
+              v-model:value="formModel[(element.key) as string]"
               :node="element"
               :state="state"
               :meta="meta"

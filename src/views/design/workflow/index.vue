@@ -8,7 +8,7 @@
       />
     </template>
     <template #body>
-      <div class="design-layout__view design-form__page">
+      <div class="design-layout__view design-flow__page">
         <div class="design-flow__tools">
           <a-space> </a-space>
         </div>
@@ -88,7 +88,7 @@
 </script>
 
 <style lang="less">
-  .design-form__page {
+  .design-flow__page {
     position: relative;
     height: 100%;
     background: url(https://img.alicdn.com/imgextra/i3/O1CN01LVUi4y1e6WRzwnhIh_!!6000000003822-55-tps-22-22.svg) -2px -2px

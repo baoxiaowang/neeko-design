@@ -1,5 +1,10 @@
 // import Editor from "./editor.vue";
-import { InputWidget, WidgetConfig, WidgetType } from '../../types';
+import {
+  IAddressValue,
+  InputWidget,
+  WidgetConfig,
+  WidgetType,
+} from '../../types';
 import { createWidgetKey } from '../../utils';
 
 const type: WidgetType = 'address';
@@ -31,5 +36,10 @@ export default {
       },
       block: 0,
     };
+  },
+  toString(val: IAddressValue): string {
+    console.log(val);
+    if (!val) return '';
+    return `${val.province}${val.city}${val.district}${val.address}`;
   },
 } as WidgetConfig<InputWidget>;

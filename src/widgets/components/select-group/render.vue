@@ -4,22 +4,36 @@
     style="width: 100%"
     placeholder=""
     :max-tag-count="isSubWidget ? 1 : 3"
+    :model-value="value"
+    @change="handleChange"
   >
-    <a-option>选项一</a-option>
-    <a-option>选项二</a-option>
-    <a-option>选项三</a-option>
+    <a-option v-for="(item, index) in options" :key="index" :value="item.label">
+      {{ item.label }}
+    </a-option>
   </a-select>
 </template>
 
 <script setup lang="ts" name="input-render">
   import useWidgetInject from '@/widgets/hooks/useWidgetInject';
-  import { InputWidget } from '../../types';
+  import { computed } from 'vue';
+  import { SelectGroupWidget } from '../../types';
 
   const { isSubWidget } = useWidgetInject();
   interface RenderProps {
-    node: InputWidget;
+    node: SelectGroupWidget;
+    value?: string[];
   }
-  defineProps<RenderProps>();
+  const props = defineProps<RenderProps>();
+  const options = computed(() => {
+    return props.node.options;
+  });
+
+  const emit = defineEmits<{
+    (e: 'update:value', d: string | undefined): void;
+  }>();
+  function handleChange(val: any) {
+    emit('update:value', val);
+  }
 </script>
 
 <style lang="less">

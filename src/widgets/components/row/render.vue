@@ -48,18 +48,7 @@
   const group = { name: 'form-widget' };
 
   function Add({ clone, newIndex }: any) {
-    // eslint-disable-next-line no-console
     console.log(clone, newIndex);
-    // const type = clone.dataset?.type;
-    // const newItem = WidgetSourceMap[type].defaultVal();
-    // const _children = props.node.children || [];
-    // _children.splice(newIndex, 1, newItem);
-    // props.node.children = _children;
-    // const { key, children } = props.node;
-    // msgPipe.emitSelf(
-    //   'updateWidget',
-    //   JSON.stringify({ key, children: toRaw(children), newKey: newItem.key })
-    // );
   }
 </script>
 

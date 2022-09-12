@@ -1,5 +1,3 @@
-// import Render from "./render";
-// import Editor from "./editor.vue";
 import { WidgetConfig, WidgetType } from '../../types';
 import { createWidgetKey } from '../../utils';
 import { formWidgetTypes } from '../../common/common';

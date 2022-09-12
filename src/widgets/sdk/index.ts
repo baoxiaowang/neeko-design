@@ -1,4 +1,4 @@
-import { Modal } from '@arco-design/web-vue';
+import { Modal, ConfigProvider } from '@arco-design/web-vue';
 import FormDataModal from '@/components/design/form-data-modal/index.vue';
 import { h } from 'vue';
 import { FormWidget } from '../types';
@@ -26,7 +26,14 @@ export async function showFormModel(
         ref: 'rootWidget',
         widgetList: widgetData,
       });
-      return rootWidget;
+
+      return h(
+        ConfigProvider,
+        {
+          updateAtScroll: true,
+        },
+        rootWidget
+      );
     },
     onBeforeOk(done) {
       (rootWidget?.component.refs.rootWidget as any)?.validate(

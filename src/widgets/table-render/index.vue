@@ -92,8 +92,6 @@
           </a-button>
         </a-col>
       </a-row>
-      <!-- :columns="columns" -->
-
       <a-table
         :bordered="{ headerCell: true, bodyCell: true }"
         row-key="key"
@@ -108,7 +106,7 @@
             :key="item.key"
             :title="item.label"
             :data-index="item.key"
-            class="aaaa"
+            :width="['subform'].includes(item.type) ? undefined : 100"
           >
             <template v-if="['subform'].includes(item.type)">
               <a-table-column
@@ -118,6 +116,7 @@
                 :data-index="sub.key"
                 class="subform__column"
                 :body-cell-style="bodyCellStyle"
+                :width="100"
               >
                 <template #cell="{ record }">
                   <div v-if="record[item.key]" class="subform-column">
@@ -137,7 +136,7 @@
             </template>
           </a-table-column>
 
-          <a-table-column :width="220" title="操作" align="right">
+          <a-table-column fixed="right" :width="220" title="操作" align="right">
             <template #cell="{ record }">
               <a-button-group size="small">
                 <a-button type="text" @click="() => record">查看</a-button>
@@ -163,7 +162,6 @@
 <script setup lang="ts" name="widget-table-render">
   import { computed, onBeforeMount } from 'vue';
   import type * as CSS from 'csstype';
-  import { getFormDataByPage } from '@/api/form';
   import { FormWidget } from '../types';
 
   const props = withDefaults(
@@ -196,15 +194,6 @@
 
 <style lang="less">
   .widget-table-render {
-    // &__card {
-    //   border-radius: 4px;
-    //   border: none;
-    //   & > .arco-card-header {
-    //     height: auto;
-    //     padding: 20px;
-    //     border: none;
-    //   }
-    // }
     &__card {
       border: none;
       border-radius: 4px;

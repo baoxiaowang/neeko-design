@@ -22,9 +22,10 @@
   <a-upload
     v-else
     list-type="picture-card"
-    action="/"
-    :default-file-list="fileList"
+    action="/api/upload"
+    :file-list="fileList"
     image-preview
+    :response-url-key="uploadResponse"
   />
 </template>
 
@@ -32,33 +33,43 @@
 
 <script setup lang="ts" name="image-render">
   import useWidgetInject from '@/widgets/hooks/useWidgetInject';
-  import { provide } from 'vue';
-  import { InputWidget } from '../../types';
+  import { computed, provide, ref } from 'vue';
+  import { IFileItem, InputWidget } from '../../types';
 
   const { isSubWidget } = useWidgetInject();
   provide('isSubWidget', false);
 
   interface RenderProps {
     node: InputWidget;
+    value?: IFileItem[];
   }
-  defineProps<RenderProps>();
-  const fileList = [
-    {
-      uid: '-2',
-      name: '20200717-103937.png',
-      url: '//p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/a8c8cdb109cb051163646151a4a5083b.png~tplv-uwbnlip3yd-webp.webp',
+  const props = defineProps<RenderProps>();
+  const emit = defineEmits<{
+    (e: 'update:value', d: IFileItem[]): void;
+  }>();
+  const fileList = computed<IFileItem[]>({
+    get() {
+      return props.value || [];
     },
-    {
-      uid: '-1',
-      name: 'hahhahahahaha.png',
-      url: '//p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/e278888093bef8910e829486fb45dd69.png~tplv-uwbnlip3yd-webp.webp',
+    set(val: IFileItem[] = []) {
+      emit(
+        'update:value',
+        val.map((item: any) => {
+          return {
+            name: item.name,
+            uid: item.uid,
+            url: item.url,
+          };
+        })
+      );
     },
-  ];
+  });
+  function uploadResponse(item: any) {
+    return item.response.data.url;
+  }
 </script>
 
 <style lang="less">
-  // .input-render {
-  // }
   .image-render__sub {
     display: flex;
     align-items: center;

@@ -26,12 +26,11 @@
 
 <script setup lang="ts" name="root-render">
   import { nextTick, onMounted, toRefs } from 'vue';
-  import WidgetSourceMap from '@/widgets/config.index';
   import draggable from '@/components/vue-draggable/src/vuedraggable';
   import usePreviewDrag from '@/widgets/hooks/usePreviewDrag';
   import { useRenderStyle } from '@/widgets/hooks/useRenderHelp';
   import { getRenderWidget } from '../../render';
-  import { Widget, WidgetType } from '../../types';
+  import { Widget } from '../../types';
 
   interface IPropType {
     node: Widget;

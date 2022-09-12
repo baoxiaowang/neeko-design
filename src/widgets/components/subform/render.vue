@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-mutating-props -->
 <template>
   <div :style="style" :data-key="node.key" class="widget-subform-render">
     <div
@@ -10,7 +11,13 @@
       <div class="subform-index__panel">
         <div class="subform-item__cell-index subform-item__cell">
           <div class="subform-item__title subform__th"></div>
-          <div class="subform-item__index subform__td">1</div>
+          <div
+            v-for="(row, index) in modelValue"
+            :key="index"
+            class="subform-item__index subform__td"
+          >
+            {{ index + 1 }}
+          </div>
         </div>
       </div>
       <VueDraggable
@@ -49,13 +56,19 @@
               <div class="subform-item__title subform__th">
                 {{ element.label }}
               </div>
-              <div class="subform__td">
+
+              <div
+                v-for="(row, index) in modelValue"
+                :key="index"
+                class="subform__td"
+              >
                 <component
                   :is="getRenderWidget(element)"
-                  v-model:value="modelValue[0][element.key]"
+                  :value="modelValue[index][element.key]"
                   :node="element"
                   :state="state"
                   :meta="meta"
+                  @update:value="(val: any) => changeValue(index, element.key, val)"
                 />
               </div>
             </div>
@@ -65,7 +78,7 @@
     </div>
 
     <div v-if="!isDesign" class="subform-actions">
-      <a-button class="subform-btn--add" type="text">
+      <a-button class="subform-btn--add" type="text" @click="addSubRow">
         <template #icon>
           <icon-plus />
         </template>
@@ -77,7 +90,7 @@
 
 <script setup lang="ts" name="subform-render">
   import { getRenderWidget } from '@/widgets/render';
-  import { onMounted, nextTick, computed, toRefs, provide } from 'vue';
+  import { nextTick, computed, toRefs, provide } from 'vue';
   import VueDraggable from '@/components/vue-draggable/src/vuedraggable';
   import { FormWidget, Widget } from '@/widgets/types';
   import useDraggable from '@/widgets/hooks/useDraggable';
@@ -85,6 +98,7 @@
   import { useDesignStore } from '@/store';
   import { styleToString } from '../../utils';
 
+  const group = { name: 'form-widget' };
   const props = withDefaults(
     defineProps<{
       node: Widget;
@@ -93,13 +107,7 @@
       value: Record<string, any>[];
     }>(),
     {
-      value: () => {
-        return [
-          {
-            number_k1M9: 20,
-          },
-        ];
-      },
+      value: () => [{}],
     }
   );
   const emit = defineEmits<{
@@ -116,7 +124,6 @@
       return props.value;
     },
     set(val: Record<string, any>[]) {
-      debugger;
       emit('update:value', val);
     },
   });
@@ -132,10 +139,6 @@
     await nextTick();
     document.body.classList.remove('dragging');
   }
-  const group = { name: 'form-widget' };
-  onMounted(() => {
-    //
-  });
   function subWidgetClick(widget: Widget) {
     if (!isDesign) return;
     store.setSelectKey(widget.key);
@@ -146,6 +149,19 @@
       subWidth: width,
     } as FormWidget);
   };
+  function changeValue(index: number, key: string, val: any) {
+    const newVal = [...props.value];
+    const oldRow = newVal[index];
+    newVal.splice(index, 1, {
+      ...oldRow,
+      [key]: val,
+    });
+    modelValue.value = newVal;
+  }
+  function addSubRow() {
+    const newRow = {};
+    modelValue.value = [...modelValue.value, newRow];
+  }
 </script>
 
 <style lang="less">
@@ -246,7 +262,7 @@
     }
 
     .subform-item__cell-widget {
-      border-left: 1px solid var(--color-neutral-3);
+      border-right: 1px solid var(--color-neutral-3);
       pointer-events: all;
 
       &--design {
@@ -284,6 +300,7 @@
       padding-bottom: 20px;
 
       .subform-item__cell-index {
+        border-right: 1px solid var(--color-neutral-3);
         border-left: 1px solid var(--color-neutral-3);
       }
     }

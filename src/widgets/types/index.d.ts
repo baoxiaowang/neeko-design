@@ -140,4 +140,18 @@ export interface WidgetConfig<T extends Widget = Widget> {
   defaultVal: (val?: any) => T;
   canCopy?: boolean; // 是否是不可复制的
   canDel?: boolean;
+  toString?: (val: any) => string;
+}
+
+export interface IFileItem {
+  uid: string;
+  name: string;
+  url: string;
+}
+
+export interface IAddressValue {
+  province: string;
+  city: string;
+  district: string;
+  address?: string;
 }

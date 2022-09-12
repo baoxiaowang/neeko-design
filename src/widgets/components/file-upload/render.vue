@@ -20,10 +20,11 @@
   </a-popover>
   <a-upload
     v-else
-    action="/"
-    list-type="picture"
-    :default-file-list="fileList"
+    action="/api/upload"
+    list-type="text"
+    :file-list="fileList"
     :custom-icon="getCustomIcon()"
+    :response-url-key="uploadResponse"
   />
 </template>
 
@@ -32,14 +33,18 @@
   import IconFileAudio from '@arco-design/web-vue/es/icon/icon-file-audio';
   import IconClose from '@arco-design/web-vue/es/icon/icon-close';
   import IconFaceFrownFill from '@arco-design/web-vue/es/icon/icon-face-frown-fill';
-  import { h, provide } from 'vue';
+  import { computed, h, provide } from 'vue';
   import useWidgetInject from '@/widgets/hooks/useWidgetInject';
-  import { InputWidget } from '../../types';
+  import { IFileItem, InputWidget } from '../../types';
 
   interface RenderProps {
     node: InputWidget;
+    value?: IFileItem[];
   }
-  defineProps<RenderProps>();
+  const props = defineProps<RenderProps>();
+  const emit = defineEmits<{
+    (e: 'update:value', d: IFileItem[]): void;
+  }>();
   const { isSubWidget } = useWidgetInject();
   provide('isSubWidget', false);
   const getCustomIcon = () => {
@@ -54,18 +59,26 @@
       },
     };
   };
-  const fileList = [
-    {
-      uid: '-2',
-      name: '20200717-103937.png',
-      url: '//p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/a8c8cdb109cb051163646151a4a5083b.png~tplv-uwbnlip3yd-webp.webp',
+  const fileList = computed<IFileItem[]>({
+    get() {
+      return props.value || [];
     },
-    {
-      uid: '-1',
-      name: 'hahhahahahaha.png',
-      url: '//p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/e278888093bef8910e829486fb45dd69.png~tplv-uwbnlip3yd-webp.webp',
+    set(val: IFileItem[] = []) {
+      emit(
+        'update:value',
+        val.map((item: any) => {
+          return {
+            name: item.name,
+            uid: item.uid,
+            url: item.url,
+          };
+        })
+      );
     },
-  ];
+  });
+  function uploadResponse(item: any) {
+    return item.response.data.url;
+  }
 </script>
 
 <style lang="less">

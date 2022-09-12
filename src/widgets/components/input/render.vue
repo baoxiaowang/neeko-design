@@ -2,8 +2,9 @@
   <a-input
     :placeholder="node.placeholder"
     :model-value="value"
-    @change="(val) => emit('update:value', val)"
-  ></a-input>
+    @update:model-value="(val) => emit('update:value', val)"
+  >
+  </a-input>
 </template>
 
 <script setup lang="ts" name="input-render">
