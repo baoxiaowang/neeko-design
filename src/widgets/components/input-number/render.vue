@@ -24,7 +24,7 @@
     get() {
       return props.value;
     },
-    set(val) {
+    set(val: any) {
       emit('update:value', val);
     },
   });

@@ -1,5 +1,11 @@
 <template>
-  <a-select v-if="isSubWidget" size="small" readonly>
+  <a-select
+    v-if="isSubWidget"
+    :model-value="value"
+    size="small"
+    readonly
+    @update:model-value="change"
+  >
     <template #arrow-icon><icon-record /></template>
     <a-option v-for="(item, index) in options" :key="index" :value="item.label">
       <icon-record />{{ item.label }}

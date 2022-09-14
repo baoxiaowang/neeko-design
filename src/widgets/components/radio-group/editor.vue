@@ -15,10 +15,6 @@
         @change="(val) => changeAttr('width', val)"
       ></AttrWidthVue>
       <AttrOptionsVue :node="node" :change="change" />
-      <AttrDirectionVue
-        :direction="node.direction"
-        :change="(e) => changeAttr('direction', e)"
-      />
       <AttrRulesVue :node="node" :change="change"></AttrRulesVue>
 
       <AttrKeyVue :node-key="node.key"></AttrKeyVue>
@@ -41,6 +37,7 @@
   import AttrOptionsVue from '@/widgets/attr-blocks/attr-options.vue';
   import AttrPlaceholderVue from '@/widgets/attr-blocks/attr-placeholder.vue';
 
+  import { computed } from 'vue';
   import { RadioGroupWidget, WidgetChange } from '../../types';
 
   const props = defineProps<{
@@ -52,6 +49,7 @@
       [key]: val,
     });
   }
+  const optionConfig = computed(() => props.node.optionConfig || {});
 </script>
 
 <style lang="less"></style>

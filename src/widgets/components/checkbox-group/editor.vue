@@ -20,10 +20,6 @@
         @change="(val) => changeAttr('width', val)"
       ></AttrWidthVue>
       <AttrOptionsVue :node="node" :change="change" />
-      <AttrDirectionVue
-        :direction="node.direction"
-        :change="(e) => changeAttr('direction', e)"
-      ></AttrDirectionVue>
       <AttrRulesVue :node="node" :change="change"></AttrRulesVue>
 
       <AttrKeyVue :node-key="node.key"></AttrKeyVue>

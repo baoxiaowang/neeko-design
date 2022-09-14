@@ -22,7 +22,7 @@
   const emit = defineEmits<{
     (e: 'update:value', d: number | undefined): void;
   }>();
-  function dateChange(val: number | undefined) {
+  function dateChange(val: any) {
     emit('update:value', val);
   }
 </script>
