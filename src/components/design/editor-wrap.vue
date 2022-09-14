@@ -30,6 +30,9 @@
 
 <style lang="less">
   .editor-wrap {
-    padding: 0 12px;
+    box-sizing: border-box;
+    // padding: 0 12px;
+    height: 100%;
+    overflow: hidden;
   }
 </style>

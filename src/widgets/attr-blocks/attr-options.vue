@@ -1,66 +1,100 @@
 <template>
   <ConfigBlockVue label="选项" class="attr-options">
-    <VueDraggable
-      v-model="options"
-      class="options__draggable"
-      tag="transition-group"
-      item-key="index"
-      :component-data="{ tag: 'div', name: 'flip-list', type: 'transition' }"
-      ghost-class="options-item--ghost"
-      chosen-class="options-item--chosen"
-      handle=".attr-option__drag"
+    <a-select
+      :style="{ width: '100%', marginBottom: '8px' }"
+      placeholder=""
+      :model-value="optionType"
+      @update:model-value="changeOptionType"
     >
-      <template #item="{ index, element }">
-        <div fill class="attr-option__item">
-          <a-radio :model-value="element.defaultCheck" value="radio"> </a-radio>
-          <a-input v-model="element.label" class="attr-option__ipt"></a-input>
-          <a-space :size="2">
-            <a-button class="attr-option__drag" type="outline">
-              <template #icon>
-                <icon-drag-dot-vertical />
-              </template>
-            </a-button>
-            <a-button type="text" status="danger" @click="delOption(index)">
-              <template #icon>
-                <icon-delete />
-              </template>
-            </a-button>
-          </a-space>
-        </div>
-      </template>
-    </VueDraggable>
-    <div class="options__action" :size="2">
-      <a-button size="mini" type="text" @click="addOption">添加选项</a-button>
-      <a-divider direction="vertical" />
-      <a-button size="mini" type="text">添加其他选项</a-button>
-      <a-divider direction="vertical" />
-      <a-button size="mini" type="text">批量添加</a-button>
-    </div>
+      <a-option value="custom">自定义</a-option>
+      <a-option value="link">关联其他字段</a-option>
+      <a-option value="relation">数据联动</a-option>
+    </a-select>
+    <template v-if="optionType === 'link'">
+      <a-cascader
+        :options="linkWidgets"
+        path-mode
+        :style="{ width: '100%' }"
+        placeholder="选择关联字段"
+        allow-search
+        :model-value="optionConfig?.optionLink"
+        @update:model-value="changeOptionLink"
+      />
+    </template>
+    <template v-else-if="optionType === 'relation'">
+      <div class=""></div>
+    </template>
+    <template v-else>
+      <VueDraggable
+        v-model="options"
+        class="options__draggable"
+        tag="transition-group"
+        item-key="index"
+        :component-data="{ tag: 'div', name: 'flip-list', type: 'transition' }"
+        ghost-class="options-item--ghost"
+        chosen-class="options-item--chosen"
+        handle=".attr-option__drag"
+      >
+        <template #item="{ index, element }">
+          <div fill class="attr-option__item">
+            <a-radio :model-value="element.defaultCheck" value="radio">
+            </a-radio>
+            <a-input v-model="element.label" class="attr-option__ipt"></a-input>
+            <a-space :size="2">
+              <a-button class="attr-option__drag" type="outline">
+                <template #icon>
+                  <icon-drag-dot-vertical />
+                </template>
+              </a-button>
+              <a-button type="text" status="danger" @click="delOption(index)">
+                <template #icon>
+                  <icon-delete />
+                </template>
+              </a-button>
+            </a-space>
+          </div>
+        </template>
+      </VueDraggable>
+      <div class="options__action" :size="2">
+        <a-button size="mini" type="text" @click="addOption">添加选项</a-button>
+        <a-divider direction="vertical" />
+        <a-button size="mini" type="text">添加其他选项</a-button>
+        <a-divider direction="vertical" />
+        <a-button size="mini" type="text">批量添加</a-button>
+      </div>
+    </template>
   </ConfigBlockVue>
 </template>
 
 <script setup lang="ts" name="attr-options">
+  import { getAppLinkWidget } from '@/api/widgets';
   import VueDraggable from '@/components/vue-draggable/src/vuedraggable';
   import { computed, onBeforeMount, onMounted, ref, watchEffect } from 'vue';
   import ConfigBlockVue from '../common/config-block.vue';
-  import { RadioGroupWidget, WidgetOptionItem } from '../types';
+  import { OptionWidget, WidgetOptionItem } from '../types';
 
   // defineProps<any>();
   const props = defineProps<{
-    node: RadioGroupWidget;
-    change: (e: Partial<RadioGroupWidget>) => void;
+    node: OptionWidget;
+    change: (e: Partial<OptionWidget>) => void;
   }>();
+
+  const optionType = computed(() => props.node.optionConfig?.optionType);
+  const linkWidgets = ref<any[]>([]);
 
   const options = computed<WidgetOptionItem[]>({
     get() {
-      return props.node.options || [];
+      return props.node.optionConfig?.options || [];
     },
     set(val) {
       props.change({
-        options: val,
+        optionConfig: {
+          options: val,
+        },
       });
     },
   });
+  const optionConfig = computed(() => props.node.optionConfig);
   function delOption(index: number) {
     options.value.splice(index, index);
   }
@@ -68,6 +102,39 @@
     options.value.push({
       label: '选项',
       defaultCheck: 0,
+    });
+  }
+  watchEffect(async () => {
+    const { data } = await getAppLinkWidget();
+    linkWidgets.value = data as any;
+  });
+  function changeOptionLink(val: any) {
+    props.change({
+      optionConfig: {
+        ...optionConfig.value,
+        optionLink: val,
+      },
+    });
+  }
+  function changeConfig(data: any) {
+    props.change({
+      optionConfig: {
+        ...optionConfig.value,
+        ...data,
+      },
+    });
+  }
+  function changeOptionType(type: any) {
+    props.change({
+      optionConfig: {
+        options: [
+          { defaultCheck: 0, label: '选项一' },
+          { defaultCheck: 0, label: '选项二' },
+          { defaultCheck: 0, label: '选项三' },
+        ],
+        ...optionConfig.value,
+        optionType: type,
+      },
     });
   }
 </script>

@@ -113,8 +113,12 @@ export interface WidgetOptionItem {
 }
 
 export interface OptionWidget extends FormWidget {
-  options: WidgetOptionItem[];
-  direction?: 'horizontal' | 'vertical';
+  optionConfig: {
+    options?: WidgetOptionItem[];
+    direction?: 'horizontal' | 'vertical';
+    optionType?: 'custom' | 'link' | 'relation';
+    optionLink?: string[];
+  };
 }
 export type RadioGroupWidget = OptionWidget;
 export type SelectWidget = OptionWidget;

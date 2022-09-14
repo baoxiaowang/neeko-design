@@ -25,11 +25,14 @@ export default {
           linkField: '',
         },
       },
-      options: [
-        { defaultCheck: 0, label: '选项一' },
-        { defaultCheck: 0, label: '选项二' },
-        { defaultCheck: 0, label: '选项三' },
-      ],
+      optionConfig: {
+        optionType: 'custom',
+        options: [
+          { defaultCheck: 0, label: '选项一' },
+          { defaultCheck: 0, label: '选项二' },
+          { defaultCheck: 0, label: '选项三' },
+        ],
+      },
       placeholder: '',
       rules: {
         required: 0,

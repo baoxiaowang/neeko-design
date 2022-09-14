@@ -13,7 +13,7 @@
       <IconFont type="icon-checkbox-multiple-line" :size="14"></IconFont>
     </template>
   </a-select>
-  <a-checkbox-group v-else :direction="node.direction">
+  <a-checkbox-group v-else :direction="optionConfig?.direction">
     <a-checkbox
       v-for="(item, index) in options"
       :key="index"
@@ -34,8 +34,9 @@
     node: CheckboxGroupWidget;
   }
   const props = defineProps<RenderProps>();
+  const optionConfig = computed(() => props.node.optionConfig);
   const options = computed(() => {
-    return props.node.options;
+    return props.node.optionConfig?.options || [];
   });
 </script>
 

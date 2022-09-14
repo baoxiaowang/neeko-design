@@ -25,7 +25,7 @@
   }
   const props = defineProps<RenderProps>();
   const options = computed(() => {
-    return props.node.options;
+    return props.node.optionConfig?.options || [];
   });
 
   const emit = defineEmits<{

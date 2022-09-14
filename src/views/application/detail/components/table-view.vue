@@ -24,6 +24,9 @@
             >
               推广
             </a-button>
+            <a-button type="text" @click="handerPageAction('table', record)">
+              数据
+            </a-button>
             <a-button type="text" @click="handerPageAction('edit', record)">
               编辑
             </a-button>
@@ -157,7 +160,7 @@
   }
 
   function handerPageAction(
-    type: 'del' | 'edit' | 'promotion',
+    type: 'del' | 'edit' | 'promotion' | 'table',
     row: PageModel
   ) {
     switch (type) {
@@ -170,6 +173,13 @@
       case 'del':
         delPage(row.id).then(() => {
           setPageList();
+        });
+        break;
+      case 'table':
+        router.push({
+          // eslint-disable-next-line no-underscore-dangle
+          // path: getPagePath(row.id, row.pageType),
+          path: `/form-table/${row.id}`,
         });
         break;
       default:

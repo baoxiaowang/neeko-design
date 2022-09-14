@@ -203,7 +203,7 @@
     &--runtime {
       .subform-body__panel,
       .subform-index__panel {
-        padding-bottom: 6px !important;
+        padding-bottom: 12px !important;
       }
     }
 
@@ -213,6 +213,12 @@
 
     .subform-item__cell-box {
       flex-shrink: 0;
+
+      &:first-child {
+        .subform-item__cell-widget {
+          border-left: 1px solid var(--color-neutral-3);
+        }
+      }
 
       &:last-child {
         .subform-item__cell-widget {
@@ -268,7 +274,7 @@
       &--design {
         &:hover {
           background: #fafafb;
-          border: 1px dashed rgb(var(--arcoblue-5));
+          border: 1px dashed rgb(var(--arcoblue-5)) !important;
           cursor: move;
         }
 
@@ -300,7 +306,10 @@
       padding-bottom: 20px;
 
       .subform-item__cell-index {
-        border-right: 1px solid var(--color-neutral-3);
+        // z-index: 101;
+        position: relative;
+        margin-right: 0;
+        // border-right: 1px solid var(--color-neutral-3);
         border-left: 1px solid var(--color-neutral-3);
       }
     }

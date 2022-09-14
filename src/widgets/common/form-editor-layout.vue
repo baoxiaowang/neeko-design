@@ -7,17 +7,23 @@
       class="editor-expanded__tabs"
     >
       <a-tab-pane v-if="$slots.attrs" key="config" title="字段属性">
-        <slot name="attrs"></slot>
-        <AttrKeyVue :node-key="nodeKey"></AttrKeyVue>
+        <el-scrollbar :wrap-style="{ padding: '0 12px' }">
+          <slot name="attrs"></slot>
+          <AttrKeyVue :node-key="nodeKey"></AttrKeyVue>
+        </el-scrollbar>
       </a-tab-pane>
 
       <a-tab-pane v-if="$slots.form" key="config" title="表单属性">
-        <slot name="form"></slot>
-        <AttrKeyVue :node-key="nodeKey"></AttrKeyVue>
+        <el-scrollbar :wrap-style="{ padding: '0 12px' }">
+          <slot name="form"></slot>
+          <AttrKeyVue :node-key="nodeKey"></AttrKeyVue>
+        </el-scrollbar>
       </a-tab-pane>
 
       <a-tab-pane key="ext" title="高级配置">
-        <slot name="ext"></slot>
+        <el-scrollbar :wrap-style="{ padding: '0 12px' }">
+          <slot name="ext"></slot>
+        </el-scrollbar>
       </a-tab-pane>
     </a-tabs>
   </div>
@@ -38,5 +44,18 @@
 
 <style lang="less">
   .form-editor-layout {
+    height: 100%;
+  }
+
+  .editor-expanded__tabs {
+    height: 100%;
+    overflow: hidden;
+
+    .arco-tabs-content {
+    }
+
+    .arco-tabs {
+      height: 100%;
+    }
   }
 </style>

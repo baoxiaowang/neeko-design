@@ -94,11 +94,11 @@
       </a-row>
       <a-table
         :bordered="{ headerCell: true, bodyCell: true }"
-        row-key="key"
+        row-key="id"
         size="medium"
         :data="tableData"
         row-class="table-render__row"
-        :row-selection="{ type: 'checkbox' }"
+        :row-selection="{ type: 'checkbox', showCheckedAll: true }"
       >
         <template #columns>
           <a-table-column
@@ -106,6 +106,8 @@
             :key="item.key"
             :title="item.label"
             :data-index="item.key"
+            ellipsis
+            tooltip
             :width="['subform'].includes(item.type) ? undefined : 100"
           >
             <template v-if="['subform'].includes(item.type)">
@@ -117,6 +119,7 @@
                 class="subform__column"
                 :body-cell-style="bodyCellStyle"
                 :width="100"
+                ellipsis
               >
                 <template #cell="{ record }">
                   <div v-if="record[item.key]" class="subform-column">
@@ -125,14 +128,30 @@
                       :key="index"
                       class="subform-column__cell"
                     >
-                      {{ val[sub.key] }}
+                      <template v-if="WidgetDetail[sub.type]">
+                        <component
+                          :is="WidgetDetail[sub.type]"
+                          :value="val[sub.key]"
+                        />
+                      </template>
+                      <template v-else>
+                        {{ val[sub.key] || '&nbsp;' }}
+                      </template>
                     </div>
                   </div>
                 </template>
               </a-table-column>
             </template>
             <template #cell="{ record }">
-              {{ record[item.key] }}
+              <template v-if="WidgetDetail[item.type]">
+                <component
+                  :is="WidgetDetail[item.type]"
+                  :value="record[item.key]"
+                />
+              </template>
+              <template v-else>
+                {{ record[item.key] }}
+              </template>
             </template>
           </a-table-column>
 
@@ -162,6 +181,7 @@
 <script setup lang="ts" name="widget-table-render">
   import { computed, onBeforeMount } from 'vue';
   import type * as CSS from 'csstype';
+  import WidgetDetail from 'src/widgets/detail.index';
   import { FormWidget } from '../types';
 
   const props = withDefaults(
@@ -219,8 +239,15 @@
     }
 
     .subform-column {
+      display: flex;
+      flex-direction: column;
+
       .subform-column__cell {
+        flex: 1;
+        flex-shrink: 0;
         padding: 9px 16px;
+        overflow: hidden;
+        text-overflow: ellipsis;
         border-bottom: 1px solid var(--color-neutral-3);
 
         &:last-child {

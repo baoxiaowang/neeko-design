@@ -26,6 +26,7 @@
     :file-list="fileList"
     image-preview
     :response-url-key="uploadResponse"
+    @change="fileChange"
   />
 </template>
 
@@ -66,6 +67,9 @@
   });
   function uploadResponse(item: any) {
     return item.response.data.url;
+  }
+  function fileChange(imgList: any) {
+    fileList.value = imgList;
   }
 </script>
 

@@ -25,6 +25,7 @@
     :file-list="fileList"
     :custom-icon="getCustomIcon()"
     :response-url-key="uploadResponse"
+    @change="fileChange"
   />
 </template>
 
@@ -78,6 +79,9 @@
   });
   function uploadResponse(item: any) {
     return item.response.data.url;
+  }
+  function fileChange(imgList: any) {
+    fileList.value = imgList;
   }
 </script>
 
