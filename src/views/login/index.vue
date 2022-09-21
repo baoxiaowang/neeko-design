@@ -7,7 +7,7 @@
       />
       <div class="logo-text">Arco Design Pro</div>
     </div>
-    <LoginBanner />
+    <!-- <LoginBanner /> -->
     <div class="content">
       <div class="content-inner">
         <LoginForm />

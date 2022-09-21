@@ -1,19 +1,21 @@
 export type RoleType = '' | '*' | 'admin' | 'user';
+
+export interface companyItem {
+  companyId: string;
+  companyInfo: {
+    _id: string;
+    companyName: string;
+  };
+  userName: string;
+  userPhone: string;
+}
 export interface UserState {
   name?: string;
   avatar?: string;
   job?: string;
-  organization?: string;
-  location?: string;
-  email?: string;
-  introduction?: string;
-  personalWebsite?: string;
-  jobName?: string;
-  organizationName?: string;
-  locationName?: string;
   phone?: string;
-  registrationDate?: string;
-  accountId?: string;
-  certification?: number;
   role: RoleType;
+  companyId?: string;
+  companyName?: string;
+  companyList: companyItem[];
 }

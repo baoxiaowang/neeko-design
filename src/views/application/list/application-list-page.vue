@@ -51,6 +51,7 @@
   <applicationFormVue
     v-model:visible="visible"
     @cancel="handleCancel"
+    @success="handleSuccess"
   ></applicationFormVue>
 </template>
 
@@ -103,6 +104,10 @@
 
   function handleCancel() {
     //
+  }
+  async function handleSuccess() {
+    const { data } = await getAppList();
+    appList.value = data;
   }
   function delApp(id: string) {
     delOneApp(id);

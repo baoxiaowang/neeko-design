@@ -3,10 +3,10 @@
     <template #actions>
       <span class="icon-hover" titile="编辑"> <icon-edit /></span>
       <a-dropdown position="bottom" @select="handleSelect">
-        <span class="icon-hover"> <IconMore /> </span>
+        <span class="icon-hover" @click.stop="() => false"> <IconMore /> </span>
         <template #content>
-          <a-doption value="copy">复制</a-doption>
-          <a-doption value="del">删除</a-doption>
+          <a-doption value="copy" @click.stop="() => false">复制</a-doption>
+          <a-doption value="del" @click.stop="() => false">删除</a-doption>
         </template>
       </a-dropdown>
     </template>

@@ -9,7 +9,12 @@ export default function setupUserLoginInfoGuard(router: Router) {
     NProgress.start();
     const userStore = useUserStore();
     if (isLogin()) {
-      if (userStore.role) {
+      // 如果已经登陆再进登录重定向到首页
+      if (to.name === 'login') {
+        next(true);
+        return;
+      }
+      if (userStore.phone) {
         next();
       } else {
         try {

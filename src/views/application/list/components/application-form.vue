@@ -94,6 +94,7 @@
   }>();
   const emit = defineEmits<{
     (e: 'update:visible', d: boolean): void;
+    (e: 'success'): void;
   }>();
 
   const formData = reactive<
@@ -133,6 +134,7 @@
           ...formData,
         })
           .then(() => {
+            emit('success');
             done();
           })
           .catch(() => {

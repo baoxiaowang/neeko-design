@@ -22,16 +22,16 @@ const DASHBOARD: AppRouteRecordRaw = {
         roles: ['*'],
       },
     },
-    {
-      path: 'dataTable',
-      name: 'dataTable',
-      component: () => import('@/views/data-table/index.vue'),
-      meta: {
-        locale: '数据列表',
-        requiresAuth: true,
-        roles: ['*'],
-      },
-    },
+    // {
+    //   path: 'dataTable',
+    //   name: 'dataTable',
+    //   component: () => import('@/views/data-table/index.vue'),
+    //   meta: {
+    //     locale: '数据列表',
+    //     requiresAuth: true,
+    //     roles: ['*'],
+    //   },
+    // },
   ],
 };
 

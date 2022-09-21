@@ -5,29 +5,21 @@ import {
   getUserInfo,
   LoginData,
 } from '@/api/user';
-import { setToken, clearToken } from '@/utils/auth';
+import { setToken, clearToken, setCompanyId } from '@/utils/auth';
 import { removeRouteListener } from '@/utils/route-listener';
-import { UserState } from './types';
+import { companyItem, UserState } from './types';
 import useAppStore from '../app';
 
 const useUserStore = defineStore('user', {
   state: (): UserState => ({
     name: undefined,
+    phone: undefined,
     avatar: undefined,
     job: undefined,
-    organization: undefined,
-    location: undefined,
-    email: undefined,
-    introduction: undefined,
-    personalWebsite: undefined,
-    jobName: undefined,
-    organizationName: undefined,
-    locationName: undefined,
-    phone: undefined,
-    registrationDate: undefined,
-    accountId: undefined,
-    certification: undefined,
     role: '',
+    companyId: '',
+    companyName: '',
+    companyList: [],
   }),
 
   getters: {
@@ -56,15 +48,26 @@ const useUserStore = defineStore('user', {
     // Get user's information
     async info() {
       const res = await getUserInfo();
-
       this.setInfo(res.data);
     },
 
     // Login
-    async login(loginForm: LoginData) {
+    // 返回是否进入公司
+    async login(loginForm: LoginData): Promise<[boolean, companyItem[]]> {
       try {
-        const res = await userLogin(loginForm);
-        setToken(res.data.token);
+        const { data } = await userLogin(loginForm);
+        const { companyList = [], token } = data;
+        setToken(token);
+        this.companyList = companyList;
+        if (companyList?.length === 1) {
+          const [company] = companyList as companyItem[];
+          this.companyId = company.companyId;
+          this.companyName = company.companyInfo.companyName;
+          setCompanyId(company.companyId);
+          return [true, companyList];
+        }
+
+        return [false, companyList];
       } catch (err) {
         clearToken();
         throw err;

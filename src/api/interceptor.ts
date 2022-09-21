@@ -2,7 +2,7 @@ import axios from 'axios';
 import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Message, Modal } from '@arco-design/web-vue';
 import { useUserStore } from '@/store';
-import { getToken } from '@/utils/auth';
+import { getCompanyId, getToken } from '@/utils/auth';
 
 export interface HttpResponse<T = unknown> {
   status: number;
@@ -22,11 +22,13 @@ axios.interceptors.request.use(
     // Authorization is a custom headers key
     // please modify it according to the actual situation
     const token = getToken();
+    const companyId = getCompanyId();
     if (token) {
       if (!config.headers) {
         config.headers = {};
       }
       config.headers.Authorization = `Bearer ${token}`;
+      config.headers.company_id = companyId;
     }
     return config;
   },
@@ -65,11 +67,12 @@ axios.interceptors.response.use(
       }
       return Promise.reject(new Error(res.msg || 'Error'));
     }
+
     return res;
   },
   (error) => {
     Message.error({
-      content: error.msg || 'Request Error',
+      content: error.msg || '请求错误!',
       duration: 5 * 1000,
     });
     return Promise.reject(error);
