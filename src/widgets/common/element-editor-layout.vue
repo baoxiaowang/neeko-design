@@ -8,7 +8,9 @@
     lazy-load
   >
     <a-tab-pane key="config" title="配置">
-      <slot></slot>
+      <el-scrollbar :wrap-style="{ padding: '0px 12px' }">
+        <slot></slot>
+      </el-scrollbar>
       <WidgetKey :node-key="node.key"></WidgetKey>
     </a-tab-pane>
     <!-- <a-tab-pane key="style" title="样式">

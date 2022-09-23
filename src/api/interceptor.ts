@@ -28,7 +28,7 @@ axios.interceptors.request.use(
         config.headers = {};
       }
       config.headers.Authorization = `Bearer ${token}`;
-      config.headers.company_id = companyId;
+      config.headers['company-id'] = companyId;
     }
     return config;
   },
