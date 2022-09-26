@@ -74,10 +74,10 @@
 </template>
 
 <script setup lang="ts" name="widget-mark">
-  import { computed, onMounted, onUnmounted } from 'vue';
+  import { computed, onMounted, onUnmounted, ref } from 'vue';
   import WidgetConfigs from '@/widgets/config.index';
-  import { WidgetConfig } from '@/widgets/types';
-  import useWatchDesign from './use-watch-design';
+  import { Widget, WidgetConfig, WidgetType } from '@/widgets/types';
+  import DesignEventBus from 'src/utils/design-event';
 
   interface IMark {
     left: number;
@@ -92,13 +92,21 @@
     title: string;
     icon: string;
   }
-  const {
-    selectWidget,
-    hoverKey,
-    emitSelectKeyChange,
-    emitHoverKeyChange,
-    emitDelWidget,
-  } = useWatchDesign();
+  const designEventBus = new DesignEventBus(window.parent);
+
+  const selectKey = ref<string>('');
+  const selectType = ref<WidgetType>();
+  const hoverKey = ref<string>('');
+
+  designEventBus.on('hover', (widget) => {
+    hoverKey.value = widget.key;
+  });
+  designEventBus.on('select', (widget) => {
+    setTimeout(() => {
+      selectKey.value = widget.key;
+      selectType.value = (widget as Widget).type;
+    }, 200);
+  });
   const createHoverSelectorBorder = (elArr: HTMLHtmlElement[]) => {
     const list: IMark[] = elArr.map((el: HTMLHtmlElement) => {
       const { left, width, height } = el.getBoundingClientRect();
@@ -115,7 +123,9 @@
     return list;
   };
   const hoverTools = () => {
-    emitHoverKeyChange(selectWidget.value?.key);
+    designEventBus.emit('hover', {
+      key: selectKey.value,
+    });
   };
   const hoverMarkList = computed<IMark[]>(() => {
     if (!hoverKey.value) {
@@ -127,17 +137,17 @@
     return createHoverSelectorBorder(Array.from(elArr));
   });
   const selectMarkList = computed<IMark[]>(() => {
-    if (!selectWidget.value) {
+    if (!selectKey.value) {
       return [];
     }
-    const { key } = selectWidget.value;
+    const key = selectKey.value;
     const elArr =
       document.querySelectorAll<HTMLHtmlElement>(`[data-key=${key}]`) || [];
     return createHoverSelectorBorder(Array.from(elArr));
   });
   const selectWidgetConfig = computed<WidgetConfig | null>(() => {
-    if (selectWidget.value) {
-      return WidgetConfigs[selectWidget.value.type];
+    if (selectType.value) {
+      return WidgetConfigs[selectType.value];
     }
     return null;
   });
@@ -182,11 +192,8 @@
       title: '删除节点',
       icon: 'icon-delete',
     };
-    if (!selectWidget.value) {
-      return [];
-    }
-    const { type } = selectWidget.value;
-    const config = WidgetConfigs[type];
+
+    const config = { canCopy: true, canDel: true, childrenType: ['text'] };
     const { canCopy = true, canDel = true } = config || {};
     const res = [];
     if (config.childrenType?.length) {
@@ -206,7 +213,9 @@
       //  emitSelectKeyChange(targetEl?.dataset?.key);
     } else if (e.key === 'del') {
       //
-      emitDelWidget();
+      designEventBus.emit('delete', {
+        key: selectKey.value,
+      });
     } else if (e.key === 'copy') {
       //
     }
@@ -222,13 +231,14 @@
         if (!targetEl?.dataset?.key) {
           return;
         }
-        // emit('hoveredKeyChange', targetEl?.dataset?.key || '');
-        emitHoverKeyChange(targetEl?.dataset?.key);
+        if (targetEl?.dataset?.key) {
+          designEventBus.emit('hover', {
+            key: targetEl?.dataset?.key,
+          });
+        }
       };
       rootEl.addEventListener('mouseover', hoverHandler, true);
-      const fn = () => {
-        emitHoverKeyChange('');
-      };
+      const fn = () => {};
       rootEl.addEventListener('mouseleave', fn);
       onUnmounted(() => {
         rootEl?.removeEventListener('mouseover', hoverHandler);
@@ -249,8 +259,12 @@
           return;
         }
         e.stopImmediatePropagation();
-        // emit('selectKeyChange', targetEl?.dataset?.key);
-        emitSelectKeyChange(targetEl?.dataset?.key);
+        // 触发给iframeWrap
+        if (targetEl?.dataset?.key) {
+          designEventBus.emit('select', {
+            key: targetEl?.dataset?.key,
+          });
+        }
       };
       rootEl.addEventListener('click', fn, false);
       onUnmounted(() => {

@@ -1,9 +1,10 @@
 import { computed, nextTick, Ref } from 'vue';
 import WidgetSourceMap from '@/widgets/config.index';
-import DesignChannel from '@/components/design/design-channel';
+import DesignEventBus from 'src/utils/design-event';
 import { Widget, WidgetType } from '../types';
 
-const iframeChannel = new DesignChannel(window);
+// const iframeChannel = new DesignChannel(window);
+const designEventBus = new DesignEventBus(window.parent);
 export default function usePreviewDrag(node: Ref<Widget>) {
   const mapChildren = computed<Widget[]>({
     get() {
@@ -20,16 +21,28 @@ export default function usePreviewDrag(node: Ref<Widget>) {
     document.body.classList.remove('dragging');
   }
   function onAdd({ clone, newIndex }: any) {
-    const type: WidgetType = clone.dataset?.type;
-    const newItem = WidgetSourceMap[type].defaultVal();
-
-    if (node?.value?.children) {
-      const childrenData = [...node.value.children] || [];
-      childrenData.splice(newIndex, 1, newItem);
-      iframeChannel.$emit('widgetUpdate', {
-        children: JSON.parse(JSON.stringify(childrenData)),
+    nextTick(() => {
+      debugger;
+      const newData = node.value.children![newIndex];
+      designEventBus.emit('select', {
+        key: newData.key,
       });
-    }
+    });
+
+    // const type: WidgetType = clone.dataset?.type;
+    // const newItem = WidgetSourceMap[type].defaultVal();
+
+    // if (node?.value?.children) {
+    //   const childrenData = [...node.value.children] || [];
+    //   childrenData.splice(newIndex, 1, newItem);
+    //   const newData: Widget = {
+    //     ...node.value,
+    //     children: childrenData,
+    //   };
+    //   designEventBus.emit('update', newData).emit('select', {
+    //     key: newItem.key,
+    //   });
+    // }
   }
   function dragStart() {
     document.body.classList.add('dragging');

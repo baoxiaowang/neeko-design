@@ -1,8 +1,8 @@
 <template>
-  <span class="widget-text" :class="node.key" :data-key="node.key">
+  <p class="widget-text" :class="node.key" :data-key="node.key">
     <!-- :style="style" -->
     {{ compileText }}
-  </span>
+  </p>
 </template>
 
 <script setup lang="ts" name="text-render">

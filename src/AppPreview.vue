@@ -13,22 +13,29 @@
 
 <script setup lang="ts" name="PreviewApp">
   import renderWidgetVue from '@/widgets/render/render-widget.vue';
-  import { onMounted, ref } from 'vue';
+  import { onMounted, ref, provide, computed, watch } from 'vue';
   import DesignChannel, {
     WidgetChangeEvent,
   } from '@/components/design/design-channel';
+  import DesignEventBus from 'src/utils/design-event';
   import WidgetMark from './components/design/widget-mark/index.vue';
   import { Widget } from './widgets/types';
 
   const widgetData = ref<Widget[]>([]);
-  const designChannel = new DesignChannel(window.parent);
-  onMounted(() => {
-    if (window.parent) {
-      designChannel.$on('widgetChange', (e) => {
-        widgetData.value = (e as WidgetChangeEvent).detail;
-      });
-    }
-  });
+  // const designChannel = new DesignChannel(window.parent);
+  const designEventBus = new DesignEventBus(window.parent);
+
+  const PreviewApp = {
+    designEventBus,
+  };
+  provide('PreviewApp', PreviewApp);
+
+  if (window.parent) {
+    designEventBus.onInit((data) => {
+      const widgetList = JSON.parse(JSON.stringify(data));
+      widgetData.value = widgetList;
+    });
+  }
 </script>
 
 <style lang="less">

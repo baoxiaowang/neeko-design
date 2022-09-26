@@ -693,7 +693,7 @@ export function createCustomePage(): Widget[] {
       key: 'root',
       codeStyle: styleObjToCode({
         minHeight: '100vh',
-        background: '#f2f3f5',
+        background: 'rgba(255,255,255,0.8)',
       }),
       children: [],
     },

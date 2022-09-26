@@ -9,6 +9,7 @@
     :group="group"
     :style="style"
     class="root-render"
+    @update:model-value="modelChange"
     @end="dragEnd"
     @add="onAdd"
     @dragstart="dragStart"
@@ -29,9 +30,11 @@
   import draggable from '@/components/vue-draggable/src/vuedraggable';
   import usePreviewDrag from '@/widgets/hooks/usePreviewDrag';
   import { useRenderStyle } from '@/widgets/hooks/useRenderHelp';
+  import DesignEventBus from 'src/utils/design-event';
   import { getRenderWidget } from '../../render';
   import { Widget } from '../../types';
 
+  const designEventBus = new DesignEventBus(window.parent);
   interface IPropType {
     node: Widget;
     state: any;
@@ -52,6 +55,14 @@
   async function dragEnd() {
     await nextTick();
     document.body.classList.remove('dragging');
+  }
+
+  function modelChange(val: any) {
+    const newWidget: Widget = {
+      ...props.node,
+      children: val,
+    };
+    designEventBus.emit('update', newWidget);
   }
   onMounted(() => {
     emit('widgetMounted', 'root');

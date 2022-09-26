@@ -160,7 +160,7 @@ const useDesignStore = defineStore('design', {
         }
       }
     },
-    async handlerWidgetDelete(data: Widget) {
+    async handlerWidgetDelete(data: Pick<Widget, 'key'>) {
       const currentParent: Widget | undefined = this.widgetParentMap[data.key];
       const index = currentParent?.children?.findIndex(
         (c) => c.key === data.key

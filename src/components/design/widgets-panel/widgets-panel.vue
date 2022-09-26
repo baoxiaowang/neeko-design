@@ -8,10 +8,11 @@
       <div class="widget__group-title">{{ item.label }}</div>
       <draggable
         item-key="key"
-        :list="item.list.map((item) => item.defaultVal())"
+        :list="item.list"
         :move="move"
         :group="group"
         class="widgets-panel__draggable"
+        :clone="createCloneWidget"
         @end="dragEnd"
         @start="dragStart"
       >
@@ -29,7 +30,7 @@
 </template>
 
 <script setup lang="ts" name="widgets-panel">
-  import { WidgetType } from '@/widgets/types';
+  import { WidgetConfig, WidgetType } from '@/widgets/types';
   import { computed, onMounted, ref } from 'vue';
   import draggable from 'src/components/vue-draggable/src/vuedraggable.js';
   import { useDesignStore } from '@/store';
@@ -66,6 +67,10 @@
     (window as any).preview?.document.body.classList.remove('dragging');
   }
   const drag = ref(false);
+  function createCloneWidget(origin: WidgetConfig) {
+    console.log(origin);
+    return origin.defaultVal();
+  }
 </script>
 
 <style lang="less">

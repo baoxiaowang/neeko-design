@@ -4,107 +4,50 @@
     ref="iframeEl"
     name="preview"
     class="preview-iframe"
-    :class="'preview-iframe__' + windowType"
+    :class="['preview-iframe__' + windowType, pageTypeClass[pageType!]]"
     :src="src"
     frameborder="0"
     :style="{
       height: iframeHeight,
     }"
-    @load="onLoad"
+    @load="onload"
   >
   </iframe>
 </template>
 
 <script setup lang="ts" name="preview-iframe">
   import { useDesignStore } from '@/store';
-  import { watch, ref, computed } from 'vue';
-  import DesignChannel, {
-    DelWidgetEvent,
-    KeyChangeEvent,
-    SelectChangeEvent,
-  } from '../design-channel';
-
-  const designChannel = new DesignChannel(window);
+  import { watch, ref, computed, watchEffect } from 'vue';
+  import DesignEventBus from 'src/utils/design-event';
+  import { PageTypeEnum } from '@/api/page';
 
   const src = `${window.location.origin}/preview.html`;
   const iframeHeight = ref<string>('100vh');
 
-  // const props = defineProps();
   const store = useDesignStore();
 
   const windowType = computed(() => store.windowType);
 
   defineEmits([]);
-  function initMutationObserver() {
-    const preWindow: Window = (window as any).preview;
-    const targetNode: HTMLBodyElement | null =
-      preWindow?.document.querySelector('body');
-    if (targetNode) {
-      // 观察器的配置（需要观察什么变动）
-      const config = { attributes: true, childList: true, subtree: true };
-      // 当观察到变动时执行的回调函数
-      // eslint-disable-next-line func-names
-      const callback = (mutationsList: any, observer: any) => {
-        // Use traditional 'for loops' for IE 11
-        // eslint-disable-next-line no-restricted-syntax
-        for (const mutation of mutationsList) {
-          if (mutation.type === 'childList') {
-            // console.log('A child node has been added or removed.');
-          } else if (mutation.type === 'attributes') {
-            // console.log(
-            //   `The ${mutation.attributeName} attribute was modified.`
-            // );
-          }
-        }
-        // console.log(targetNode);
-        setTimeout(() => {
-          iframeHeight.value = `${targetNode.offsetHeight}px`;
-        }, 200);
-      };
-      const observer = new MutationObserver(callback);
-      // 以上述配置开始观察目标节点
-      observer.observe(targetNode, config);
-    }
-  }
-  function initPreviewEvent() {
-    const previewChannel = new DesignChannel((window as any).preview);
+  defineProps<{
+    pageType?: PageTypeEnum;
+  }>();
 
-    previewChannel.$on('selectKeyChange', (e: Event) => {
-      // console.log('previewChannel', e);
-      const newKey = (e as KeyChangeEvent).detail;
-      if (newKey !== store.selectedKey) {
-        store.setSelectKey(newKey);
-      }
-    });
-    previewChannel.$on('hoverKeyChange', (e: Event) => {
-      const newKey = (e as KeyChangeEvent).detail;
-      if (newKey !== store.hoveredKey) {
-        store.hoveredKey = newKey;
-      }
-    });
-    previewChannel.$on('delWidget', (e: Event) => {
-      const widget = (e as DelWidgetEvent).detail;
-      if (widget) {
-        store.handlerWidgetDelete(widget);
-      }
-    });
-    previewChannel.$on('widgetUpdate', (e: Event) => {
-      const widget = (e as DelWidgetEvent).detail;
-      store.handlerWidgetUpdate(widget);
-    });
-  }
+  const pageTypeClass: Record<PageTypeEnum, string> = {
+    [PageTypeEnum.mobile]: 'preview-iframe--mobild',
+    [PageTypeEnum.form]: 'preview-iframe--form',
+    [PageTypeEnum.link]: 'preview-iframe--link',
+    [PageTypeEnum.processForm]: 'preview-iframe--process-form',
+    [PageTypeEnum.pc]: 'preview-iframe--pc',
+  };
 
-  function onLoad() {
+  const designEventBus = new DesignEventBus(window);
+
+  function onload() {
     watch(
       () => store.widgetList,
-      (val) => {
-        try {
-          const detail = JSON.parse(JSON.stringify(val || []));
-          DesignChannel.getInstance(window).$emit('widgetChange', detail);
-        } catch (error) {
-          //
-          console.error(error);
-        }
+      () => {
+        designEventBus.emitInit(store.widgetList);
       },
       {
         deep: true,
@@ -112,15 +55,12 @@
       }
     );
     watch(
-      () => store.selectWidget,
+      () => store.selectedKey,
       (val) => {
-        try {
-          const detail = JSON.parse(JSON.stringify(val));
-          designChannel.$emit('selectChange', detail);
-          designChannel.$emit('selectKeyChange', detail?.key || '');
-        } catch (error) {
-          console.error(error);
-        }
+        designEventBus.emit('select', {
+          key: val,
+          type: store.widgetMap[val]?.type,
+        });
       },
       {
         deep: true,
@@ -129,18 +69,33 @@
     );
     watch(
       () => store.hoveredKey,
-      (val) => {
-        designChannel.$emit('hoverKeyChange', val || '');
+      (val: any) => {
+        designEventBus.emit('hover', {
+          key: val,
+        });
       },
       {
         deep: true,
         immediate: true,
       }
     );
-
-    initMutationObserver();
-    initPreviewEvent();
   }
+
+  designEventBus.on('select', (widget) => {
+    store.selectedKey = widget.key;
+  });
+  designEventBus.on('hover', (detail) => {
+    const newKey = detail.key;
+    if (newKey !== store.hoveredKey) {
+      store.hoveredKey = newKey;
+    }
+  });
+  designEventBus.on('update', (widget) => {
+    store.handlerWidgetUpdate(widget, true);
+  });
+  designEventBus.on('delete', (widget) => {
+    store.handlerWidgetDelete(widget);
+  });
 </script>
 
 <style lang="less">
@@ -151,5 +106,10 @@
       width: 375px;
       margin: 0 auto;
     }
+  }
+
+  .preview-iframe--mobild {
+    width: 375px;
+    margin: 0 auto;
   }
 </style>
