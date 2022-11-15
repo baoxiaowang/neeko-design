@@ -1,29 +1,51 @@
 <template>
-  <a-input-tag
-    :default-value="['test']"
+  <DeptInput
+    v-model:value="deptValue"
     :style="{ width: '100%' }"
     readonly
-    placeholder="请选择用户"
+    @click="modalVisible = true"
   >
-    <template #tag="{ data }"> {{ data.value }} </template>
-  </a-input-tag>
+  </DeptInput>
+  <memberDeptModal
+    v-model:visible="modalVisible"
+    :default-value="deptValue"
+    type="dept"
+    @ok="memberConfirm"
+  ></memberDeptModal>
 </template>
 
 <script setup lang="ts" name="input-render">
+  import { computed, ref } from 'vue';
   import useWidgetInject from '@/widgets/hooks/useWidgetInject';
+  import memberDeptModal from 'src/widgets/common/member-dept-modal.vue';
+  import DeptInput from 'src/widgets/common/dept-input.vue';
   import { InputWidget } from '../../types';
 
+  const modalVisible = ref(false);
   const { isSubWidget } = useWidgetInject();
   interface RenderProps {
     node: InputWidget;
     value: string;
   }
-  withDefaults(defineProps<RenderProps>(), {
+  const props = withDefaults(defineProps<RenderProps>(), {
     value: '',
   });
   const emit = defineEmits<{
     (e: 'update:value', d: string): void;
   }>();
+
+  const deptValue = computed<string[]>({
+    get() {
+      const ids = props.value ? [props.value] : [];
+      return ids;
+    },
+    set(val = []) {
+      emit('update:value', val[0]);
+    },
+  });
+  function memberConfirm(memberIds: string[]) {
+    deptValue.value = memberIds;
+  }
 </script>
 
 <style lang="less">

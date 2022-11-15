@@ -140,7 +140,7 @@
         box-sizing: border-box;
         background-color: rgb(var(--arcoblue-1));
         box-shadow: inset 3px 0 rgb(var(--arcoblue-6));
-        transition: all 0.1s;
+        // transition: all 0.1s;
       }
     }
   }

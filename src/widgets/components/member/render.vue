@@ -8,6 +8,7 @@
   </MemberInput>
   <memberDeptModal
     v-model:visible="modalVisible"
+    :default-value="memberValue"
     @ok="memberConfirm"
   ></memberDeptModal>
 </template>

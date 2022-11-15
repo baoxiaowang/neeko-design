@@ -29,6 +29,7 @@
                   v-model:selected-keys="selectedKeys"
                   size="small"
                   class="dept-tree"
+                  :default-expanded-keys="['0']"
                   :field-names="{
                     key: 'id',
                     title: 'name',
@@ -40,13 +41,23 @@
                     <div v-if="type === 'dept'" class="dept-tree__extra">
                       <a-radio
                         :model-value="!!selectDeptMap[nodeData.id]"
-                        @click="clickDeptRadio(nodeData)"
+                        @click="clickDept(nodeData)"
                       ></a-radio>
+                    </div>
+                    <div
+                      v-if="type === 'dept-multiple'"
+                      class="dept-tree__extra"
+                    >
+                      <a-checkbox
+                        :model-value="!!selectDeptMap[nodeData.id]"
+                        @click="clickDept(nodeData, true)"
+                      ></a-checkbox>
                     </div>
                   </template>
                 </a-tree>
               </div>
 
+              <!-- // 成员单选-多选 -->
               <div
                 v-if="type === 'member' || type === 'member-multiple'"
                 class="dept-member-list"
@@ -83,10 +94,12 @@
 </template>
 
 <script setup lang="ts" name="member-dept-model">
-  import { getAllDeptTree } from '@/api/dept';
+  import { getAllDept, DeptModel } from '@/api/dept';
   import { getMemberByPage } from '@/api/member';
   import { useUserStore } from '@/store';
-  import { computed, onBeforeMount, ref, watchEffect } from 'vue';
+  import { computed, onBeforeMount, ref, watch, watchEffect } from 'vue';
+
+  const userStore = useUserStore();
 
   const titleMap = {
     'member': '成员单选',
@@ -97,10 +110,12 @@
   const props = withDefaults(
     defineProps<{
       visible: boolean;
+      defaultValue: string[];
       type?: 'member' | 'member-multiple' | 'dept' | 'dept-multiple';
     }>(),
     {
       type: 'member',
+      defaultValue: () => [],
     }
   );
   const emit = defineEmits<{
@@ -114,6 +129,30 @@
     return titleMap[props.type] || '';
   });
 
+  watch(
+    () => props.visible,
+    (val: boolean) => {
+      if (val) {
+        if (['member', 'member-multiple'].includes(props.type)) {
+          selectMemberMap.value = props.defaultValue.reduce(
+            (a, b) =>
+              Object.assign(a, {
+                [b]: true,
+              }),
+            {}
+          );
+        } else {
+          selectDeptMap.value = props.defaultValue.reduce(
+            (a, b) =>
+              Object.assign(a, {
+                [b]: true,
+              }),
+            {}
+          );
+        }
+      }
+    }
+  );
   const modelVisible = computed({
     get() {
       return props.visible;
@@ -131,12 +170,18 @@
       memberList.value = res.data;
     });
   });
-  function clickDeptRadio(node: any) {
-    selectDeptMap.value = {
-      [node.id]: !selectDeptMap.value[node.id],
-    };
+  function clickDept(node: any, multiple = false) {
+    if (multiple) {
+      selectDeptMap.value = {
+        ...selectDeptMap.value,
+        [node.id]: !selectDeptMap.value[node.id],
+      };
+    } else {
+      selectDeptMap.value = {
+        [node.id]: !selectDeptMap.value[node.id],
+      };
+    }
   }
-  const userStore = useUserStore();
 
   function handleOk() {
     const deptIds = Object.keys(selectDeptMap.value);
@@ -171,6 +216,14 @@
           return window.globalData.memberCacheMap[id]?.userName || id;
         });
       }
+      if (['dept', 'dept-multiple'].includes(props.type)) {
+        return Object.keys(selectDeptMap.value).map((id) => {
+          if (id === '0') {
+            return userStore.companyName;
+          }
+          return window.globalData.deptCacheMap[id]?.name || id;
+        });
+      }
       return [];
     },
     set(val: any) {
@@ -193,8 +246,26 @@
     ];
   });
   onBeforeMount(async () => {
-    const { data } = await getAllDeptTree();
-    deptList.value = data;
+    const { data } = await getAllDept();
+    // const { data } = await getAllDeptTree();
+    const treeData = data.reduce(
+      (p: DeptModel[], b: DeptModel, _index: number, list: DeptModel[]) => {
+        if (b.parentId === '0' || !b.parentId) {
+          p.push(b);
+          return p;
+        }
+        list.some((item: DeptModel) => {
+          if (b.parentId?.toString() === item.id?.toString()) {
+            item.children = item.children ? item.children.concat(b) : [b];
+            return true;
+          }
+          return false;
+        });
+        return p;
+      },
+      []
+    );
+    deptList.value = treeData;
   });
 </script>
 

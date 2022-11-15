@@ -1,3 +1,4 @@
+import { MemberModel } from '@/types/global';
 import axios from 'axios';
 
 // 员工数据缓存{id: vo}
@@ -21,14 +22,13 @@ export function getMemberByPage(params: IGetMemberByPage) {
     .then((res) => {
       const { data = [] } = res;
       data.forEach((item: any) => {
-        // eslint-disable-next-line no-underscore-dangle
         memberCacheMap[item.id] = item;
       });
       return res;
     });
 }
 
-export function getMemberByIds(ids: string[] = []) {
+export function getMemberByIds(ids: string[] = []): Promise<MemberModel[]> {
   if (!ids.length) return Promise.resolve([]);
   return axios
     .get('/api/member/getMemberByIds', {

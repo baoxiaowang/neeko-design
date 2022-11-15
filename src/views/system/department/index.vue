@@ -36,14 +36,15 @@
               </div>
             </template>
             <template #dept>
+              <!-- :default-expanded-keys="defaultExpandedKeys" -->
               <a-tree
                 ref="treeRef"
                 v-model:selected-keys="selectedKeys"
+                v-model:expanded-keys="expandedKeys"
                 size="large"
-                :default-expanded-keys="defalutExpandedKeys"
                 class="dept-tree"
                 :field-names="{
-                  key: '_id',
+                  key: 'id',
                   title: 'name',
                 }"
                 block-node
@@ -132,10 +133,11 @@
   const topActions = computed(() => {
     return actionMap[tabVal.value] || [];
   });
-  const defalutExpandedKeys = ref([]);
+  const defaultExpandedKeys = ref([]);
   const itemDeptName = ref('');
   const deptList = ref([]);
   const selectedKeys = ref([]);
+  const expandedKeys = ref(['0']);
   const deptNameIptRef = ref();
   const treeRef = ref('deptTree');
   const treeData = computed(() => {
@@ -143,6 +145,7 @@
       {
         name: userStore.companyName,
         _id: '0',
+        id: '0',
         children: deptList.value,
       },
     ];
@@ -157,7 +160,8 @@
   const selectMemberType = ref<memberType>('all');
   const selectMemberBlock = computed<string[]>({
     get() {
-      return [selectMemberType.value].concat(defalutExpandedKeys.value);
+      // concat(defaultExpandedKeys.value)/
+      return [selectMemberType.value];
     },
     set(val: any) {
       selectMemberType.value = val;

@@ -2,6 +2,9 @@ import { baseCompile } from '@vue/compiler-core';
 import * as VueRuntime from '@vue/runtime-core';
 import { stringifyStyle, parseStringStyle, NormalizedStyle } from '@vue/shared';
 import type * as CSS from 'csstype';
+import { MemberModel } from '@/types/global';
+import { getMemberByIds } from '@/api/member';
+import { DeptModel, getDeptByIds } from '@/api/dept';
 import { Widget, WidgetType, WidgetComponents } from './types';
 import renderModule from './render.index';
 // CSS.Properties;
@@ -175,6 +178,34 @@ export function styleToString(obj: any) {
 export function getRenderWidget(node: any): WidgetComponents {
   return (renderModule[node.type] ||
     renderModule.container) as WidgetComponents;
+}
+
+export async function formatMember(ids: string[] = []): Promise<MemberModel[]> {
+  const memberList: MemberModel[] = [];
+  ids.forEach((id) => {
+    const member = window.globalData.memberCacheMap[id];
+    if (member) {
+      memberList.push(member);
+    }
+  });
+  if (memberList.length === ids.length) {
+    return memberList;
+  }
+  return getMemberByIds(ids);
+}
+
+export async function getDept(ids: string[] = []): Promise<DeptModel[]> {
+  const deptList: DeptModel[] = [];
+  ids.forEach((id) => {
+    const dept = window.globalData.deptCacheMap[id];
+    if (dept) {
+      deptList.push(dept);
+    }
+  });
+  if (deptList.length === ids.length) {
+    return deptList;
+  }
+  return getDeptByIds(ids);
 }
 
 // eslint-disable-next-line no-underscore-dangle

@@ -52,6 +52,7 @@ declare global {
   interface Window {
     globalData: {
       memberCacheMap: Record<string, MemberModel>;
+      deptCacheMap: Record<string, any>;
       [key: string]: any;
     };
   }
