@@ -22,10 +22,10 @@
   dependencies:
     color "^3.1.3"
 
-"@arco-design/web-vue@^2.34.1":
-  version "2.34.1"
-  resolved "https://registry.yarnpkg.com/@arco-design/web-vue/-/web-vue-2.34.1.tgz#57f8b097292ff5198e01410a9ae000ec4143a9fc"
-  integrity sha512-T453xNyTwl4NWL1phpXT4jzPZiggp5heqLL8xROn9nY4dIU34LyrnMYB6hN++0uyN3MtS5yx+zAr6vDCpfZT3w==
+"@arco-design/web-vue@^2.35.0":
+  version "2.37.4"
+  resolved "https://registry.yarnpkg.com/@arco-design/web-vue/-/web-vue-2.37.4.tgz#d14a89f7bdfa4465a3539161b2fb414824097e3b"
+  integrity sha512-h8mK/I0jxlYKG/q5EiOOTqOdE12bRLxMFIkmNYr5XiixbvlI2YBYuyOjoDtlr1FY68cp6o77ysPmmedG5rmeng==
   dependencies:
     "@arco-design/color" "^0.4.0"
     b-tween "^0.3.3"
@@ -48,10 +48,10 @@
     "@babel/types" "^7.12.12"
     "@types/node" "^16.11.10"
 
-"@arco-themes/vue-neeko@^0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@arco-themes/vue-neeko/-/vue-neeko-0.0.7.tgz#1ed4b5ca194789074d8c841b7f52cacd3e4fb1c0"
-  integrity sha512-dKTQG6Vda+LalxUurfiiSLoxfPK4YKfgK/6732ffKPsD8ZgvVDBFMadF6sB/e89XEoqtQOuv8TmQz8FdbG8KaA==
+"@arco-themes/vue-neeko@^0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@arco-themes/vue-neeko/-/vue-neeko-0.0.8.tgz#f3742b5ab7e95cea906131d1065757e6943fc96a"
+  integrity sha512-5EVg+na3DPHi3dJ24XyvQKEMkb9vYoxLSjgfZCh/CtgNZYyAF5FJ57jZwcE7pIW+JxF0eWGTHRDUg4BTl92iBA==
 
 "@babel/code-frame@7.12.11":
   version "7.12.11"

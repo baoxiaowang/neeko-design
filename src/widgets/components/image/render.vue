@@ -9,7 +9,6 @@
   import { ImageWidget } from '@/widgets/types';
   import { compileExp } from '@/widgets/utils';
   import { useRenderStyle } from '@/widgets/hooks/useRenderHelp';
-  import { Image } from '@arco-design/web-vue';
 
   export interface Options {
     node: ImageWidget;

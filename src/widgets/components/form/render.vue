@@ -53,7 +53,7 @@
   import { getRenderWidget } from '@/widgets/render';
   import { onMounted, ref, nextTick, computed, toRefs, reactive } from 'vue';
   import VueDraggable from '@/components/vue-draggable/src/vuedraggable';
-  import { FormRootWidget, Widget } from '@/widgets/types';
+  import { FormRootWidget } from '@/widgets/types';
   import useDraggable from '@/widgets/hooks/useDraggable';
   import FormWidgetLayout from '@/widgets/common/form-widget-layout.vue';
   import { Form } from '@arco-design/web-vue';

@@ -656,10 +656,15 @@ export const toolWidgetGroupMap = {
     //     widgetConfig['file-upload'],
     //   ],
     // },
-    // {
-    //   label: '组织架构',
-    //   list: [],
-    // },
+    {
+      label: '组织架构',
+      list: [
+        widgetConfig.member,
+        widgetConfig['member-multiple'],
+        widgetConfig.dept,
+        widgetConfig['dept-multiple'],
+      ],
+    },
   ] as ToolWidgetGroupItem[],
   page: [
     {

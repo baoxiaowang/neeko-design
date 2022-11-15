@@ -110,6 +110,6 @@
 
   .preview-iframe--mobild {
     width: 375px;
-    margin: 0 auto;
+    margin-top: 20px;
   }
 </style>

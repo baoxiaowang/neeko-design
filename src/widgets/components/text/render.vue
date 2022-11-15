@@ -1,15 +1,13 @@
 <template>
   <p class="widget-text" :class="node.key" :data-key="node.key">
-    <!-- :style="style" -->
     {{ compileText }}
   </p>
 </template>
 
 <script setup lang="ts" name="text-render">
   import { Widget } from '@/widgets/types';
-  import { computed, ref, toRefs } from 'vue';
-  import { useRenderStyle } from '@/widgets/hooks/useRenderHelp';
-  import { compileExp, styleToString } from '../../utils';
+  import { computed, toRefs } from 'vue';
+  import { compileExp } from '../../utils';
 
   const props = defineProps<{
     node: Widget;
@@ -20,7 +18,6 @@
   //   return styleToString(props.node.codeStyle);
   // });
   const { node } = toRefs(props);
-  const style = useRenderStyle(node);
   const compileText = computed<any>(() => {
     return compileExp(
       props.node.config?.text,
@@ -36,10 +33,4 @@
   });
 </script>
 
-<style lang="less">
-  .design-mode {
-    .widget-text {
-      // cursor: pointer;
-    }
-  }
-</style>
+<style lang="less"></style>

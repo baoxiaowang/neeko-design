@@ -41,3 +41,18 @@ export interface HttpResult<T> {
   code: number;
   msg: string;
 }
+
+export interface MemberModel {
+  id: string;
+  userName: string;
+  userPhone: string;
+}
+
+declare global {
+  interface Window {
+    globalData: {
+      memberCacheMap: Record<string, MemberModel>;
+      [key: string]: any;
+    };
+  }
+}

@@ -22,7 +22,6 @@ export default function usePreviewDrag(node: Ref<Widget>) {
   }
   function onAdd({ clone, newIndex }: any) {
     nextTick(() => {
-      debugger;
       const newData = node.value.children![newIndex];
       designEventBus.emit('select', {
         key: newData.key,

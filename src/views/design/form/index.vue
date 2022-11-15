@@ -67,7 +67,8 @@
     });
   }
   function onBack() {
-    router.push(`/application-detail/${appId.value}`);
+    // router.replace(`/application-detail/${appId.value}`);
+    router.go(-1);
   }
 </script>
 

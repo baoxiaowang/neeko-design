@@ -1,22 +1,17 @@
 // import Editor from "./editor.vue";
-import {
-  IAddressValue,
-  InputWidget,
-  WidgetConfig,
-  WidgetType,
-} from '../../types';
+import { InputWidget, WidgetConfig, WidgetType } from '../../types';
 import { createWidgetKey } from '../../utils';
 
-const type: WidgetType = 'address';
+const type: WidgetType = 'dept';
 export default {
   type,
-  title: '地址',
-  icon: 'icon-map-pin-range-line',
+  title: '部门单选',
+  icon: 'icon-t-box-line',
   childrenType: [] as WidgetType[],
   defaultVal() {
     return {
       type,
-      label: '地址',
+      label: '部门单选',
       key: createWidgetKey(type),
       codeStyle: '',
       width: '100',
@@ -36,9 +31,5 @@ export default {
       },
       block: 0,
     };
-  },
-  toString(val: IAddressValue): string {
-    if (!val) return '';
-    return `${val.province}${val.city}${val.district}${val.address}`;
   },
 } as WidgetConfig<InputWidget>;

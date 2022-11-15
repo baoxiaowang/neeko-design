@@ -109,8 +109,10 @@
     const { data } = await getAppList();
     appList.value = data;
   }
-  function delApp(id: string) {
-    delOneApp(id);
+  async function delApp(id: string) {
+    await delOneApp(id);
+    const { data } = await getAppList();
+    appList.value = data;
   }
   onMounted(async () => {
     const { data } = await getAppList();

@@ -25,11 +25,11 @@
 </template>
 
 <script setup lang="ts" name="row-render">
-  import { nextTick, computed, toRefs } from 'vue';
+  import { nextTick, toRefs } from 'vue';
   import draggable from '@/components/vue-draggable/src/vuedraggable';
   import usePreviewDrag from '@/widgets/hooks/usePreviewDrag';
   import { Widget } from '@/widgets/types';
-  import { useRenderStyle } from '@/widgets/hooks/useRenderHelp';
+  // import { useRenderStyle } from '@/widgets/hooks/useRenderHelp';
   import { getRenderWidget } from '../../render';
 
   const props = defineProps<{
@@ -37,7 +37,6 @@
   }>();
   const { node } = toRefs(props);
   const { list } = usePreviewDrag(node);
-  const style = useRenderStyle(node);
   function dragStart() {
     document.body.classList.add('dragging');
   }
@@ -48,6 +47,7 @@
   const group = { name: 'form-widget' };
 
   function Add({ clone, newIndex }: any) {
+    // eslint-disable-next-line no-console
     console.log(clone, newIndex);
   }
 </script>

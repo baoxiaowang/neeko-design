@@ -2,7 +2,7 @@ import axios from 'axios';
 import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Message, Modal } from '@arco-design/web-vue';
 import { useUserStore } from '@/store';
-import { getCompanyId, getToken } from '@/utils/auth';
+import { clearToken, getCompanyId, getToken } from '@/utils/auth';
 
 export interface HttpResponse<T = unknown> {
   status: number;
@@ -49,17 +49,17 @@ axios.interceptors.response.use(
       });
       // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
       if (
-        [50008, 50012, 50014].includes(res.code) &&
-        response.config.url !== '/api/user/info'
+        [50008, 50012, 50014].includes(res.code)
+        // &&
+        // response.config.url !== '/api/user/info'
       ) {
+        clearToken();
         Modal.error({
-          title: 'Confirm logout',
-          content:
-            'You have been logged out, you can cancel to stay on this page, or log in again',
-          okText: 'Re-Login',
+          title: '确认登录',
+          content: '登录失效或过期请重新登陆',
+          okText: '重新登陆',
           async onOk() {
             const userStore = useUserStore();
-
             await userStore.logout();
             window.location.reload();
           },

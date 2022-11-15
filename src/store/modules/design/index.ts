@@ -5,6 +5,7 @@ import { Widget, WidgetType } from '@/widgets/types';
 import { reactive } from 'vue';
 import WidgetSourceMap from '@/widgets/config.index';
 import { getWidgetCloned } from '@/widgets/utils';
+import { Message } from '@arco-design/web-vue';
 import {
   DesignState,
   defaultState,
@@ -15,7 +16,7 @@ import {
   WidgetDataTool,
 } from './types';
 import * as DesignConst from './constants';
-// { createFormData, createCustomePage }
+
 function formatData(
   widget: Widget[],
   root?: Widget
@@ -133,14 +134,6 @@ const useDesignStore = defineStore('design', {
       this.selectWidget = data;
       this.selectedKey = data.key;
     },
-    async createPage(type: 'form' | 'page') {
-      // this.$dispose('init', type);
-      // this.initState(type);
-      // router.push({
-      //   path: '/design',
-      //   query: { type },
-      // });
-    },
 
     async showAddDialog(data: Widget) {
       this.currentActionWidget = data;
@@ -190,7 +183,7 @@ const useDesignStore = defineStore('design', {
           this.hoveredKey = copyData.key;
         }
       } else {
-        alert('我找到父节点');
+        Message.warning('未找到父节点');
       }
     },
     async handlerWidgetUpdate<T extends Widget = Widget>(
@@ -199,7 +192,7 @@ const useDesignStore = defineStore('design', {
     ) {
       const key = data.key || this.selectedKey;
       if (!key) {
-        alert('更新节点必须传递key参数');
+        // alert('更新节点必须传递key参数');
         throw Error('更新节点必须传递key参数');
       }
       const currentWidget = this.widgetMap[key];

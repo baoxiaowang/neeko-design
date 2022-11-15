@@ -31,7 +31,6 @@
     box-sizing: border-box;
     height: 32px;
     margin-bottom: 8px;
-    // padding: 0 8px;
     padding-left: 8px;
     color: var(--color-neutral-8);
     border: 1px solid var(--color-neutral-3);

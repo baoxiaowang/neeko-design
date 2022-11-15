@@ -26,7 +26,11 @@ export type WidgetType =
   | 'file-upload'
   | 'rate'
   | 'subform'
-  | 'code-render';
+  | 'code-render'
+  | 'member'
+  | 'member-multiple'
+  | 'dept'
+  | 'dept-multiple';
 
 export interface Widget {
   type: WidgetType;

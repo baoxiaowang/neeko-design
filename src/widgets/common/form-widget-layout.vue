@@ -63,7 +63,7 @@
     width: string;
     block?: number;
   }>();
-  const { designMode, isDesign } = useWidgetInject();
+  const { isDesign } = useWidgetInject();
   // const emit = defineEmits({});
   const actived = computed(() => {
     return props.nodeKey === store.selectedKey;

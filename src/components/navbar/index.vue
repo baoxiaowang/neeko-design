@@ -29,7 +29,8 @@
           </a-button>
         </a-tooltip>
       </li>
-      <!-- <li>
+      <!-- 不开启多语言 -->
+      <li v-if="false">
         <a-tooltip :content="$t('settings.language')">
           <a-button
             class="nav-btn"
@@ -54,8 +55,22 @@
             </a-doption>
           </template>
         </a-dropdown>
-      </li> -->
-      <!-- <li>
+      </li>
+      <li>
+        <a-tooltip content="通讯录">
+          <a-button
+            class="nav-btn"
+            type="outline"
+            :shape="'circle'"
+            @click="linkOrganization"
+          >
+            <template #icon>
+              <icon-user-group />
+            </template>
+          </a-button>
+        </a-tooltip>
+      </li>
+      <li>
         <a-tooltip
           :content="
             theme === 'light'
@@ -75,7 +90,7 @@
             </template>
           </a-button>
         </a-tooltip>
-      </li> -->
+      </li>
       <li>
         <a-tooltip :content="$t('settings.navbar.alerts')">
           <div class="message-box-trigger">
@@ -142,9 +157,14 @@
         <a-dropdown trigger="click">
           <a-avatar
             :size="32"
-            :style="{ marginRight: '8px', cursor: 'pointer' }"
+            :style="{
+              marginRight: '8px',
+              cursor: 'pointer',
+              backgroundColor: '#14a9f8',
+            }"
           >
-            <img alt="avatar" :src="avatar" />
+            <img v-if="avatar" alt="avatar" :src="avatar" />
+            <span v-else>{{ memberName }}</span>
           </a-avatar>
           <template #content>
             <a-doption>
@@ -194,6 +214,7 @@
   import { LOCALE_OPTIONS } from '@/locale';
   import useLocale from '@/hooks/locale';
   import useUser from '@/hooks/user';
+  import router from '@/router';
   import MessageBox from '../message-box/index.vue';
 
   withDefaults(
@@ -213,6 +234,9 @@
   const locales = [...LOCALE_OPTIONS];
   const avatar = computed(() => {
     return userStore.avatar;
+  });
+  const memberName = computed(() => {
+    return userStore.name;
   });
   const theme = computed(() => {
     return appStore.theme;
@@ -261,6 +285,11 @@
     Message.success(res as string);
   };
   const toggleDrawerMenu = inject('toggleDrawerMenu');
+
+  function linkOrganization() {
+    //
+    router.push('/department-manage');
+  }
 </script>
 
 <style scoped lang="less">

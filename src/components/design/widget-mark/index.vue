@@ -102,6 +102,8 @@
     hoverKey.value = widget.key;
   });
   designEventBus.on('select', (widget) => {
+    selectKey.value = widget.key;
+    selectType.value = (widget as Widget).type;
     setTimeout(() => {
       selectKey.value = widget.key;
       selectType.value = (widget as Widget).type;
