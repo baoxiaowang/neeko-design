@@ -44,8 +44,9 @@ export interface HttpResult<T> {
 
 export interface MemberModel {
   id: string;
-  userName: string;
-  userPhone: string;
+  name: string;
+  phone: string;
+  dept?: string[];
 }
 
 declare global {

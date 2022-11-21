@@ -1,6 +1,6 @@
 <template>
   <a-tag v-for="item in memberList" :key="item.id" class="member-detail__tag">{{
-    item.userName
+    item.name
   }}</a-tag>
 </template>
 

@@ -27,6 +27,7 @@
 
 <script setup lang="ts" name="member-input">
   import { getMemberByIds } from '@/api/member';
+  import { MemberModel } from '@/types/global';
   import { ref, watch } from 'vue';
 
   const props = defineProps<{
@@ -41,7 +42,7 @@
   function handleFocus() {
     inputTag.value?.blur();
   }
-  function handleChange(val: string[]) {
+  function handleChange(val: any) {
     emit('update:value', val);
   }
   function handleClear(e: MouseEvent) {
@@ -55,8 +56,8 @@
       val.forEach((id) => {
         const catchMember = window.globalData.memberCacheMap[id];
         if (catchMember) {
-          catchVal.push(catchMember.userName);
-          memberMap[id] = catchMember.userName;
+          catchVal.push(catchMember.name);
+          memberMap[id] = catchMember.name;
         }
       });
       // 命中缓存
@@ -64,8 +65,8 @@
         textTagValue.value = catchVal;
       } else {
         getMemberByIds(val).then((data) => {
-          data.forEach((item: any) => {
-            memberMap[item.id] = item.userName;
+          data.forEach((item: MemberModel) => {
+            memberMap[item.id] = item.name;
           });
         });
       }

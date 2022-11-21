@@ -38,7 +38,7 @@
   function handleFocus() {
     inputTag.value?.blur();
   }
-  function handleChange(val: string[]) {
+  function handleChange(val: any) {
     emit('update:value', val);
   }
   function handleClear(e: MouseEvent) {

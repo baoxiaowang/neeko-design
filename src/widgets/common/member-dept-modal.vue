@@ -71,7 +71,7 @@
                   :key="item.id"
                   class="dept-member-lits-item"
                 >
-                  <span>{{ item.userName }}</span>
+                  <span>{{ item.name }}</span>
                   <a-radio
                     v-if="type === 'member'"
                     :model-value="!!selectMemberMap[item.id]"
@@ -213,7 +213,7 @@
     get() {
       if (['member', 'member-multiple'].includes(props.type)) {
         return Object.keys(selectMemberMap.value).map((id) => {
-          return window.globalData.memberCacheMap[id]?.userName || id;
+          return window.globalData.memberCacheMap[id]?.name || id;
         });
       }
       if (['dept', 'dept-multiple'].includes(props.type)) {

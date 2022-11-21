@@ -28,6 +28,7 @@ declare module '@vue/runtime-core' {
     ADrawer: typeof import('@arco-design/web-vue')['Drawer'];
     ADropdown: typeof import('@arco-design/web-vue')['Dropdown'];
     ADsubmenu: typeof import('@arco-design/web-vue')['Dsubmenu'];
+    AEmpty: typeof import('@arco-design/web-vue')['Empty'];
     AForm: typeof import('@arco-design/web-vue')['Form'];
     AFormItem: typeof import('@arco-design/web-vue')['FormItem'];
     AGrid: typeof import('@arco-design/web-vue')['Grid'];

@@ -201,8 +201,8 @@
               deptName: itemDeptName.value,
               parentDeptId: itemDept || '0',
             });
-            const { data } = await getAllDeptTree();
-            deptList.value = data;
+            const treeList = await getAllDeptTree();
+            deptList.value = treeList;
           },
         });
         break;
@@ -222,7 +222,7 @@
     });
   });
   onBeforeMount(async () => {
-    const { data } = await getAllDeptTree();
+    const data = await getAllDeptTree();
     deptList.value = data;
   });
 </script>

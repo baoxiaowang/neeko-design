@@ -57,11 +57,11 @@ export const originTab = [
 export const memberColumn = [
   {
     title: '姓名',
-    dataIndex: 'userName',
+    dataIndex: 'name',
   },
   {
     title: '手机号',
-    dataIndex: 'userPhone',
+    dataIndex: 'phone',
   },
   {
     title: '邮箱',

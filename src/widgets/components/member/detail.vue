@@ -1,5 +1,5 @@
 <template>
-  <a-tag v-for="item in memberList" :key="item.id">{{ item.userName }}</a-tag>
+  <a-tag v-for="item in memberList" :key="item.id">{{ item.name }}</a-tag>
 </template>
 
 <script setup lang="ts" name="address-detail">
