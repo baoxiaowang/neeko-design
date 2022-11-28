@@ -44,3 +44,23 @@ export function getMemberByIds(ids: string[] = []): Promise<MemberModel[]> {
       return data;
     });
 }
+
+export function createMember({
+  name,
+  phone,
+  dept,
+  email,
+  jobNum,
+}: MemberModel) {
+  return axios
+    .post('/api/member/createMember', {
+      name,
+      phone,
+      dept,
+      email,
+      jobNum,
+    })
+    .then((res) => {
+      return res;
+    });
+}

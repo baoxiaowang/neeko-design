@@ -25,7 +25,7 @@ export default {
           linkField: '',
         },
       },
-      placeholder: '',
+      placeholder: '请输入',
       rules: {
         required: 0,
       },

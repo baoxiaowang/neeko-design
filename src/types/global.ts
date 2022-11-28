@@ -45,7 +45,9 @@ export interface HttpResult<T> {
 export interface MemberModel {
   id: string;
   name: string;
+  jobNum?: string;
   phone: string;
+  email?: string;
   dept?: string[];
 }
 

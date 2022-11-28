@@ -3,6 +3,7 @@
     v-model:value="deptValue"
     :style="{ width: '100%' }"
     readonly
+    multiple
     @click="modalVisible = true"
   >
   </DeptInput>

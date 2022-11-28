@@ -99,7 +99,7 @@
             </div>
           </div>
           <div class="right-content__btn-group">
-            <a-button type="primary">邀请成员</a-button>
+            <a-button type="primary" @click="addMember">邀请成员</a-button>
           </div>
           <div class="right-content__table">
             <a-table :columns="memberColumn" :data="memberList" />
@@ -108,32 +108,56 @@
       </div>
     </a-layout>
   </a-layout>
+  <a-modal
+    v-model:visible="visible"
+    width="460px"
+    title-align="start"
+    class="member-from__modal"
+    @ok="handleAddMemberOk"
+    @cancel="handleCancel"
+  >
+    <template #title>邀请成员</template>
+    <div class="member-from__modal-content">
+      <a-tabs type="rounded" justify>
+        <a-tab-pane key="1" title="手动邀请">
+          <MemberForm v-model:value="currentMember"></MemberForm>
+        </a-tab-pane>
+        <a-tab-pane key="2" title="链接邀请"> 链接邀请 </a-tab-pane>
+      </a-tabs>
+    </div>
+  </a-modal>
 </template>
 
 <script setup lang="ts" name="department">
-  // const props = defineProps();
-  // const emit = defineEmits();
   import NavBar from '@/components/navbar/index.vue';
   import { Modal, Input } from '@arco-design/web-vue';
-
   import { useAppStore, useUserStore } from '@/store';
   import { computed, h, onBeforeMount, ref, watchEffect } from 'vue';
-  import { useRouter } from 'vue-router';
   import { createDept, getAllDeptTree } from '@/api/dept';
-  import { getMemberByPage } from '@/api/member';
+  import { createMember, getMemberByPage } from '@/api/member';
+  import { MemberModel } from '@/types/global';
   import LeftMenu from './components/left-menu.vue';
   import { tabTypeEnum, actionMap, memberColumn } from './constant';
+  import MemberForm from './components/member-form.vue';
 
   type memberType = 'all' | 'resigned';
-  const router = useRouter();
   const appStore = useAppStore();
   const userStore = useUserStore();
   const navbar = computed(() => appStore.navbar);
   const tabVal = ref<tabTypeEnum>(tabTypeEnum.dept);
+  const memberList = ref<any[]>([]);
+  const visible = ref<boolean>(false);
+  const currentMember = ref<MemberModel>({
+    id: '',
+    name: '',
+    jobNum: '',
+    phone: '',
+    dept: [],
+  });
+
   const topActions = computed(() => {
     return actionMap[tabVal.value] || [];
   });
-  const defaultExpandedKeys = ref([]);
   const itemDeptName = ref('');
   const deptList = ref([]);
   const selectedKeys = ref([]);
@@ -160,7 +184,6 @@
   const selectMemberType = ref<memberType>('all');
   const selectMemberBlock = computed<string[]>({
     get() {
-      // concat(defaultExpandedKeys.value)/
       return [selectMemberType.value];
     },
     set(val: any) {
@@ -211,8 +234,25 @@
         break;
     }
   }
-  function handleSelect() {}
-  const memberList = ref<any[]>([]);
+  function handleSelect() {
+    //
+  }
+
+  function addMember() {
+    //
+    visible.value = true;
+  }
+  function handleAddMemberOk() {
+    //
+    createMember({
+      ...currentMember.value,
+    }).then(() => {
+      debugger;
+    });
+  }
+  function handleCancel() {
+    //
+  }
   watchEffect(() => {
     const [deptId = 0] = selectedKeys.value;
     getMemberByPage({
@@ -306,6 +346,24 @@
       right: 12px;
       color: #3370ff;
       font-size: 14px;
+    }
+  }
+
+  .member-from__modal {
+    .member-from__modal-content {
+      min-height: 352px;
+    }
+
+    .arco-modal-header {
+      border-bottom: 1px solid var(--color-neutral-3);
+    }
+
+    .arco-modal-body {
+      padding-top: 20px;
+    }
+
+    .arco-tabs-nav-tab {
+      justify-content: center;
     }
   }
 </style>

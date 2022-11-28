@@ -25,7 +25,7 @@ export default {
           linkField: '',
         },
       },
-      placeholder: '',
+      placeholder: '请选择',
       rules: {
         required: 0,
       },

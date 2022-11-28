@@ -5,6 +5,9 @@
       :model-value="value"
       :style="{ width: '100%' }"
       allow-clear
+      :class="{
+        'dept-input__multiple': multiple,
+      }"
       placeholder="请选择部门"
       @change="handleChange"
       @focus="handleFocus"
@@ -28,6 +31,7 @@
 
   const props = defineProps<{
     value: string[];
+    multiple?: boolean;
   }>();
   const emit = defineEmits<{
     (e: 'update:value', d: string[]): void;
@@ -77,6 +81,10 @@
     .input-tag__slot {
       display: flex;
       align-items: center;
+    }
+
+    .dept-input__multiple {
+      min-height: 76px;
     }
   }
 </style>

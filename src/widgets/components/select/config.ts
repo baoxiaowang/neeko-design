@@ -33,7 +33,7 @@ export default {
           { defaultCheck: 0, label: '选项三' },
         ],
       },
-      placeholder: '',
+      placeholder: '请选择',
       rules: {
         required: 0,
       },
