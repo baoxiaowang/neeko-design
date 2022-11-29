@@ -68,5 +68,7 @@ module.exports = {
     'import/no-extraneous-dependencies': 0,
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
     'no-unused-vars': 'off',
+    'max-classes-per-file': 0,
+    '@typescript-eslint/ban-types': 0,
   },
 };

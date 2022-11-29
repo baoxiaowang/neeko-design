@@ -21,6 +21,7 @@
             :config="item.list[index]"
             class="widget-item"
             :type="element"
+            @click="clickWidget(element)"
           >
           </WidgetItem>
         </template>
@@ -30,7 +31,12 @@
 </template>
 
 <script setup lang="ts" name="widgets-panel">
-  import { WidgetConfig, WidgetType } from '@/widgets/types';
+  import {
+    FormWidget,
+    Widget,
+    WidgetConfig,
+    WidgetType,
+  } from '@/widgets/types';
   import { computed, onMounted, ref } from 'vue';
   import draggable from 'src/components/vue-draggable/src/vuedraggable.js';
   import { useDesignStore } from '@/store';
@@ -57,6 +63,7 @@
     put: false,
   };
   const toolWidgetGroup = computed(() => store.toolWidgetGroup);
+  const designType = computed(() => store.designType);
   console.log();
 
   function move() {}
@@ -68,8 +75,36 @@
   }
   const drag = ref(false);
   function createCloneWidget(origin: WidgetConfig) {
-    console.log(origin);
     return origin.defaultVal();
+  }
+  function clickWidget(widget: WidgetConfig) {
+    debugger;
+    if (designType.value === 'form') {
+      //
+      const { selectWidget } = store;
+      const selectParentWidget =
+        store.widgetParentMap[selectWidget?.key as string];
+      if (selectParentWidget) {
+        const currentIndex = selectParentWidget.children?.findIndex(
+          (item) => item.key === selectWidget?.key
+        );
+        if (currentIndex !== undefined) {
+          const newWidget: Widget = widget.defaultVal();
+          const itemChildren = [...(selectParentWidget.children || [])];
+          itemChildren.splice(currentIndex + 1, 0, newWidget);
+          store.handlerWidgetUpdate(
+            {
+              ...selectParentWidget,
+              children: itemChildren,
+            },
+            true
+          );
+          store.setSelectKey(newWidget.key);
+        }
+      } else {
+        //
+      }
+    }
   }
 </script>
 

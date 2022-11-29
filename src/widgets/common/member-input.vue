@@ -2,6 +2,9 @@
   <div class="member-input">
     <a-input-tag
       ref="inputTag"
+      :class="{
+        'member-input__multiple': multiple,
+      }"
       :model-value="value"
       :style="{ width: '100%' }"
       allow-clear
@@ -32,6 +35,7 @@
 
   const props = defineProps<{
     value: string[];
+    multiple?: boolean;
   }>();
   const emit = defineEmits<{
     (e: 'update:value', d: string[]): void;
@@ -79,6 +83,10 @@
     .input-tag__slot {
       display: flex;
       align-items: center;
+    }
+
+    .member-input__multiple {
+      min-height: 76px;
     }
   }
 </style>

@@ -2,6 +2,7 @@
   <MemberInput
     v-model:value="memberValue"
     readonly
+    multiple
     @click="modalVisible = true"
   >
   </MemberInput>
