@@ -30,7 +30,7 @@
     ]
   },
   "dependencies": {
-    "@arco-design/web-vue": "^2.35.0",
+    "@arco-design/web-vue": "^2.37.2",
     "@arco-themes/vue-neeko": "^0.0.8",
     "@types/mockjs": "^1.0.4",
     "@vueuse/core": "^7.3.0",

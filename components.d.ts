@@ -36,6 +36,7 @@ declare module '@vue/runtime-core' {
     AImage: typeof import('@arco-design/web-vue')['Image'];
     AImagePreviewGroup: typeof import('@arco-design/web-vue')['ImagePreviewGroup'];
     AInput: typeof import('@arco-design/web-vue')['Input'];
+    AInputGroup: typeof import('@arco-design/web-vue')['InputGroup'];
     AInputNumber: typeof import('@arco-design/web-vue')['InputNumber'];
     AInputPassword: typeof import('@arco-design/web-vue')['InputPassword'];
     AInputSearch: typeof import('@arco-design/web-vue')['InputSearch'];

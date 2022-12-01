@@ -8,7 +8,7 @@
   import { computed, toRefs } from 'vue';
   import { ImageWidget } from '@/widgets/types';
   import { compileExp } from '@/widgets/utils';
-  import { useRenderStyle } from '@/widgets/hooks/useRenderHelp';
+  // import { useRenderStyle } from '@/widgets/hooks/useRenderHelp';
 
   export interface Options {
     node: ImageWidget;
@@ -30,7 +30,7 @@
       }
     );
   });
-  const style = useRenderStyle(node);
+  // const style = useRenderStyle(node);
 </script>
 
 <style lang="less">

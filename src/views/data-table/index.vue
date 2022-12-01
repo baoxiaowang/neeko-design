@@ -1,12 +1,23 @@
 <template>
-  <div class="data-table">
-    <TableRender
-      :widget-data="pageWidgets"
-      :table-data="tableData"
-      @on-add="handlerAdd"
-      @on-del="handlerDel"
-    ></TableRender>
-  </div>
+  <a-layout class="application-detail-page">
+    <a-layout-header>
+      <a-affix>
+        <div class="layout-navbar">
+          <NavBar title="数据管理"></NavBar>
+        </div>
+      </a-affix>
+    </a-layout-header>
+    <a-layout-content>
+      <div class="data-table">
+        <TableRender
+          :widget-data="pageWidgets"
+          :table-data="tableData"
+          @on-add="handlerAdd"
+          @on-del="handlerDel"
+        ></TableRender>
+      </div>
+    </a-layout-content>
+  </a-layout>
 </template>
 
 <script setup lang="ts" name="data-table">
@@ -21,6 +32,7 @@
   import { FormWidget, Widget } from '@/widgets/types';
   import { getById } from '@/api/page';
   import { createFormData, delFormData, getFormDataByPage } from '@/api/form';
+  import NavBar from '@/components/navbar/index.vue';
 
   const route = useRoute();
   const pageId = computed<string>(() => route.params.pageId?.toString());

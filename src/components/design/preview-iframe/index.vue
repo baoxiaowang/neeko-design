@@ -82,7 +82,7 @@
   }
 
   designEventBus.on('select', (widget) => {
-    store.selectedKey = widget.key;
+    store.setSelectKey(widget.key);
   });
   designEventBus.on('hover', (detail) => {
     const newKey = detail.key;

@@ -14,16 +14,14 @@
 </template>
 
 <script setup lang="ts" name="input-render">
-  import { computed, ref, watchEffect } from 'vue';
-  import useWidgetInject from '@/widgets/hooks/useWidgetInject';
+  import { computed, ref } from 'vue';
+  // import useWidgetInject from '@/widgets/hooks/useWidgetInject';
   import memberDeptModal from 'src/widgets/common/member-dept-modal.vue';
-  import { watch } from 'fs';
-  import { getMemberByIds } from '@/api/member';
   import MemberInput from 'src/widgets/common/member-input.vue';
   import { InputWidget } from '../../types';
 
   const modalVisible = ref(false);
-  const { isSubWidget } = useWidgetInject();
+  // const { isSubWidget } = useWidgetInject();
   interface RenderProps {
     node: InputWidget;
     value: string;

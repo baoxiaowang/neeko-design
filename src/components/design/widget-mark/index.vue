@@ -240,7 +240,9 @@
         }
       };
       rootEl.addEventListener('mouseover', hoverHandler, true);
-      const fn = () => {};
+      const fn = () => {
+        //
+      };
       rootEl.addEventListener('mouseleave', fn);
       onUnmounted(() => {
         rootEl?.removeEventListener('mouseover', hoverHandler);

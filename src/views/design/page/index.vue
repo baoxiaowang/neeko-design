@@ -9,9 +9,12 @@
     </template>
     <template #panel>
       <div class="design-page__page">
-        <ElScrollbar view-class="design-page__scorllview">
+        <a-scrollbar
+          style="height: 100%; overflow: auto"
+          outer-class="design-page__scroll-view"
+        >
           <PreviewIframe :page-type="pageType"></PreviewIframe>
-        </ElScrollbar>
+        </a-scrollbar>
       </div>
     </template>
   </DesignLayout>
@@ -69,8 +72,10 @@
     height: 100%;
   }
 
-  .design-page__scorllview {
+  .design-page__scroll-view {
     display: flex;
     justify-content: center;
+    height: 100%;
+    padding-bottom: 60px;
   }
 </style>

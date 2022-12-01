@@ -16,13 +16,13 @@
 
 <script setup lang="ts" name="input-render">
   import { computed, ref } from 'vue';
-  import useWidgetInject from '@/widgets/hooks/useWidgetInject';
+  // import useWidgetInject from '@/widgets/hooks/useWidgetInject';
   import memberDeptModal from 'src/widgets/common/member-dept-modal.vue';
   import DeptInput from 'src/widgets/common/dept-input.vue';
   import { InputWidget } from '../../types';
 
   const modalVisible = ref(false);
-  const { isSubWidget } = useWidgetInject();
+  // const { isSubWidget } = useWidgetInject();
   interface RenderProps {
     node: InputWidget;
     value: string;
