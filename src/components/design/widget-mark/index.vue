@@ -74,7 +74,14 @@
 </template>
 
 <script setup lang="ts" name="widget-mark">
-  import { computed, onMounted, onUnmounted, ref } from 'vue';
+  import {
+    computed,
+    nextTick,
+    onBeforeUnmount,
+    onMounted,
+    onUnmounted,
+    ref,
+  } from 'vue';
   import WidgetConfigs from '@/widgets/config.index';
   import { Widget, WidgetConfig, WidgetType } from '@/widgets/types';
   import DesignEventBus from 'src/utils/design-event';
@@ -118,7 +125,7 @@
         left,
         top: sTop,
         width,
-        height,
+        height: Math.floor(height),
         borderRadius,
       };
     });
@@ -276,9 +283,24 @@
       });
     });
   };
+  function initRefreshEvent() {
+    const fn = () => {
+      debugger;
+      const temp = selectKey.value;
+      selectKey.value = '';
+      nextTick(() => {
+        selectKey.value = temp;
+      });
+    };
+    window.addEventListener('widget-update', fn);
+    onBeforeUnmount(() => {
+      window.removeEventListener('widget-update', fn);
+    });
+  }
 
   initHoverObserver();
   initSelectedObserver();
+  initRefreshEvent();
 </script>
 
 <style lang="less">

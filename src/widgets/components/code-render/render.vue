@@ -7,12 +7,12 @@
   import {
     ref,
     defineComponent,
-    watchEffect,
     onUnmounted,
     markRaw,
     watch,
     onMounted,
     nextTick,
+    ComponentOptionsWithoutProps,
   } from 'vue';
 
   const props = defineProps<{
@@ -45,6 +45,9 @@
       const options = {
         ...copt,
         template: tmpContent,
+        mounted() {
+          window.dispatchEvent(new Event('widget-update'));
+        },
       };
       const codeComp = defineComponent(options);
       styleEl.innerText = styleContent || '';
@@ -58,8 +61,11 @@
         show.value = true;
       });
     } catch (error) {
-      const options = {
+      const options: ComponentOptionsWithoutProps = {
         template: `代码编译错误${error}`,
+        mounted() {
+          window.dispatchEvent(new Event('widget-update'));
+        },
       };
       const codeComp = defineComponent(options);
       comp.value = markRaw(codeComp as any);

@@ -10,7 +10,13 @@
     <template #panel>
       <div class="design-page__page">
         <a-scrollbar
-          style="height: 100%; overflow: auto"
+          style="
+            width: 100%;
+            height: 100%;
+            padding-bottom: 80px;
+            overflow-y: auto;
+            text-align: center;
+          "
           outer-class="design-page__scroll-view"
         >
           <PreviewIframe :page-type="pageType"></PreviewIframe>
@@ -73,9 +79,6 @@
   }
 
   .design-page__scroll-view {
-    display: flex;
-    justify-content: center;
     height: 100%;
-    padding-bottom: 60px;
   }
 </style>

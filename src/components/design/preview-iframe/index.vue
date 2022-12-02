@@ -34,7 +34,7 @@
   }>();
 
   const pageTypeClass: Record<PageTypeEnum, string> = {
-    [PageTypeEnum.mobile]: 'preview-iframe--mobild',
+    [PageTypeEnum.mobile]: 'preview-iframe--mobile',
     [PageTypeEnum.form]: 'preview-iframe--form',
     [PageTypeEnum.link]: 'preview-iframe--link',
     [PageTypeEnum.processForm]: 'preview-iframe--process-form',
@@ -101,14 +101,18 @@
 <style lang="less">
   .preview-iframe {
     width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
     // height: inherit;
+    box-shadow: 0 0 0 4px #999;
+
     &__mobile {
       width: 375px;
       margin: 0 auto;
     }
   }
 
-  .preview-iframe--mobild {
+  .preview-iframe--mobile {
     width: 375px;
     margin-top: 20px;
   }

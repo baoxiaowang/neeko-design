@@ -14,7 +14,7 @@ export default {
       title: '图片',
       codeStyle: '',
       config: {
-        url: 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg',
+        url: 'http://cdn.neeko-design.com/5b276263daea72465ce45a7f02256c6d.jpeg',
       },
     };
   },

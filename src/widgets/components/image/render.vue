@@ -1,6 +1,6 @@
 <template>
   <div :data-key="node.key" class="image-render">
-    <img :preview="false" :src="src" hide-footer />
+    <img :preview="false" :src="src" hide-footer @load="imageLoad" />
   </div>
 </template>
 
@@ -30,11 +30,15 @@
       }
     );
   });
-  // const style = useRenderStyle(node);
+  function imageLoad() {
+    window.dispatchEvent(new Event('widget-update'));
+  }
 </script>
 
 <style lang="less">
   .image-render {
+    display: flex;
+    flex-direction: column;
     flex-shrink: 0;
     width: 100%;
     height: 100%;
