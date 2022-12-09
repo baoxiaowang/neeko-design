@@ -19,13 +19,15 @@
       </slot>
     </a-tab-pane> -->
     <a-tab-pane key="ext" title="高级">
-      <CssEditor
-        :value="styleCode"
-        :delay="200"
-        class="css-editor-warp"
-        @update:value="codeChange"
-      ></CssEditor>
-      <slot name="ext"></slot>
+      <el-scrollbar :wrap-style="{ padding: '0px 12px' }">
+        <AceCssEditor
+          :value="styleCode"
+          :delay="200"
+          class="css-editor-warp"
+          @update:value="codeChange"
+        ></AceCssEditor>
+        <slot name="ext"></slot>
+      </el-scrollbar>
     </a-tab-pane>
   </a-tabs>
 </template>
@@ -35,6 +37,7 @@
   import WidgetKey from '@/widgets/attr-blocks/attr-key.vue';
   import { Widget } from '@/widgets/types';
   import CssEditor from 'src/components/codemirror-editor/css-editor/index.vue';
+  import AceCssEditor from 'src/components/ace-editor/ace-css.vue';
 
   const props = defineProps<{
     node: Widget;
@@ -50,7 +53,7 @@
       codeStyle: str,
     });
   }
-  const styleCode = computed(() => props.node.codeStyle || '{\n}');
+  const styleCode = computed(() => props.node.codeStyle || '::node {\n}');
 </script>
 
 <style lang="less">

@@ -12,10 +12,11 @@
         <a-scrollbar
           style="
             width: 100%;
-            height: 100%;
-            padding-bottom: 80px;
+            height: calc(100% - 20px);
+            padding: 10px 10px;
             overflow-y: auto;
             text-align: center;
+            background-color: #eee;
           "
           outer-class="design-page__scroll-view"
         >

@@ -285,7 +285,6 @@
   };
   function initRefreshEvent() {
     const fn = () => {
-      debugger;
       const temp = selectKey.value;
       selectKey.value = '';
       nextTick(() => {

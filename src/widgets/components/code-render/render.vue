@@ -1,78 +1,54 @@
 <template>
-  <component :is="comp" v-if="show" :data-key="node.key"></component>
+  <shadowCompVue
+    :option="option"
+    :style-text="styleText"
+    :data-key="node.key"
+  ></shadowCompVue>
 </template>
 
 <script setup lang="ts" name="code-render">
   import { Widget } from '@/widgets/types';
-  import {
-    ref,
-    defineComponent,
-    onUnmounted,
-    markRaw,
-    watch,
-    onMounted,
-    nextTick,
-    ComponentOptionsWithoutProps,
-  } from 'vue';
+  import { ref, watch, onMounted, ComponentOptionsWithoutProps } from 'vue';
+  import shadowCompVue from './shadow-components/shadow-comp.vue';
 
   const props = defineProps<{
     node: Widget;
     state: any;
     meta: any;
   }>();
-  const comp = ref(null);
-  const show = ref(true);
+  const styleText = ref('');
+  const option = ref({});
   function createComp() {
     try {
-      // style
-      const styleId = `#code-${props.node.key}`;
-      const styleEl =
-        document.querySelector<HTMLStyleElement>(styleId) ||
-        document.createElement('style');
       // 解析容器
       const divTemp = document.createElement('div');
-      styleEl.id = styleId;
       divTemp.innerHTML = props.node?.config?.code || '';
       const tmpContent = divTemp.querySelector('template')?.innerHTML || '';
       const styleContent = divTemp.querySelector('style')?.innerHTML || '';
       const scriptContent = divTemp.querySelector('script')?.innerHTML || '';
 
+      styleText.value = styleContent;
       const optCode = scriptContent
         .replace(/export[\s]default/g, '')
         .replace(/^\n/, '');
       // eslint-disable-next-line no-new-func
       const copt = new Function(`return ${optCode}`)();
-      const options = {
+      const compOptions = {
         ...copt,
         template: tmpContent,
         mounted() {
           window.dispatchEvent(new Event('widget-update'));
         },
       };
-      const codeComp = defineComponent(options);
-      styleEl.innerText = styleContent || '';
-      document.head.appendChild(styleEl);
-      onUnmounted(() => {
-        document.head.removeChild(styleEl);
-      });
-      comp.value = markRaw(codeComp as any);
-      show.value = false;
-      nextTick(() => {
-        show.value = true;
-      });
+      option.value = compOptions;
     } catch (error) {
-      const options: ComponentOptionsWithoutProps = {
+      const compOptions: ComponentOptionsWithoutProps = {
         template: `代码编译错误${error}`,
         mounted() {
           window.dispatchEvent(new Event('widget-update'));
         },
       };
-      const codeComp = defineComponent(options);
-      comp.value = markRaw(codeComp as any);
-      show.value = false;
-      nextTick(() => {
-        show.value = true;
-      });
+      option.value = compOptions;
     }
   }
   onMounted(() => {
@@ -86,6 +62,11 @@
         deep: true,
       }
     );
+  });
+
+  onMounted(() => {
+    debugger;
+    // const shadowRoot = $el.value?.attachShadow({ mode: 'open' });
   });
 </script>
 

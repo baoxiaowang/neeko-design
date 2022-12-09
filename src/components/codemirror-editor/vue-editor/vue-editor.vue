@@ -1,14 +1,16 @@
 <template>
-  <BaseEditor
+  <AceEditor
     v-bind="$attrs"
     :value="value"
     class="vue-editor"
+    language="html"
     :options="options"
-  ></BaseEditor>
+  ></AceEditor>
 </template>
 
 <script setup lang="ts" name="VueEditor">
   import BaseEditor from '@/components/codemirror-editor/base.vue';
+  import AceEditor from '@/components/ace-editor/index.vue';
   // :hint-func="hintFunc"
   const options = {
     mode: 'vue',

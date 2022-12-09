@@ -34,6 +34,7 @@
     "@arco-themes/vue-neeko": "^0.0.8",
     "@types/mockjs": "^1.0.4",
     "@vueuse/core": "^7.3.0",
+    "ace-builds": "^1.13.1",
     "arco-design-pro-vue": "^2.5.7",
     "axios": "^0.24.0",
     "codemirror": "^5.65.5",

@@ -102,9 +102,6 @@
   .preview-iframe {
     width: 100%;
     overflow: hidden;
-    border-radius: 8px;
-    // height: inherit;
-    box-shadow: 0 0 0 4px #999;
 
     &__mobile {
       width: 375px;
@@ -115,5 +112,7 @@
   .preview-iframe--mobile {
     width: 375px;
     margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 0 4px #999;
   }
 </style>
