@@ -246,9 +246,7 @@
     //
     createMember({
       ...currentMember.value,
-    }).then(() => {
-      debugger;
-    });
+    }).then(() => {});
   }
   function handleCancel() {
     //

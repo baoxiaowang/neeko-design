@@ -16,4 +16,4 @@ const preApp = createApp(PreviewApp);
 preApp.component('ElScrollbar', ElScrollbar);
 preApp.use(ArcoVue, {});
 preApp.use(ArcoVueIcon);
-preApp.mount('#pre_app');
+preApp.mount('body');

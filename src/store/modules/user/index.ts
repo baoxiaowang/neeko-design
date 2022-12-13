@@ -54,7 +54,6 @@ const useUserStore = defineStore('user', {
     // Login
     // 返回是否进入公司
     async login(loginForm: LoginData): Promise<[boolean, companyItem[]]> {
-      debugger;
       try {
         const { data } = await userLogin(loginForm);
         const { companyList = [], token } = data;

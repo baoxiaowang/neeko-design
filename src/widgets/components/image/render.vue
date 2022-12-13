@@ -1,14 +1,19 @@
 <template>
-  <div :data-key="node.key" class="image-render">
-    <img :preview="false" :src="src" hide-footer @load="imageLoad" />
-  </div>
+  <img
+    :data-key="node.key"
+    class="image-render"
+    :preview="false"
+    :src="src"
+    hide-footer
+    @load="imageLoad"
+  />
 </template>
 
 <script setup lang="ts" name="ImageRender">
   import { computed, toRefs } from 'vue';
   import { ImageWidget } from '@/widgets/types';
   import { compileExp } from '@/widgets/utils';
-  // import { useRenderStyle } from '@/widgets/hooks/useRenderHelp';
+  import useRenderStyle from '@/widgets/hooks/useRenderStyle';
 
   export interface Options {
     node: ImageWidget;
@@ -17,6 +22,7 @@
   }
   const props = defineProps<Options>();
   const { node } = toRefs(props);
+
   const src = computed(() => {
     return compileExp(
       props.node.config.url,
@@ -33,6 +39,7 @@
   function imageLoad() {
     window.dispatchEvent(new Event('widget-update'));
   }
+  useRenderStyle(node);
 </script>
 
 <style lang="less">
@@ -41,8 +48,7 @@
     flex-direction: column;
     flex-shrink: 0;
     width: 100%;
-    height: 100%;
-
+    // height: 100%;
     & > img {
       width: 100%;
       height: 100%;

@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts" name="index">
-  import ace from 'ace-builds';
+  import ace, { Ace } from 'ace-builds';
   // import 'ace-builds/webpack-resolver';
 
   import modeCss from 'ace-builds/src-noconflict/worker-css?url';
@@ -14,17 +14,42 @@
   import 'ace-builds/src-noconflict/mode-css';
   import 'ace-builds/src-noconflict/mode-html';
   import 'ace-builds/src-noconflict/theme-chrome';
-  import 'ace-builds/src-noconflict/ext-language_tools';
+  import langTools from 'ace-builds/src-noconflict/ext-language_tools';
   import 'ace-builds/src-noconflict/ext-emmet';
   import 'ace-builds/src-noconflict/snippets/css';
 
   import 'ace-builds/src-noconflict/keybinding-vscode';
   import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 
-  console.log(modeCss, 'modeCss##');
-
   ace.config.setModuleUrl('ace/mode/css_worker', modeCss);
-  ace.config.setModuleUrl('ace/mode/css_worker', modeHtml);
+  ace.config.setModuleUrl('ace/mode/html_worker', modeHtml);
+
+  langTools.addCompleter({
+    // identifierRegexps: [/:?/],
+    getCompletions(
+      editor: Ace.Editor,
+      session: Ace.EditSession,
+      pos: Ace.Point,
+      prefix: string,
+      callback: any
+    ) {
+      if (prefix.length === 0) {
+        callback(null, []);
+        return;
+      }
+      callback([
+        null,
+        [
+          {
+            name: 'flex-start',
+            value: 'flex-start',
+            score: 1000,
+            meta: 'value',
+          },
+        ],
+      ]);
+    },
+  });
 
   const emit = defineEmits<{
     (e: 'update:value', d: string): void;
@@ -70,10 +95,10 @@
     });
     editor.getSession().setUseWrapMode(true);
     // 支持双向绑定
-    editor.on('change', () => {});
-    editor.on('blur', () => {
-      emit('update:value', editor!.getValue()?.toString());
-    });
+    // editor.on('change', () => {});
+    // editor.on('blur', () => {
+    //   // emit('update:value', editor!.getValue()?.toString());
+    // });
     // 快捷键
     editor.commands.addCommand({
       name: 'formatter',
@@ -83,6 +108,7 @@
       },
     });
     editor.setValue(props.value ? props.value : '');
+    editor.clearSelection();
   }
   // watch(
   //   () => props.id,
@@ -94,6 +120,7 @@
   watch(
     () => props.value,
     (newVal: any) => {
+      console.log('change', newVal);
       // 解决光标移动问题
       const position = editor?.getCursorPosition();
       editor?.getSession().setValue(newVal);

@@ -3,25 +3,30 @@
     <template #header>
       <TopBar
         :name="pageName"
+        :page-type="pageType"
         @name-change="handNameChange"
         @save-data="saveForm"
       ></TopBar>
     </template>
     <template #panel>
       <div class="design-page__page">
-        <a-scrollbar
+        <div class="design-page__iframe">
+          <PreviewIframe :page-type="pageType"></PreviewIframe>
+        </div>
+        <!-- <a-scrollbar
           style="
             width: 100%;
-            height: calc(100% - 20px);
-            padding: 10px 10px;
+            height: calc(100%);
+            padding: 20px 0;
             overflow-y: auto;
             text-align: center;
             background-color: #eee;
+            box-sizing: border-box;
+            overflow: hidden;
           "
           outer-class="design-page__scroll-view"
-        >
-          <PreviewIframe :page-type="pageType"></PreviewIframe>
-        </a-scrollbar>
+        > -->
+        <!-- </a-scrollbar> -->
       </div>
     </template>
   </DesignLayout>
@@ -76,7 +81,15 @@
 
 <style lang="less">
   .design-page__page {
+    height: calc(100% - 20px);
+    // padding: 10px 10px;
+  }
+
+  .design-page__iframe {
     height: 100%;
+    padding: 10px;
+    text-align: center;
+    background-color: #eee;
   }
 
   .design-page__scroll-view {

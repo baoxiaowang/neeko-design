@@ -7,7 +7,6 @@
     item-key="key"
     ghost-class="ghost-row-item"
     :group="group"
-    :style="style"
     class="root-render"
     @update:model-value="modelChange"
     @end="dragEnd"
@@ -29,8 +28,9 @@
   import { nextTick, onMounted, toRefs } from 'vue';
   import draggable from '@/components/vue-draggable/src/vuedraggable';
   import usePreviewDrag from '@/widgets/hooks/usePreviewDrag';
-  import { useRenderStyle } from '@/widgets/hooks/useRenderHelp';
+  // import { useRenderStyle } from '@/widgets/hooks/useRenderHelp';
   import DesignEventBus from 'src/utils/design-event';
+  import useRenderStyle from '@/widgets/hooks/useRenderStyle';
   import { getRenderWidget } from '../../render';
   import { Widget } from '../../types';
 
@@ -46,7 +46,9 @@
   const props = defineProps<IPropType>();
   const { node } = toRefs(props);
   const { list, onAdd } = usePreviewDrag(node);
-  const style = useRenderStyle(node);
+
+  useRenderStyle(node);
+  // const style = useRenderStyle(node);
   const group = { name: 'form-widget' };
 
   function dragStart() {
@@ -70,6 +72,12 @@
 </script>
 
 <style lang="less">
+  .design-mode {
+    .root-render {
+      min-height: 100vh;
+    }
+  }
+
   .root-render {
     position: relative;
     display: flex;

@@ -3,14 +3,14 @@
     <a-layout-header>
       <a-affix>
         <div class="layout-navbar">
-          <NavBar title="应用详情"></NavBar>
+          <NavBar title="模板管理"></NavBar>
         </div>
       </a-affix>
     </a-layout-header>
     <a-layout class="app-detail__body">
       <div class="app-detail__tools">
         <a-space>
-          <a-input-search placeholder="搜索页面、表单" />
+          <a-input-search placeholder="搜索" />
           <a-dropdown @select="drapMenuSelect">
             <a-button type="primary">
               <template #icon>
@@ -73,8 +73,8 @@
   import NavBar from '@/components/navbar/index.vue';
   import { computed, onMounted, ref } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
-  import TableView from 'src/views/application/detail/components/table-view.vue';
   import { createPageByType, getPagePath } from '@/utils/page';
+  import TableView from './components/table-view.vue';
 
   const router = useRouter();
   const route = useRoute();

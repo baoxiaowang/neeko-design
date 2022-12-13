@@ -21,8 +21,8 @@
   import DesignEventBus from 'src/utils/design-event';
   import { PageTypeEnum } from '@/api/page';
 
-  const src = `${window.location.origin}/preview.html`;
-  const iframeHeight = ref<string>('100vh');
+  const src = `${window.location.origin}/preview.html?showMark=1`;
+  const iframeHeight = ref<string>('100%');
 
   const store = useDesignStore();
 
@@ -111,7 +111,7 @@
 
   .preview-iframe--mobile {
     width: 375px;
-    margin-top: 20px;
+    // margin-top: 20px;
     border-radius: 8px;
     box-shadow: 0 0 0 4px #999;
   }

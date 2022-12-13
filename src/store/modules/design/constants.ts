@@ -668,12 +668,12 @@ export const toolWidgetGroupMap = {
   ] as ToolWidgetGroupItem[],
   page: [
     {
-      label: '布局组件',
-      list: [widgetConfig.container, widgetConfig.row, widgetConfig.column],
+      label: '基础组件',
+      list: [widgetConfig.container, widgetConfig.image, widgetConfig.text],
     },
     {
-      label: '数据展示',
-      list: [widgetConfig.image, widgetConfig.text],
+      label: '代码组件',
+      list: [widgetConfig['code-render']],
     },
   ] as ToolWidgetGroupItem[],
 };
@@ -683,9 +683,11 @@ export function createFormData(): Widget[] {
     {
       type: 'form',
       key: 'form',
-      codeStyle: styleObjToCode({
-        minHeight: '100%',
-      }),
+      // codeStyle: `::node ${styleObjToCode({
+      //   minHeight: '100vh',
+      //   background: 'rgba(255,255,255,0.8)',
+      // })}`,
+      codeStyle: '',
       children: [],
     },
   ];
@@ -696,10 +698,11 @@ export function createCustomePage(): Widget[] {
     {
       type: 'root',
       key: 'root',
-      codeStyle: styleObjToCode({
-        minHeight: '100vh',
-        background: 'rgba(255,255,255,0.8)',
-      }),
+      // codeStyle: `::node ${styleObjToCode({
+      //   minHeight: '100vh',
+      //   background: 'rgba(255,255,255,0.8)',
+      // })}`,
+      codeStyle: '',
       children: [],
     },
   ];

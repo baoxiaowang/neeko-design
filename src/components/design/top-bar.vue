@@ -84,7 +84,12 @@
       <div class="preview-header"> 表单预览 </div>
     </template>
     <div class="design-model-body" :class="'design-model-body-' + designType">
-      <PreviewContent v-if="visible" @close="close"></PreviewContent>
+      <PreviewContent
+        v-if="visible"
+        :window-type="windowType"
+        :page-type="pageType"
+        @close="close"
+      ></PreviewContent>
     </div>
   </a-modal>
 </template>
@@ -94,6 +99,8 @@
   import { useDesignStore } from '@/store';
   import PreviewContent from '@/components/design/preview-content/index.vue';
   import { useRoute, useRouter } from 'vue-router';
+  import { PageTypeEnum } from '@/api/page';
+  import { WindowType } from '@/store/modules/design/types';
 
   const store = useDesignStore();
   const router = useRouter();
@@ -101,6 +108,7 @@
   const props = defineProps<{
     name: string;
     onBack?: () => void;
+    pageType?: PageTypeEnum;
   }>();
   const emit = defineEmits<{
     (e: 'saveData'): void;
@@ -110,6 +118,20 @@
   function saveData() {
     emit('saveData');
   }
+
+  const windowType = computed<WindowType>(() => {
+    if (!props.pageType) {
+      return 'pc';
+    }
+    const map: Record<PageTypeEnum, WindowType> = {
+      [PageTypeEnum.mobile]: 'mobile',
+      [PageTypeEnum.pc]: 'pc',
+      3: 'pc',
+      4: 'pc',
+      5: 'pc',
+    };
+    return map[props.pageType] || 'pc';
+  });
   const iptTextEl = ref<any>();
   const inputWidth = ref<number>(100);
   const designType = computed<'page' | 'form'>(() => store.designType);

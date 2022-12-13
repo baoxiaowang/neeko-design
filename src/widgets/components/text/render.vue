@@ -6,7 +6,8 @@
 
 <script setup lang="ts" name="text-render">
   import { Widget } from '@/widgets/types';
-  import { computed, toRefs, watchEffect } from 'vue';
+  import { computed, toRefs } from 'vue';
+  import useRenderStyle from '@/widgets/hooks/useRenderStyle';
   import { compileExp } from '../../utils';
 
   const props = defineProps<{
@@ -14,12 +15,9 @@
     state: any;
     meta: any;
   }>();
-  const styleText = computed<any>(() => {
-    return props.node.codeStyle
-      ?.toString()
-      .replace(/::node/g, `[data-key=${props.node.key}]`);
-  });
   const { node } = toRefs(props);
+
+  useRenderStyle(node);
   const compileText = computed<any>(() => {
     return compileExp(
       props.node.config?.text,
@@ -33,23 +31,6 @@
       }
     );
   });
-  watchEffect(() => {
-    const nodeStyle = document.querySelector(
-      `style[node-hash=${props.node.key}]`
-    );
-    if (nodeStyle) {
-      nodeStyle.textContent = styleText.value;
-    } else {
-      const style = document.createElement('style');
-      style.setAttribute('node-hash', props.node.key);
-      style.textContent = styleText.value;
-      document.head.appendChild(style);
-    }
-  });
 </script>
 
-<style lang="less">
-  .text_rLsO :hover {
-    color: blue;
-  }
-</style>
+<style lang="less"></style>

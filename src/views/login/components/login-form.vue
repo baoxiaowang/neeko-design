@@ -120,7 +120,6 @@
       setLoading(true);
       try {
         const [isEnter] = await userStore.login(values as LoginData);
-        debugger;
         if (isEnter) {
           Message.success(t('login.form.login.success'));
           const { rememberPassword } = loginConfig.value;
@@ -130,7 +129,6 @@
           loginConfig.value.username = rememberPassword ? username : '';
           loginConfig.value.password = rememberPassword ? password : '';
           const { redirect, ...othersQuery } = router.currentRoute.value.query;
-          debugger;
           router.push({
             // name: (redirect as string) || 'Workplace',
             path: redirect?.toString(),

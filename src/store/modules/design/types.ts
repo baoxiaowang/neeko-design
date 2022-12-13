@@ -37,6 +37,8 @@ export interface ToolWidgetGroupItem {
   label: string;
   list: WidgetConfig[];
 }
+
+export type WindowType = 'pc' | 'mobile';
 export interface DesignState {
   designType: 'page' | 'form';
   tools: Tool[];
@@ -51,7 +53,7 @@ export interface DesignState {
   previewDialogShow: boolean;
   currentActionWidget: Widget | null; // 当前操作action的 widget
   toolWidgetGroup: ToolWidgetGroupItem[]; // 组件面板中的组件
-  windowType: 'pc' | 'mobile'; // 设计窗口类型
+  windowType: WindowType; // 设计窗口类型
 }
 
 export const defaultState: DesignState = {

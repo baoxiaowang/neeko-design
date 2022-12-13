@@ -4,6 +4,7 @@
       <TopBar
         :name="pageName"
         :on-back="onBack"
+        :page-type="PageTypeEnum.form"
         @name-change="handNameChange"
         @save-data="saveForm"
       />
@@ -32,7 +33,12 @@
   import DesignLayout from 'src/layout/design-layout.vue';
   import TopBar from '@/components/design/top-bar.vue';
   import { computed, onBeforeMount, ref } from 'vue';
-  import { getById, updatePageName, updatePageWidget } from '@/api/page';
+  import {
+    getById,
+    updatePageName,
+    updatePageWidget,
+    PageTypeEnum,
+  } from '@/api/page';
   import { useRoute, useRouter } from 'vue-router';
   import { Widget } from '@/widgets/types';
   import { Message } from '@arco-design/web-vue';

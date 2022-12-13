@@ -78,7 +78,6 @@
     return origin.defaultVal();
   }
   function clickWidget(widget: WidgetConfig) {
-    debugger;
     if (designType.value === 'form') {
       //
       const { selectWidget } = store;

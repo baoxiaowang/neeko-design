@@ -1,14 +1,14 @@
 <template>
   <EditorLayout :change="change" :node="node">
     <config-block required label="内容"> // </config-block>
-    <template #ext>
+    <!-- <template #ext>
       <CssEditor
         :value="styleCode"
         :delay="200"
         class="css-editor-warp"
         @update:value="codeChange"
       ></CssEditor>
-    </template>
+    </template> -->
   </EditorLayout>
 </template>
 

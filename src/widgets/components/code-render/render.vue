@@ -65,7 +65,6 @@
   });
 
   onMounted(() => {
-    debugger;
     // const shadowRoot = $el.value?.attachShadow({ mode: 'open' });
   });
 </script>
