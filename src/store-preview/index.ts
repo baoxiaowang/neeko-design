@@ -1,7 +1,7 @@
 import { createPinia } from 'pinia';
-import useDesignStore from './modules/design';
+import usePreviewStore from './modules/preview';
 
 const pinia = createPinia();
 
-export { useDesignStore };
+export { usePreviewStore };
 export default pinia;

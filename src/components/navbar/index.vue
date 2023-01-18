@@ -17,7 +17,7 @@
         <icon-menu-fold
           v-if="appStore.device === 'mobile'"
           style="font-size: 22px; cursor: pointer"
-          @click="toggleDrawerMenu"
+          @click="() => toggleDrawerMenu"
         />
       </a-space>
     </div>

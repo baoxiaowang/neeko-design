@@ -59,7 +59,7 @@
       width: 432px;
       height: 862.5px;
       margin: 0 auto;
-      padding: 26px 29px;
+      padding: 26px 28px;
       background: #fff;
     }
 

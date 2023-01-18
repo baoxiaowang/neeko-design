@@ -9,6 +9,7 @@
       <draggable
         item-key="key"
         :list="item.list"
+        :sort="false"
         :move="move"
         :group="group"
         class="widgets-panel__draggable"
@@ -55,11 +56,7 @@
   ];
   const group = {
     name: 'form-widget',
-    pull(_a: any, _b: any, c: any) {
-      // const { type } = c.dataset;
-      // const config = widgetConfigMap[type as WidgetType];
-      return 'clone';
-    },
+    pull: 'clone',
     put: false,
   };
   const toolWidgetGroup = computed(() => store.toolWidgetGroup);
@@ -78,32 +75,31 @@
     return origin.defaultVal();
   }
   function clickWidget(widget: WidgetConfig) {
-    if (designType.value === 'form') {
-      //
-      const { selectWidget } = store;
-      const selectParentWidget =
-        store.widgetParentMap[selectWidget?.key as string];
-      if (selectParentWidget) {
-        const currentIndex = selectParentWidget.children?.findIndex(
-          (item) => item.key === selectWidget?.key
-        );
-        if (currentIndex !== undefined) {
-          const newWidget: Widget = widget.defaultVal();
-          const itemChildren = [...(selectParentWidget.children || [])];
-          itemChildren.splice(currentIndex + 1, 0, newWidget);
-          store.handlerWidgetUpdate(
-            {
-              ...selectParentWidget,
-              children: itemChildren,
-            },
-            true
-          );
-          store.setSelectKey(newWidget.key);
-        }
-      } else {
-        //
-      }
-    }
+    // if (designType.value === 'form') {
+    //   const { selectWidget } = store;
+    //   const selectParentWidget =
+    //     store.widgetParentMap[selectWidget?.key as string];
+    //   if (selectParentWidget) {
+    //     const currentIndex = selectParentWidget.children?.findIndex(
+    //       (item) => item.key === selectWidget?.key
+    //     );
+    //     if (currentIndex !== undefined) {
+    //       const newWidget: Widget = widget.defaultVal();
+    //       const itemChildren = [...(selectParentWidget.children || [])];
+    //       itemChildren.splice(currentIndex + 1, 0, newWidget);
+    //       store.handlerWidgetUpdate(
+    //         {
+    //           ...selectParentWidget,
+    //           children: itemChildren,
+    //         },
+    //         true
+    //       );
+    //       store.setSelectKey(newWidget.key);
+    //     }
+    //   } else {
+    //     //
+    //   }
+    // }
   }
 </script>
 

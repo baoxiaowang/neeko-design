@@ -37,6 +37,18 @@ const DASHBOARD: AppRouteRecordRaw[] = [
       hideInMenu: true,
     },
   },
+  {
+    path: '/design-panel/:pageId',
+    name: 'designFlow',
+    component: () => import('src/views/design/panel/index.vue'),
+    meta: {
+      locale: 'menu.dashboard',
+      requiresAuth: true,
+      icon: 'icon-dashboard',
+      order: 0,
+      hideInMenu: true,
+    },
+  },
 ];
 
 // {

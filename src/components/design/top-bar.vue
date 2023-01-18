@@ -188,17 +188,17 @@
     switch (type) {
       case 'flow':
         router.push({
-          path: `/design-flow/${route.params.pageId}`,
+          path: `/design-panel/${route.params.pageId}`,
         });
         break;
       case 'page':
         router.push({
-          path: `/design-page/${route.params.pageId}`,
+          path: `/design-panel/${route.params.pageId}`,
         });
         break;
       case 'form':
         router.push({
-          path: `/design-form/${route.params.pageId}`,
+          path: `/design-panel/${route.params.pageId}`,
         });
         break;
 

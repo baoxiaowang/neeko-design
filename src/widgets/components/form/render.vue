@@ -83,10 +83,6 @@
     document.body.classList.remove('dragging');
   }
   const group = { name: 'form-widget' };
-  onMounted(() => {
-    //
-  });
-
   defineExpose({
     name: '333',
     validate(cb: (e: any, d: Record<string, any>) => void) {
@@ -99,6 +95,9 @@
 </script>
 
 <style lang="less">
+  @select-color: rgb(var(--arcoblue-6));
+  @hover-color: rgb(var(--arcoblue-5));
+
   .widget-form-render {
     box-sizing: border-box;
     // padding: 10px;
@@ -115,6 +114,8 @@
 
     .ghost-widget-item {
       width: 100%;
+      height: 50px;
+      overflow: hidden;
       // height: 50px !important;
       background: #fff !important;
       border: 1px dashed;

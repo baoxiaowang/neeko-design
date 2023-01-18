@@ -24,7 +24,8 @@
             </router-view>
           </slot>
         </a-layout-content>
-        <a-layout-sider v-show="selectKey" style="z-index: 33" :width="300">
+        <!-- v-show="selectKey" -->
+        <a-layout-sider style="z-index: 33" :width="300">
           <EditorWrapVue></EditorWrapVue>
         </a-layout-sider>
       </slot>

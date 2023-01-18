@@ -1,6 +1,6 @@
 <template>
   <draggable
-    :model-value="list"
+    v-model="list"
     force-fallback
     :class="{ 'child-empty': !list.length }"
     :data-key="node.key"
@@ -82,8 +82,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    height: 100%;
-
+    // height: 100%;
     &:empty {
       &::after {
         position: absolute;

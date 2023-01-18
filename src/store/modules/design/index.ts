@@ -1,11 +1,10 @@
 import { defineStore } from 'pinia';
 import { Widget, WidgetType } from '@/widgets/types';
-// eslint-disable-next-line import/no-cycle
-// import router from '@/router';
 import { reactive } from 'vue';
 import WidgetSourceMap from '@/widgets/config.index';
 import { getWidgetCloned } from '@/widgets/utils';
 import { Message } from '@arco-design/web-vue';
+import { PageTypeEnum } from '@/api/page';
 import {
   DesignState,
   defaultState,
@@ -54,11 +53,11 @@ function formatData(
 }
 const useDesignStore = defineStore('design', {
   state: (): DesignState => ({
-    designType: 'page',
+    designType: PageTypeEnum.form,
     widgetList: [],
     widgetMap: reactive({}),
     widgetParentMap: reactive({}),
-    selectWidget: null,
+    // selectWidget: null,
     selectedKey: '',
     hoveredKey: '',
     addDialogShow: false,
@@ -86,6 +85,12 @@ const useDesignStore = defineStore('design', {
       getParent(this.selectedKey);
       return res;
     },
+    selectWidget(): Widget | null {
+      if (this.selectedKey) {
+        return this.widgetMap[this.selectedKey as string];
+      }
+      return null;
+    },
   },
 
   actions: {
@@ -93,11 +98,11 @@ const useDesignStore = defineStore('design', {
       return this.widgetParentMap[key] as T;
     },
     // 初始化
-    initState(type: 'form' | 'page', widgetList: Widget[]) {
+    initState(type: PageTypeEnum, widgetList: Widget[]) {
       // let widgetList: Widget[] = [];
       let toolWidgetGroup: ToolWidgetGroupItem[] = [];
       let designTools = [WidgetTreeTool, WidgetPanelTool, WidgetDataTool];
-      if (type === 'form') {
+      if (type === PageTypeEnum.form) {
         // widgetList = DesignConst.createFormData();
         toolWidgetGroup = DesignConst.toolWidgetGroupMap.form;
         designTools = [WidgetPanelTool, WidgetTreeTool, WidgetDataTool];
@@ -110,14 +115,12 @@ const useDesignStore = defineStore('design', {
 
       const first = widgetList[0];
       const selectKey = first ? first.key : '';
-      const selectWidget = first ? node[first.key] : null;
       this.$patch({
         ...defaultState,
         widgetList,
         widgetMap: node,
         widgetParentMap: parent,
         selectedKey: selectKey,
-        selectWidget,
         toolWidgetGroup,
         designType: type,
         tools: designTools,
@@ -125,13 +128,13 @@ const useDesignStore = defineStore('design', {
     },
     setSelectKey(key: string) {
       this.selectedKey = key;
-      this.selectWidget = this.widgetMap[key];
+      // this.selectWidget = this.widgetMap[key];
     },
     setHoverKey(k: string) {
       this.hoveredKey = k;
     },
     setSelcetWidget(data: Widget) {
-      this.selectWidget = data;
+      // this.selectWidget = data;
       this.selectedKey = data.key;
     },
 
@@ -175,8 +178,7 @@ const useDesignStore = defineStore('design', {
           const { node, parent } = formatData([copyData], currentParent);
 
           currentParent.children?.splice(index + 1, 0, copyData);
-          // this.widgetMap[copyData.key] = copyData;
-          // this.widgetParentMap[copyData.key] = currentParent;
+
           Object.assign(this.widgetMap, node);
           Object.assign(this.widgetParentMap, parent);
           this.selectedKey = copyData.key;

@@ -56,23 +56,25 @@ export default class MessagePipe {
   }
 
   emitTarget(type: string, payload: any) {
-    this.taget.postMessage(
-      {
-        type,
-        payload,
-      },
-      this.origin
-    );
+    // this.taget.postMessage(
+    //   {
+    //     type,
+    //     payload,
+    //   },
+    //   this.origin
+    // );
+    console.log(this);
   }
 
   emitSelf(type: string, payload: any) {
-    window.postMessage(
-      {
-        type,
-        payload,
-      },
-      this.origin
-    );
+    // window.postMessage(
+    //   {
+    //     type,
+    //     payload,
+    //   },
+    //   this.origin
+    // );
+    console.log(this);
   }
 
   onTarget(type: string, cb: CallBack) {

@@ -18,20 +18,20 @@
 <script setup lang="ts" name="preview-iframe">
   import { useDesignStore } from '@/store';
   import { watch, ref, computed, watchEffect } from 'vue';
-  import DesignEventBus from 'src/utils/design-event';
+  import MessageChannelBus from 'src/utils/message-channel';
   import { PageTypeEnum } from '@/api/page';
+  import { Widget } from '@/widgets/types';
 
-  const src = `${window.location.origin}/preview.html?showMark=1`;
+  defineEmits([]);
+  const props = defineProps<{
+    pageType?: PageTypeEnum;
+  }>();
+  const src = `${window.location.origin}/preview.html?designMode=1&showMark=1`;
   const iframeHeight = ref<string>('100%');
 
   const store = useDesignStore();
 
   const windowType = computed(() => store.windowType);
-
-  defineEmits([]);
-  defineProps<{
-    pageType?: PageTypeEnum;
-  }>();
 
   const pageTypeClass: Record<PageTypeEnum, string> = {
     [PageTypeEnum.mobile]: 'preview-iframe--mobile',
@@ -41,13 +41,18 @@
     [PageTypeEnum.pc]: 'preview-iframe--pc',
   };
 
-  const designEventBus = new DesignEventBus(window);
+  const messageChannelBus = new MessageChannelBus(window);
 
   function onload() {
     watch(
-      () => store.widgetList,
       () => {
-        designEventBus.emitInit(store.widgetList);
+        return {
+          widgetList: store.widgetList,
+          widgetMap: store.widgetMap,
+        };
+      },
+      (val) => {
+        messageChannelBus.emit('sync', val);
       },
       {
         deep: true,
@@ -55,9 +60,33 @@
       }
     );
     watch(
-      () => store.selectedKey,
+      () => {
+        return {
+          widgetLev: store.widgetLev,
+        };
+      },
       (val) => {
-        designEventBus.emit('select', {
+        messageChannelBus.emit('sync', val);
+      }
+    );
+    watch(
+      () => {
+        return {
+          selectWidget: store.selectWidget,
+        };
+      },
+      (val) => {
+        messageChannelBus.emit('sync', val);
+      },
+      {
+        deep: true,
+      }
+    );
+    watch(
+      () => store.selectedKey,
+      (val, oldVal) => {
+        if (val === oldVal) return;
+        messageChannelBus.emit('select', {
           key: val,
           type: store.widgetMap[val]?.type,
         });
@@ -70,30 +99,29 @@
     watch(
       () => store.hoveredKey,
       (val: any) => {
-        designEventBus.emit('hover', {
+        messageChannelBus.emit('hover', {
           key: val,
         });
       },
       {
         deep: true,
-        immediate: true,
       }
     );
   }
 
-  designEventBus.on('select', (widget) => {
+  messageChannelBus.on<Widget>('select', (widget) => {
     store.setSelectKey(widget.key);
   });
-  designEventBus.on('hover', (detail) => {
+  messageChannelBus.on<Widget>('hover', (detail) => {
     const newKey = detail.key;
     if (newKey !== store.hoveredKey) {
       store.hoveredKey = newKey;
     }
   });
-  designEventBus.on('update', (widget) => {
+  messageChannelBus.on<Widget>('update', (widget) => {
     store.handlerWidgetUpdate(widget, true);
   });
-  designEventBus.on('delete', (widget) => {
+  messageChannelBus.on<Widget>('delete', (widget) => {
     store.handlerWidgetDelete(widget);
   });
 </script>

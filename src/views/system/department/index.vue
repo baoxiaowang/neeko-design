@@ -53,7 +53,7 @@
                 <template #extra="nodeData">
                   <a-dropdown @select="handleSelect">
                     <icon-more-vertical
-                      stroke-width="4"
+                      :stroke-width="4"
                       class="dropdow-icon"
                       @click="() => nodeData"
                     />

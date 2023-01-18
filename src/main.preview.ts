@@ -11,9 +11,11 @@ import '@arco-themes/vue-neeko/index.less';
 // eslint-disable-next-line import/no-unresolved
 import 'virtual:svg-icons-register';
 import '@arco-design/web-vue/dist/arco.less';
+import store from './store-preview';
 
 const preApp = createApp(PreviewApp);
 preApp.component('ElScrollbar', ElScrollbar);
 preApp.use(ArcoVue, {});
 preApp.use(ArcoVueIcon);
+preApp.use(store);
 preApp.mount('body');

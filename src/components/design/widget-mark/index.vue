@@ -29,7 +29,7 @@
         class="tool-actions"
         @mouseenter="hoverTools"
       >
-        <a-dropdown trigger="hover">
+        <a-dropdown trigger="click">
           <a-button
             class="widget-node__type"
             :title="selectWidgetConfig?.title"
@@ -38,9 +38,14 @@
             {{ selectWidgetConfig?.title }}
           </a-button>
           <template #content>
-            <a-doption>Option 1</a-doption>
-            <a-doption>Option 2</a-doption>
-            <a-doption>Option 3</a-doption>
+            <a-button
+              v-for="item in widgetLev"
+              :key="item.key"
+              class="widget-lev__dop arco-btn-size-mini arco-btn-primary"
+              @click="handlerLevClick(item)"
+            >
+              {{ WidgetConfigs[item.type]?.title }}
+            </a-button>
           </template>
         </a-dropdown>
 
@@ -81,10 +86,12 @@
     onMounted,
     onUnmounted,
     ref,
+    watch,
   } from 'vue';
   import WidgetConfigs from '@/widgets/config.index';
   import { Widget, WidgetConfig, WidgetType } from '@/widgets/types';
   import DesignEventBus from 'src/utils/design-event';
+  import { usePreviewStore } from '@/store-preview';
 
   interface IMark {
     left: number;
@@ -99,61 +106,144 @@
     title: string;
     icon: string;
   }
-  const designEventBus = new DesignEventBus(window.parent);
+  const previewStore = usePreviewStore();
 
-  const selectKey = ref<string>('');
-  const selectType = ref<WidgetType>();
-  const hoverKey = ref<string>('');
+  const selectKey = computed<string>(() => {
+    return previewStore.selectKey || '';
+  });
+  const selectWidget = computed<Widget | null>(() => {
+    return previewStore.selectWidget;
+  });
 
-  designEventBus.on('hover', (widget) => {
-    hoverKey.value = widget.key;
+  const selectType = computed<WidgetType | undefined>(() => {
+    return previewStore.selectWidget?.type;
   });
-  designEventBus.on('select', (widget) => {
-    selectKey.value = widget.key;
-    selectType.value = (widget as Widget).type;
-    setTimeout(() => {
-      selectKey.value = widget.key;
-      selectType.value = (widget as Widget).type;
-    }, 200);
+  const hoverKey = computed<string>(() => {
+    return previewStore.hoveredKey || '';
   });
-  const createHoverSelectorBorder = (elArr: HTMLHtmlElement[]) => {
-    const list: IMark[] = elArr.map((el: HTMLHtmlElement) => {
-      const { left, width, height } = el.getBoundingClientRect();
-      const { borderRadius } = getComputedStyle(el);
-      const sTop = el.offsetTop;
-      return {
-        left,
-        top: sTop,
-        width,
-        height: Math.floor(height),
-        borderRadius,
-      };
+  const widgetLev = computed<Widget[]>(() => {
+    const [_, ...arr] = previewStore.widgetLev || [];
+    return arr;
+  });
+
+  const handlerLevClick = (item: Widget) => {
+    previewStore.setSelectKey(item.key);
+  };
+  const createHoverSelectorBorder: (e: string, log: any) => Promise<IMark[]> = (
+    key: string,
+    log: any
+  ) => {
+    if (!key) return Promise.resolve([]);
+    return new Promise((resolve, reject) => {
+      debugger;
+      const elArr = document.querySelectorAll<HTMLHtmlElement>(
+        `[data-key=${key}]`
+      );
+      const arr = Array.from(elArr);
+      const list: IMark[] = arr.map((el: HTMLHtmlElement) => {
+        const { left, width, height } = el.getBoundingClientRect();
+        const { borderRadius } = getComputedStyle(el);
+        const sTop = el.offsetTop;
+        return {
+          left,
+          top: sTop,
+          width,
+          height: Math.floor(height),
+          borderRadius,
+        };
+      });
+      console.log(key, list, log);
+      resolve(list);
     });
-    return list;
   };
   const hoverTools = () => {
-    designEventBus.emit('hover', {
-      key: selectKey.value,
-    });
+    // designEventBus.emit('hover', {
+    //   key: selectKey.value,
+    // });
   };
-  const hoverMarkList = computed<IMark[]>(() => {
-    if (!hoverKey.value) {
-      return [];
-    }
-    const key = hoverKey.value;
-    const elArr =
-      document.querySelectorAll<HTMLHtmlElement>(`[data-key=${key}]`) || [];
-    return createHoverSelectorBorder(Array.from(elArr));
+
+  // const hoverMarkList = computed<IMark[]>(() => {
+  //   if (!hoverKey.value) {
+  //     return [];
+  //   }
+  //   const key = hoverKey.value;
+  //   return createHoverSelectorBorder(key);
+  // });
+  // const selectMarkList = computed<IMark[]>(() => {
+  //   if (!selectKey.value) {
+  //     return [];
+  //   }
+  //   const key = selectKey.value;
+  //   return createHoverSelectorBorder(key);
+  // });
+
+  const hoverMarkList = ref<IMark[]>([]);
+  const selectMarkList = ref<IMark[]>([]);
+  const watcher = [
+    watch(
+      () => previewStore.widgetList,
+      async () => {
+        selectMarkList.value = await createHoverSelectorBorder(
+          selectKey.value,
+          1
+        );
+        hoverMarkList.value = await createHoverSelectorBorder(
+          hoverKey.value,
+          2
+        );
+      },
+      {
+        flush: 'post',
+      }
+    ),
+    watch(
+      hoverKey,
+      async () => {
+        if (!hoverKey.value) {
+          hoverMarkList.value = [];
+          return;
+        }
+        const key = hoverKey.value;
+        hoverMarkList.value = await createHoverSelectorBorder(key, 3);
+      },
+      {
+        flush: 'post',
+      }
+    ),
+
+    watch(
+      selectKey,
+      async () => {
+        debugger;
+        if (!selectKey.value) {
+          selectMarkList.value = [];
+          return;
+        }
+        console.log(previewStore.selectKey, '33');
+        const key = selectKey.value;
+        selectMarkList.value = await createHoverSelectorBorder(key, 4);
+      },
+      {
+        flush: 'post',
+      }
+    ),
+    watch(
+      selectWidget,
+      async () => {
+        const arr = await createHoverSelectorBorder(selectKey.value || '', 5);
+        selectMarkList.value = arr;
+      },
+      {
+        deep: true,
+        flush: 'post',
+      }
+    ),
+  ];
+
+  onBeforeUnmount(() => {
+    watcher.forEach((w) => w());
   });
-  const selectMarkList = computed<IMark[]>(() => {
-    if (!selectKey.value) {
-      return [];
-    }
-    const key = selectKey.value;
-    const elArr =
-      document.querySelectorAll<HTMLHtmlElement>(`[data-key=${key}]`) || [];
-    return createHoverSelectorBorder(Array.from(elArr));
-  });
+
   const selectWidgetConfig = computed<WidgetConfig | null>(() => {
     if (selectType.value) {
       return WidgetConfigs[selectType.value];
@@ -222,9 +312,9 @@
       //  emitSelectKeyChange(targetEl?.dataset?.key);
     } else if (e.key === 'del') {
       //
-      designEventBus.emit('delete', {
-        key: selectKey.value,
-      });
+      // designEventBus.emit('delete', {
+      //   key: selectKey.value,
+      // });
     } else if (e.key === 'copy') {
       //
     }
@@ -241,9 +331,7 @@
           return;
         }
         if (targetEl?.dataset?.key) {
-          designEventBus.emit('hover', {
-            key: targetEl?.dataset?.key,
-          });
+          previewStore.setHoverKey(targetEl?.dataset?.key);
         }
       };
       rootEl.addEventListener('mouseover', hoverHandler, true);
@@ -272,9 +360,10 @@
         e.stopImmediatePropagation();
         // 触发给iframeWrap
         if (targetEl?.dataset?.key) {
-          designEventBus.emit('select', {
-            key: targetEl?.dataset?.key,
-          });
+          // designEventBus.emit('select', {
+          //   key: targetEl?.dataset?.key,
+          // });
+          previewStore.setSelectKey(targetEl?.dataset?.key);
         }
       };
       rootEl.addEventListener('click', fn, false);
@@ -284,12 +373,9 @@
     });
   };
   function initRefreshEvent() {
-    const fn = () => {
-      const temp = selectKey.value;
-      selectKey.value = '';
-      nextTick(() => {
-        selectKey.value = temp;
-      });
+    const fn = async () => {
+      const key = selectKey.value;
+      selectMarkList.value = await createHoverSelectorBorder(key, 6);
     };
     window.addEventListener('widget-update', fn);
     onBeforeUnmount(() => {
@@ -297,9 +383,24 @@
     });
   }
 
+  function initWindowResize() {
+    const fn = async () => {
+      selectMarkList.value = await createHoverSelectorBorder(
+        selectKey.value,
+        7
+      );
+      hoverMarkList.value = await createHoverSelectorBorder(hoverKey.value, 8);
+    };
+    window.addEventListener('resize', fn);
+    onBeforeUnmount(() => {
+      window.removeEventListener('resize', fn);
+    });
+  }
+
   initHoverObserver();
   initSelectedObserver();
   initRefreshEvent();
+  initWindowResize();
 </script>
 
 <style lang="less">
@@ -308,8 +409,9 @@
 
   .dragging {
     .selector,
-    .hover-selector {
-      display: none;
+    .hover-selector,
+    .selector-tool {
+      display: none !important;
     }
   }
 
@@ -333,6 +435,7 @@
 
   .selector-tool {
     position: absolute;
+    z-index: 99;
     display: flex;
     pointer-events: none;
 
@@ -358,6 +461,10 @@
 
     .widget-node__type {
       // margin-right: 6px;
+    }
+
+    .widget-lev__dop {
+      padding: 0;
     }
   }
 </style>

@@ -8,13 +8,13 @@ import { Widget } from '@/widgets/types';
 export function getPagePath(id: string, pageType: PageTypeEnum): string {
   switch (pageType) {
     case PageTypeEnum.form:
-      return `/design-form/${id}`;
+      return `/design-panel/${id}`;
     case PageTypeEnum.processForm:
-      return `/design-form/${id}`;
+      return `/design-panel/${id}`;
     case PageTypeEnum.pc:
-      return `/design-page/${id}`;
+      return `/design-panel/${id}`;
     case PageTypeEnum.mobile:
-      return `/design-page/${id}`;
+      return `/design-panel/${id}`;
     default:
       return ``;
   }

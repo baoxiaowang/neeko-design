@@ -4,59 +4,26 @@
     v-bind="$attrs"
     class="form-widget-layout"
     :class="{
-      'form-widget__active': isDesign && actived,
-      'form-widget__hover': isDesign && hovered,
       'form-widget-layout__design': isDesign,
     }"
     :style="widthStyle"
     :label="node?.label || ''"
     :required="!!node.rules?.required"
     :hide-label="!!node.hideLabel"
-    @click="formWidgetClick"
   >
     <div class="widget-layout__body">
       <slot></slot>
-    </div>
-
-    <div class="form-widget__tools">
-      <div class="form-widget__tool-item form-widget__tool-item--copy">
-        <a-tooltip
-          mini
-          class="box-item"
-          effect="dark"
-          content="复制"
-          placement="top"
-        >
-          <icon-copy :stroke-width="5" i-copy />
-        </a-tooltip>
-      </div>
-      <div class="tool-split"></div>
-
-      <div
-        class="form-widget__tool-item form-widget__tool-item--del"
-        @click="deleteFormWidget"
-      >
-        <a-tooltip
-          mini
-          class="box-item"
-          effect="dark"
-          content="删除"
-          placement="top"
-        >
-          <icon-delete :stroke-width="5" i-del />
-        </a-tooltip>
-      </div>
     </div>
   </a-form-item>
 </template>
 
 <script setup lang="ts" name="form-widget-layout">
-  import { useDesignStore } from '@/store';
   import { computed } from 'vue';
+  // import { usePreviewStore } from '@/store-preview';
   import useWidgetInject from '../hooks/useWidgetInject';
   import { FormWidget } from '../types';
 
-  const store = useDesignStore();
+  // const store = usePreviewStore();
   const props = defineProps<{
     node: FormWidget;
     nodeKey: string;
@@ -64,13 +31,12 @@
     block?: number;
   }>();
   const { isDesign } = useWidgetInject();
-  // const emit = defineEmits({});
-  const actived = computed(() => {
-    return props.nodeKey === store.selectedKey;
-  });
-  const hovered = computed(() => {
-    return props.nodeKey === store.hoveredKey;
-  });
+  // const actived = computed(() => {
+  //   return props.nodeKey === store.selectKey;
+  // });
+  // const hovered = computed(() => {
+  //   return props.nodeKey === store.hoveredKey;
+  // });
   const widthStyle = computed(() => {
     const width = +props.width || 100;
     const marginRight = props.block ? `${100 - width}%` : 0;
@@ -79,14 +45,14 @@
       'margin-right': marginRight,
     };
   });
-  function formWidgetClick() {
-    if (!isDesign) return;
-    store.setSelectKey(props.node.key);
-  }
-  function deleteFormWidget() {
-    //
-    store.handlerWidgetDelete(props.node);
-  }
+  // function formWidgetClick() {
+  //   if (!isDesign) return;
+  //   store.setSelectKey(props.node.key);
+  // }
+  // function deleteFormWidget() {
+  //   //
+  //   store.handlerWidgetDelete(props.node);
+  // }
 </script>
 
 <style lang="less">
@@ -96,9 +62,7 @@
     margin-bottom: 0 !important;
     padding: 12px 12px;
     background: #fff;
-    transition: all 0.1s;
-    pointer-events: all;
-
+    // transition: all 0.1s;
     .widget-layout__body {
       width: 100%;
       text-align: left;
@@ -106,7 +70,7 @@
 
     &__design {
       &:hover {
-        background: #fafafb;
+        // background: #fafafb;
         cursor: move;
       }
 

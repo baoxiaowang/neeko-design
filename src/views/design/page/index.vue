@@ -60,7 +60,7 @@
     const { data } = await getById(pageId.value);
     pageName.value = data.name;
     pageType.value = data.pageType;
-    useDesignStore().initState('page', data.widgets);
+    useDesignStore().initState(data.pageType, data.widgets);
   });
 
   async function saveForm() {

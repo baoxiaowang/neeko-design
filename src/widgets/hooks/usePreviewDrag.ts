@@ -1,10 +1,11 @@
 import { computed, nextTick, Ref } from 'vue';
 import WidgetSourceMap from '@/widgets/config.index';
-import DesignEventBus from 'src/utils/design-event';
+import MessageChannelBus from 'src/utils/message-channel';
 import { Widget, WidgetType } from '../types';
 
-// const iframeChannel = new DesignChannel(window);
-const designEventBus = new DesignEventBus(window.parent);
+const messageChannelBus = new MessageChannelBus(window.parent);
+
+let currentList: Widget[] = [];
 export default function usePreviewDrag(node: Ref<Widget>) {
   const mapChildren = computed<Widget[]>({
     get() {
@@ -12,7 +13,11 @@ export default function usePreviewDrag(node: Ref<Widget>) {
       return [...children];
     },
     set(val: any) {
-      console.log(val);
+      messageChannelBus.emit<Widget>('update', {
+        ...node.value,
+        children: val,
+      });
+      currentList = val;
     },
   });
 
@@ -22,26 +27,16 @@ export default function usePreviewDrag(node: Ref<Widget>) {
   }
   function onAdd({ clone, newIndex }: any) {
     nextTick(() => {
-      const newData = node.value.children![newIndex];
-      designEventBus.emit('select', {
-        key: newData.key,
-      });
+      setTimeout(() => {
+        const newData = currentList![newIndex];
+        messageChannelBus.emit('select', {
+          key: newData?.key,
+        });
+        messageChannelBus.emit('update', {
+          ...newData,
+        });
+      }, 3000);
     });
-
-    // const type: WidgetType = clone.dataset?.type;
-    // const newItem = WidgetSourceMap[type].defaultVal();
-
-    // if (node?.value?.children) {
-    //   const childrenData = [...node.value.children] || [];
-    //   childrenData.splice(newIndex, 1, newItem);
-    //   const newData: Widget = {
-    //     ...node.value,
-    //     children: childrenData,
-    //   };
-    //   designEventBus.emit('update', newData).emit('select', {
-    //     key: newItem.key,
-    //   });
-    // }
   }
   function dragStart() {
     document.body.classList.add('dragging');

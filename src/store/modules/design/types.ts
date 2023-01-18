@@ -1,3 +1,4 @@
+import { PageTypeEnum } from '@/api/page';
 import { Widget, WidgetConfig } from '@/widgets/types';
 
 export type Tool = {
@@ -40,13 +41,13 @@ export interface ToolWidgetGroupItem {
 
 export type WindowType = 'pc' | 'mobile';
 export interface DesignState {
-  designType: 'page' | 'form';
+  designType: PageTypeEnum;
   tools: Tool[];
   widgetList: Widget[];
   widgetMap: Record<string, Widget>; // key索引指向自身
   widgetParentMap: Record<string, Widget | undefined>; // key索引指向自身父节点
 
-  selectWidget: Widget | null;
+  // selectWidget: Widget | null;
   selectedKey: string;
   hoveredKey: string;
   addDialogShow: boolean; // 是否打开添加子节点的弹窗
@@ -57,13 +58,13 @@ export interface DesignState {
 }
 
 export const defaultState: DesignState = {
-  designType: 'page',
+  designType: PageTypeEnum.pc,
   widgetList: [],
   widgetMap: {},
   widgetParentMap: {},
   tools,
 
-  selectWidget: null,
+  // selectWidget: null,
   selectedKey: '',
   hoveredKey: '',
   addDialogShow: false,
