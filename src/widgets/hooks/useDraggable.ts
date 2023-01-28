@@ -36,19 +36,6 @@ export default function useDraggable(node: Ref<Widget>) {
         key: '',
       });
     }
-
-    // const type: WidgetType = clone.dataset?.type;
-    // const newItem = WidgetSourceMap[type].defaultVal();
-    // if (node.value.children) {
-    //   const childrenData = [...node.value.children] || [];
-    //   childrenData.splice(newIndex, 1, newItem);
-    //   messageChannel.emit('hover', {
-    //     key: newItem.key,
-    //   });
-    //   messageChannel.emit('select', {
-    //     key: newItem.key,
-    //   });
-    // }
   }
   function dragStart() {
     document.body.classList.add('dragging');
