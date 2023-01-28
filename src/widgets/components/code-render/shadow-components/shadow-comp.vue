@@ -11,6 +11,9 @@
     ref,
     watchEffect,
     markRaw,
+    App,
+    h,
+    VNode,
   } from 'vue';
   import ArcoVue from '@arco-design/web-vue';
 
@@ -21,18 +24,15 @@
     option: ComponentOptionsWithoutProps;
   }>();
 
-  const el = ref();
+  const emit = defineEmits<{
+    (e: 'mounted'): void;
+  }>();
 
-  function initComp() {
-    let shadowRoot = el.value?.shadowRoot;
-    if (!shadowRoot) {
-      shadowRoot = el.value?.attachShadow({ mode: 'open' });
-    }
-    createApp({
-      ...markRaw(props.option),
-    })
-      .use(ArcoVue)
-      .mount(shadowRoot);
+  const el = ref();
+  let app: App | null = null;
+
+  let shadowRoot: any;
+  function initComp(option: ComponentOptionsWithoutProps) {
     // 注入样式
     const arcoStyle = document.createElement('style');
     arcoStyle.textContent = arcoStyleText;
@@ -41,11 +41,29 @@
     style.textContent = `${props.styleText}`;
     shadowRoot.appendChild(style);
     shadowRoot.appendChild(arcoStyle);
+    emit('mounted');
   }
 
   onMounted(() => {
+    let widget: VNode | null = null;
+    app = createApp({
+      render() {
+        widget = h(props.option);
+        return widget;
+      },
+    }).use(ArcoVue);
+    shadowRoot = el.value?.shadowRoot;
+    if (!shadowRoot) {
+      shadowRoot = el.value?.attachShadow({ mode: 'open' });
+    }
+    app.mount(shadowRoot);
     watchEffect(() => {
-      initComp();
+      initComp(props.option);
+    });
+    watchEffect(() => {
+      if (widget) {
+        Object.assign(widget, props.option);
+      }
     });
   });
 </script>

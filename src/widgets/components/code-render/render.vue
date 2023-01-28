@@ -3,16 +3,17 @@
     :option="option"
     :style-text="styleText"
     :data-key="node.key"
+    @mounted="widgetMounted"
   ></shadowCompVue>
 </template>
 
 <script setup lang="ts" name="code-render">
-  import { Widget } from '@/widgets/types';
+  import { CodeRenderWidget } from '@/widgets/types';
   import { ref, watch, onMounted, ComponentOptionsWithoutProps } from 'vue';
   import shadowCompVue from './shadow-components/shadow-comp.vue';
 
   const props = defineProps<{
-    node: Widget;
+    node: CodeRenderWidget;
     state: any;
     meta: any;
   }>();
@@ -36,36 +37,33 @@
       const compOptions = {
         ...copt,
         template: tmpContent,
-        mounted() {
-          window.dispatchEvent(new Event('widget-update'));
-        },
       };
       option.value = compOptions;
     } catch (error) {
       const compOptions: ComponentOptionsWithoutProps = {
         template: `代码编译错误${error}`,
-        mounted() {
-          window.dispatchEvent(new Event('widget-update'));
-        },
       };
       option.value = compOptions;
     }
   }
+  function widgetMounted() {
+    window.dispatchEvent(new Event('widget-update'));
+  }
+
   onMounted(() => {
     watch(
       () => props.node,
-      () => {
-        createComp();
+      (val, oldVal) => {
+        if (val.config.code !== oldVal?.config.code) {
+          console.log(val.config.code, oldVal?.config.code);
+          createComp();
+        }
       },
       {
         immediate: true,
         deep: true,
       }
     );
-  });
-
-  onMounted(() => {
-    // const shadowRoot = $el.value?.attachShadow({ mode: 'open' });
   });
 </script>
 

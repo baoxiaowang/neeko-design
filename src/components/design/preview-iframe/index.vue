@@ -26,7 +26,12 @@
   const props = defineProps<{
     pageType?: PageTypeEnum;
   }>();
-  const src = `${window.location.origin}/preview.html?designMode=1&showMark=1`;
+  const src = computed(
+    () =>
+      `${window.location.origin}/preview.html?designMode=1&showMark=${
+        props.pageType === PageTypeEnum.form ? '0' : '1'
+      }`
+  );
   const iframeHeight = ref<string>('100%');
 
   const store = useDesignStore();

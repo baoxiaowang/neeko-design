@@ -1,6 +1,7 @@
 <!-- eslint-disable vue/no-mutating-props -->
 <template>
-  <div :style="style" :data-key="node.key" class="widget-subform-render">
+  <!-- :data-key="node.key" -->
+  <div :style="style" class="widget-subform-render">
     <div
       class="widget-subform-render__table"
       :class="{
@@ -49,7 +50,7 @@
               :class="{
                 'subform-item__cell-widget--design': isDesign,
                 'subform-item__cell-widget--active':
-                  isDesign && element.key === store.selectedKey,
+                  isDesign && element.key === selectKey,
               }"
               @click.stop="subWidgetClick(element)"
             >
@@ -94,8 +95,9 @@
   import VueDraggable from '@/components/vue-draggable/src/vuedraggable';
   import { FormWidget, Widget } from '@/widgets/types';
   import useDraggable from '@/widgets/hooks/useDraggable';
+
   import useWidgetInject from '@/widgets/hooks/useWidgetInject';
-  import { useDesignStore } from '@/store';
+  import { usePreviewStore } from '@/store-preview';
   import { styleToString } from '../../utils';
 
   const group = { name: 'form-widget' };
@@ -114,6 +116,8 @@
     (e: 'update:value', val: Record<string, any>[]): void;
   }>();
   provide('isSubWidget', true);
+  const store = usePreviewStore();
+  const selectKey = computed(() => store.selectKey);
   const { isDesign } = useWidgetInject();
   const style = computed<any>(() => {
     return styleToString(props.node.codeStyle);
@@ -130,7 +134,6 @@
 
   const { node } = toRefs(props);
   const { list, onUpdate, onAdd } = useDraggable(node);
-  const store = useDesignStore();
 
   function dragStart() {
     document.body.classList.add('dragging');
@@ -144,10 +147,10 @@
     store.setSelectKey(widget.key);
   }
   const updateWidth = function updateWidth(sub: FormWidget, width: number) {
-    store.handlerWidgetUpdate({
-      key: sub.key,
-      subWidth: width,
-    } as FormWidget);
+    // store.handlerWidgetUpdate({
+    //   key: sub.key,
+    //   subWidth: width,
+    // } as FormWidget);
   };
   function changeValue(index: number, key: string, val: any) {
     const newVal = [...props.value];
@@ -267,26 +270,30 @@
       background: #fff;
     }
 
-    .subform-item__cell-widget {
-      border-right: 1px solid var(--color-neutral-3);
-      pointer-events: all;
+    .subform-item__cell-box {
+      .subform-item__cell-widget {
+        border-right: 1px solid var(--color-neutral-3);
+        pointer-events: all;
 
-      &--design {
-        &:hover {
-          background: #fafafb;
-          border: 1px dashed rgb(var(--arcoblue-5)) !important;
-          cursor: move;
+        &--design {
+          border-left: 1px dashed transparent;
+
+          &:hover {
+            background: #fafafb;
+            border: 1px dashed rgb(var(--arcoblue-5));
+            cursor: move;
+          }
+
+          .subform__td {
+            pointer-events: none;
+          }
         }
 
-        .subform__td {
-          pointer-events: none;
+        &--active {
+          position: relative;
+          z-index: 100;
+          border: 1px solid rgb(var(--arcoblue-6)) !important;
         }
-      }
-
-      &--active {
-        position: relative;
-        z-index: 100;
-        border: 1px solid rgb(var(--arcoblue-6)) !important;
       }
     }
 

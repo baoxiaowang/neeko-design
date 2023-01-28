@@ -1,5 +1,5 @@
 <template>
-  <div :style="style" :data-key="node.key" class="widget-form-render">
+  <div :style="style" class="widget-form-render" @click.stop="formClick">
     <a-form
       ref="formRef"
       :model="formModel"
@@ -51,13 +51,16 @@
 
 <script setup lang="ts" name="form-render">
   import { getRenderWidget } from '@/widgets/render';
-  import { onMounted, ref, nextTick, computed, toRefs, reactive } from 'vue';
+  import { ref, nextTick, computed, toRefs, reactive } from 'vue';
   import VueDraggable from '@/components/vue-draggable/src/vuedraggable';
   import { FormRootWidget } from '@/widgets/types';
   import useDraggable from '@/widgets/hooks/useDraggable';
   import FormWidgetLayout from '@/widgets/common/form-widget-layout.vue';
   import { Form } from '@arco-design/web-vue';
+  import { usePreviewStore } from '@/store-preview';
   import { styleToString } from '../../utils';
+
+  const store = usePreviewStore();
 
   const props = defineProps<{
     node: FormRootWidget;
@@ -77,6 +80,9 @@
 
   function dragStart() {
     document.body.classList.add('dragging');
+  }
+  function formClick() {
+    store.setSelectKey(props.node.key);
   }
   async function dragEnd() {
     await nextTick();

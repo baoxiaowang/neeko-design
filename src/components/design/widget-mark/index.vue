@@ -135,7 +135,6 @@
   ) => {
     if (!key) return Promise.resolve([]);
     return new Promise((resolve, reject) => {
-      debugger;
       const elArr = document.querySelectorAll<HTMLHtmlElement>(
         `[data-key=${key}]`
       );
@@ -214,7 +213,6 @@
     watch(
       selectKey,
       async () => {
-        debugger;
         if (!selectKey.value) {
           selectMarkList.value = [];
           return;
@@ -374,6 +372,7 @@
   };
   function initRefreshEvent() {
     const fn = async () => {
+      debugger;
       const key = selectKey.value;
       selectMarkList.value = await createHoverSelectorBorder(key, 6);
     };
