@@ -45,7 +45,6 @@ const useDesignStore = defineStore('preview', {
       this.widgetMap = data;
     },
     setSelectKey(key: string) {
-      debugger;
       this.selectKey = key;
     },
     setSelectWidget(val: Widget) {

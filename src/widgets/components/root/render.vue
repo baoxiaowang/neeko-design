@@ -28,7 +28,6 @@
   import { nextTick, onMounted, toRefs } from 'vue';
   import draggable from '@/components/vue-draggable/src/vuedraggable';
   import usePreviewDrag from '@/widgets/hooks/usePreviewDrag';
-  // import { useRenderStyle } from '@/widgets/hooks/useRenderHelp';
   import DesignEventBus from 'src/utils/design-event';
   import useRenderStyle from '@/widgets/hooks/useRenderStyle';
   import { getRenderWidget } from '../../render';

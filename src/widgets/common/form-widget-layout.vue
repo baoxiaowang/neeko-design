@@ -12,7 +12,7 @@
     :label="node?.label || ''"
     :required="!!node.rules?.required"
     :hide-label="!!node.hideLabel"
-    @click="formWidgetClick"
+    @click.stop="formWidgetClick"
   >
     <div class="widget-layout__body">
       <slot></slot>

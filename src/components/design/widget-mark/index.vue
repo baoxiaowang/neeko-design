@@ -372,7 +372,6 @@
   };
   function initRefreshEvent() {
     const fn = async () => {
-      debugger;
       const key = selectKey.value;
       selectMarkList.value = await createHoverSelectorBorder(key, 6);
     };
