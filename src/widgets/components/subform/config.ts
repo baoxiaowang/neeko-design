@@ -1,5 +1,5 @@
 // import Editor from "./editor.vue";
-import { WidgetConfig, WidgetType } from '../../types';
+import { FormWidget, WidgetConfig, WidgetType } from '../../types';
 import { createWidgetKey } from '../../utils';
 
 const type: WidgetType = 'subform';
@@ -18,6 +18,7 @@ export default {
       key: createWidgetKey(type),
       codeStyle: '',
       config: {},
+      block: 1,
     };
   },
-} as WidgetConfig;
+} as WidgetConfig<FormWidget>;

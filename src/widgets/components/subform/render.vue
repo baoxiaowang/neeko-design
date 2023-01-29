@@ -200,7 +200,7 @@
     background: transparent;
 
     &--design {
-      padding-bottom: 20px;
+      padding-bottom: 10px;
     }
 
     &--runtime {
@@ -258,10 +258,6 @@
         &:last-child {
           border-bottom: none;
         }
-      }
-
-      &:nth-child(1) {
-        // border-left: 1px solid var(--color-neutral-3);
       }
     }
 

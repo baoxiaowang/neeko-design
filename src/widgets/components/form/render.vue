@@ -1,5 +1,13 @@
 <template>
-  <div :style="style" class="widget-form-render" @click.stop="formClick">
+  <div
+    :style="style"
+    class="widget-form-render"
+    :class="{
+      'widget-form-render__active': isDesign && actived,
+      'widget-form-render__design': isDesign,
+    }"
+    @click.stop="formClick"
+  >
     <a-form
       ref="formRef"
       :model="formModel"
@@ -59,6 +67,9 @@
   import { Form } from '@arco-design/web-vue';
   import { usePreviewStore } from '@/store-preview';
   import { styleToString } from '../../utils';
+  import useWidgetInject from '../../hooks/useWidgetInject';
+
+  const { isDesign } = useWidgetInject();
 
   const store = usePreviewStore();
 
@@ -76,11 +87,15 @@
   const formRef = ref<InstanceType<typeof Form>>();
 
   const { node } = toRefs(props);
-  const { list, onUpdate, onAdd } = useDraggable(node);
+  const { list, onUpdate, onAdd, dragStart } = useDraggable(node);
 
-  function dragStart() {
-    document.body.classList.add('dragging');
-  }
+  const actived = computed(() => {
+    return props.node.key === store.selectKey;
+  });
+  const hovered = computed(() => {
+    return props.node.key === store.hoveredKey;
+  });
+
   function formClick() {
     store.setSelectKey(props.node.key);
   }
@@ -90,7 +105,6 @@
   }
   const group = { name: 'form-widget' };
   defineExpose({
-    name: '333',
     validate(cb: (e: any, d: Record<string, any>) => void) {
       return formRef.value?.validate((error) => {
         cb(error, formModel);
@@ -107,9 +121,26 @@
   .widget-form-render {
     box-sizing: border-box;
     // padding: 10px;
-    background: #fff;
+    background-color: #fff;
     // background: #f9fafc;
     // border-radius: 8px;
+    border: 2px dotted transparent;
+
+    &:hover {
+      // background-color: var(--color-neutral-2) !important;
+      // border: 2px dotted @hover-color;
+    }
+
+    &__active {
+      border: 2px solid @select-color !important;
+    }
+    // &__hover {
+    //   border: 2px dotted @hover-color;
+    // }
+    &__design {
+      min-height: 100%;
+    }
+
     .widget-form__draggable {
       padding-bottom: 20px;
     }
