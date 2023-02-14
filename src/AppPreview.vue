@@ -13,8 +13,7 @@
 
 <script setup lang="ts" name="PreviewApp">
   import renderWidgetVue from '@/widgets/render/render-widget.vue';
-  import { onMounted, ref, provide, computed, watch, onBeforeMount } from 'vue';
-
+  import { provide, computed, watch, onBeforeMount } from 'vue';
   import DesignEventBus from 'src/utils/design-event';
   import MessageChannelBus from 'src/utils/message-channel';
   import renderProvider from '@/widgets/render/render-provider.vue';
