@@ -23,10 +23,11 @@
 
 <script setup lang="ts" name="iframe-container">
   import { Widget } from '@/widgets/types';
-  import { ref } from 'vue';
+  import { ref, watchEffect } from 'vue';
   import DesignEventBus from 'src/utils/design-event';
+  import MessageChannelBus from 'src/utils/message-channel';
 
-  const designEventBus = new DesignEventBus(window);
+  const messageChannelBus = new MessageChannelBus(window);
   const props = withDefaults(
     defineProps<{
       autoHeight: boolean; // 自适应内部的高度
@@ -42,10 +43,12 @@
   // const emit = defineEmits();
 
   const src = `${window.location.origin}/preview.html`;
-  const iframeHeight = ref();
   function onload() {
-    //
-    designEventBus.emitInit(props.widgets);
+    watchEffect(() => {
+      messageChannelBus.emit('sync', {
+        widgetList: props.widgets,
+      });
+    });
   }
 </script>
 
