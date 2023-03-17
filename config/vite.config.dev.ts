@@ -14,7 +14,7 @@ export default mergeConfig(
       },
       proxy: {
         '/api': {
-          target: 'http://127.0.0.1:7001', // 接口基地址
+          target: 'http://127.0.0.1:7002', // 接口基地址
           changeOrigin: true,
           // rewrite: (path) => {
           // console.log(path); // 打印[/api/userInfo] 这就是http-proxy要请求的url,我们基地址实际是没有/api 所以replace掉

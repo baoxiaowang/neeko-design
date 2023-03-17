@@ -61,7 +61,6 @@
   };
   const toolWidgetGroup = computed(() => store.toolWidgetGroup);
   const designType = computed(() => store.designType);
-  console.log();
 
   function move() {}
   function dragStart() {

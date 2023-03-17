@@ -39,7 +39,7 @@ const DASHBOARD: AppRouteRecordRaw[] = [
   },
   {
     path: '/design-panel/:pageId',
-    name: 'designFlow',
+    name: 'designPanel',
     component: () => import('src/views/design/panel/index.vue'),
     meta: {
       locale: 'menu.dashboard',
